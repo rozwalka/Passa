@@ -279,6 +279,68 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 .logt .logx,.logt .howto{grid-column:1/-1}
 .logt .logx{margin-top:-4px}
 .newtest .howto,.sheet .howto{background:var(--bg)}
+/* v6: oczko, zadanie/trening, plan, katalog jak plakat */
+.eyebtn{width:34px;height:30px;border-radius:9px;background:rgba(255,178,62,.12);display:inline-grid;place-items:center;vertical-align:middle;flex:none}
+.eyebtn svg,.cth.none svg{width:18px;height:18px;fill:none;stroke:var(--flame2);stroke-width:2}
+.eyebtn.on{background:var(--flame2)}
+.eyebtn.on svg{stroke:#1B0D00}
+.thint .eyebtn{margin-left:6px;width:30px;height:26px}
+.exanim{width:100%;aspect-ratio:4/3;max-width:420px;border-radius:12px;background-color:#fff;background-size:200% 100%;background-repeat:no-repeat;animation:exflip 1.6s steps(1) infinite}
+@keyframes exflip{0%{background-position:0 0}50%{background-position:100% 0}}
+@media (prefers-reduced-motion:reduce){.exanim{aspect-ratio:8/3;background-size:100% 100%}}
+.excap{font-size:11.5px;color:var(--muted);margin:6px 0 8px!important}
+.exinfo{margin:0 0 6px!important;font-size:13.5px;line-height:1.5}
+.choose{display:flex;flex-direction:column;gap:10px}
+.chooseopt{text-align:left;background:var(--surface2);border:1.5px solid transparent;border-radius:18px;padding:16px;display:grid;grid-template-columns:auto 1fr;gap:2px 14px;align-items:center}
+.chooseopt .chi{grid-row:span 2;width:46px;height:46px;border-radius:14px;background:var(--surface);display:grid;place-items:center;font-size:22px;color:var(--flame)}
+.chooseopt b{font-size:17px}
+.chooseopt span:last-child{font-size:13px;color:var(--muted)}
+.chooseopt:active{border-color:var(--flame)}
+.gymhint{background:rgba(255,122,26,.1);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45;margin:-6px 0 16px}
+.gymhint .small-btn{display:block;margin-top:8px}
+[hidden]{display:none!important}
+.cth{display:block;flex:none;border-radius:8px;overflow:hidden;background:#fff}
+.cth img{display:block;width:100%;height:auto}
+.cth.none{display:grid;place-items:center;background:var(--surface)}
+.psec{margin-bottom:14px}
+.psech{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--chart);display:inline-block;padding:4px 10px;border-radius:6px;margin:4px 0 8px}
+.picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.pick{background:var(--surface2);border:1.5px solid transparent;border-radius:14px;padding:6px;display:flex;flex-direction:column;gap:6px;text-align:left;position:relative;min-width:0}
+.pick .cth{width:100%;aspect-ratio:8/3}
+.pick .cth.none{aspect-ratio:8/3}
+.pick .pn{font-size:12.5px;font-weight:600;line-height:1.25;padding:0 2px 2px;overflow-wrap:anywhere}
+.pick em{position:absolute;top:10px;right:10px;font-style:normal;font-size:11px;font-weight:800;background:var(--ok);color:#06210f;padding:2px 6px;border-radius:6px}
+.pick.added{border-color:var(--ok)}
+.pick:active{transform:scale(.97)}
+.plan{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;counter-reset:pl}
+.prow{background:var(--surface2);border-radius:14px;padding:8px;display:grid;grid-template-columns:auto 96px 1fr auto;gap:10px;align-items:center;counter-increment:pl}
+.plan.ro .prow{grid-template-columns:96px 1fr}
+.prow .cth{width:96px;aspect-ratio:8/3}
+.pnum::before{content:counter(pl);display:grid;place-items:center;width:24px;height:24px;border-radius:8px;background:var(--flame);color:#1B0D00;font-weight:800;font-size:13px}
+.pmid{min-width:0;display:flex;flex-direction:column;gap:4px}
+.pmid b{font-size:14px;line-height:1.25;overflow-wrap:anywhere}
+.psets{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.psets .inp{width:46px;padding:6px 6px;text-align:center;border-radius:8px;background:var(--surface)}
+.pact{display:flex;flex-direction:column;gap:4px}
+.mv{width:30px;height:26px;border-radius:8px;background:var(--surface);color:var(--muted);font-size:13px}
+.rmx{color:var(--bad)}
+.ownex{display:flex;gap:8px;margin-top:6px}
+.ownex .inp{flex:1;min-width:0}
+.wlist{display:flex;flex-direction:column;gap:10px}
+.wex{background:var(--surface2);border-radius:16px;padding:10px;display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start}
+.wthumb{position:relative;display:block;padding:0;border-radius:10px}
+.wthumb .cth{width:110px;aspect-ratio:8/3}
+.wthumb .cth.none{height:46px}
+.wn{position:absolute;left:-4px;top:-4px;width:22px;height:22px;border-radius:7px;background:var(--flame);color:#1B0D00;font-weight:800;font-size:12px;display:grid;place-items:center}
+.wbody{min-width:0;display:flex;flex-direction:column;gap:6px}
+.wbody b{font-size:14.5px;line-height:1.25}
+.wbody small{font-size:12px;color:var(--muted)}
+.wins{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.wins .inp{width:74px;padding:10px 8px;text-align:right;font-size:17px;font-weight:700;background:var(--surface)}
+.wins .wreps{width:56px}
+.wex .howto{grid-column:1/-1;margin:0}
+@media (max-width:360px){.wex{grid-template-columns:1fr}.prow{grid-template-columns:auto 1fr auto}.prow .cth{display:none}}
+.chip .chimg{display:block;width:120px;aspect-ratio:8/3;border-radius:6px;margin-bottom:6px;background:#fff}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -793,6 +855,19 @@ function matchTest(name, unit, catId){
   const u = normUnit(unit);
   return {test: r.best, unitMismatch: !!u && u !== normUnit(r.best.unit)};
 }
+
+/* ========= obrazki ćwiczeń (free-exercise-db, domena publiczna) ========= */
+const IMG = new Set(["abductor", "abwheel", "adductor", "backext", "bench", "bulgarian", "bwsquat", "cablecross", "cablecrunch", "cablecurl", "cablekick", "cablelateral", "cablerow", "calves", "chestpress", "closegrip", "concentration", "curl", "dbbench", "dbcurl", "dbincline", "dbpress", "dbrow", "deadlift", "decline", "dips", "facepull", "flyes", "french", "frontsquat", "goblet", "hacksquat", "hammer", "handstand", "hipthrust", "incline", "kickback", "lateral", "legcurl", "legext", "legpress", "legraise", "machinerow", "muscleup", "ohp", "onearmcable", "overheadcable", "pecdeck", "pistol", "plank", "preacher", "pulldown", "pulldownclose", "pulldownsup", "pullups", "pushdown", "pushups", "rdl", "reardelt", "rope", "ropehammer", "row", "shoulderpress", "shrugs", "situps", "smithsquat", "squat", "straightarm", "sumo", "tbar", "uprightrow", "wdips", "woodchop", "wpullup"]);
+const EQUIP = {"bench": "sztanga", "incline": "sztanga", "decline": "sztanga", "dbbench": "hantle", "dbincline": "hantle", "flyes": "hantle", "cablecross": "wyciąg", "pecdeck": "maszyna", "chestpress": "maszyna", "deadlift": "sztanga", "sumo": "sztanga", "row": "sztanga", "dbrow": "hantle", "tbar": "sztanga", "machinerow": "maszyna", "pulldown": "wyciąg", "pulldownclose": "wyciąg", "pulldownsup": "wyciąg", "cablerow": "wyciąg", "onearmcable": "wyciąg", "straightarm": "wyciąg", "wpullup": "drążek + obciążenie", "shrugs": "sztanga", "backext": "inne", "curl": "sztanga", "dbcurl": "hantle", "hammer": "hantle", "preacher": "sztanga", "cablecurl": "wyciąg", "ropehammer": "wyciąg", "concentration": "hantle", "french": "gryf łamany", "pushdown": "wyciąg", "overheadcable": "wyciąg", "closegrip": "sztanga", "wdips": "poręcze + obciążenie", "kickback": "hantle", "ohp": "sztanga", "dbpress": "hantle", "shoulderpress": "maszyna", "lateral": "hantle", "cablelateral": "wyciąg", "reardelt": "hantle", "facepull": "wyciąg", "uprightrow": "sztanga", "squat": "sztanga", "frontsquat": "sztanga", "goblet": "kettlebell", "hacksquat": "maszyna", "smithsquat": "maszyna", "legpress": "maszyna", "bulgarian": "hantle", "rdl": "sztanga", "hipthrust": "sztanga", "legext": "maszyna", "legcurl": "maszyna", "calves": "maszyna", "abductor": "maszyna", "adductor": "maszyna", "cablekick": "wyciąg", "cablecrunch": "wyciąg", "woodchop": "wyciąg", "abwheel": "kółko", "pullups": "drążek", "pushups": "masa ciała", "dips": "poręcze", "plank": "masa ciała", "muscleup": "drążek", "bwsquat": "masa ciała", "handstand": "masa ciała", "situps": "masa ciała", "legraise": "drążek", "pistol": "masa ciała", "rope": "skakanka"};
+const CALI_INFO = {pullups:'Najszerszy grzbietu, biceps', pushups:'Klatka, triceps, barki', dips:'Triceps, dolna klatka', plank:'Brzuch, core', muscleup:'Plecy, klatka, triceps', bwsquat:'Uda, pośladki', handstand:'Barki, triceps, core', situps:'Brzuch', legraise:'Brzuch, zginacze bioder', pistol:'Uda, pośladki, równowaga', rope:'Łydki, kondycja'};
+CATS.forEach(c => c.tests.forEach(t => { if(!t.info && CALI_INFO[t.id]) t.info = [CALI_INFO[t.id], '']; }));
+// leki i suplementy (prosty nawyk)
+CATS.push({id:'meds', name:'Leki i suplementy', icon:'💊',
+ kw:['lek','leki','lekow','tabletk','suplement','witamin','kreatyn','magnez','omega','pigulk'],
+ prof:['Zapominalski','Pamięta czasem','Pigułka w kieszeni','Systematyczny','Apteka w głowie','Farmaceuta z bloku','Żelazna dyscyplina'],
+ streak:['Pierwsza pigułka','Dwa tygodnie bez zapominania','Miesiąc jak w zegarku','Nawyk złapany','Kwartał bez dziur','Pół roku systematycznie','Rok, apteka cię zna'],
+ tests:[]});
+CAT_BY_ID.meds = CATS[CATS.length-1];
 </script>
 <script>
 'use strict';
@@ -853,7 +928,7 @@ const logsOf = (t, w) => S.logs.filter(l => l.taskId===t.id && (!w || l.week===w
 const count = (t, w) => logsOf(t, w).length;
 const hasEntry = (t, w) => S.entries.some(e => e.taskId===t.id && e.week===w);
 const metMin = (t, w) => count(t,w) >= t.min;
-const isGold = (t, w) => count(t,w) >= t.norm && (t.type!=='progress' || hasEntry(t,w));
+const isGold = (t, w) => count(t,w) >= t.norm && (t.type==='check' || hasEntry(t,w));
 const catOf = t => CAT_BY_ID[t.cat] || OTHER;
 
 function streakInfo(t){
@@ -1023,7 +1098,7 @@ function header(){
 function tasksView(){
   if(!S.tasks.length) return `<h2>Zadania</h2><div class="empty"><b>Dodaj pierwsze zadanie</b>
     Ustawiasz, ile razy w tygodniu minimum i ile to norma. Minimum trzyma passę, norma daje złoty tydzień. Wpisz np. „Siłownia”, „Bieganie” albo „Matma”, a apka podsunie gotowe ćwiczenia i odznaki.
-    <div class="example"><button class="btn pri" id="emptyAdd">Dodaj zadanie</button></div></div>`;
+    <div class="example"><button class="btn pri" id="emptyAdd">Dodaj zadanie albo trening</button></div></div>`;
   return `<h2>Zadania</h2><div class="list">${S.tasks.map(taskCard).join('')}</div>`;
 }
 
@@ -1039,14 +1114,14 @@ function taskCard(t){
   }
   let status;
   if(gold) status = `<b>Złoty tydzień</b>${c>t.norm?' · +'+(c-t.norm)+' ponad normę':''}`;
-  else if(c >= t.norm && t.type==='progress') status = `<b>Norma zrobiona</b> · wpisz wynik, żeby był złoty`;
+  else if(c >= t.norm && t.type!=='check') status = `<b>Norma zrobiona</b> · wpisz wynik, żeby był złoty`;
   else if(met) status = `<b>Passa bezpieczna</b> · jeszcze ${t.norm-c} do złotego`;
   else status = `<b>Jeszcze ${t.min-c}</b> do minimum · ${left===1?'ostatni dzień':'zostało '+left+' dni'}`;
   const flameCls = gold ? 'gold' : (st.streak>0 ? 'on' : '');
   const title = streakTitle(t, st.streak);
   return `<div class="card ${gold?'gold':met?'met':''} ${risk?'risk':''}" data-id="${t.id}">
     <button class="main" data-detail="${t.id}" aria-label="Szczegóły: ${esc(t.name)}">
-      <span class="tname"><span class="cico" aria-hidden="true">${catOf(t).icon}</span>${esc(t.name)} <span class="tag ${t.type==='progress'?'p':''}">${t.type==='progress'?'01 + progres':'01'}</span></span>
+      <span class="tname"><span class="cico" aria-hidden="true">${catOf(t).icon}</span>${esc(t.name)} <span class="tag ${t.type!=='check'?'p':''}">${t.type==='workout'?'trening · '+(t.tests||[]).length+' ćw.':t.type==='progress'?'01 + progres':'01'}</span></span>
       ${title ? `<span class="stitle">${esc(title)}</span>` : ''}
       <span class="pips" aria-label="${c} z ${t.norm}">${pips}</span>
       <span class="status num">${status}</span>
@@ -1060,10 +1135,10 @@ function taskCard(t){
 }
 
 function progView(){
-  const pts = S.tasks.filter(t => t.type==='progress');
+  const pts = S.tasks.filter(t => t.type!=='check');
   if(!pts.length) return `<h2>Progres</h2><div class="empty"><b>Brak zadań z progresem</b>
     Dodaj zadanie typu „01 + progres”, np. Siłownia z testem „Wyciskanie na ławce płaskiej”. Po każdym zaliczeniu wpiszesz wynik, a tu zrobi się wykres.
-    <div class="example"><button class="btn pri" id="emptyAddP">Dodaj zadanie z progresem</button></div></div>`;
+    <div class="example"><button class="btn pri" id="emptyAddP">Utwórz trening albo zadanie</button></div></div>`;
   return pts.map(t => `<div class="ptask">
     <h3><span>${catOf(t).icon} ${esc(t.name)}</span><button class="small-btn" data-addres="${t.id}">Dodaj wynik</button></h3>
     ${(t.tests||[]).length ? t.tests.map(te => testCard(t,te)).join('') : `<div class="empty">Brak testów. Dodaj je przyciskiem „Dodaj wynik”.</div>`}
@@ -1071,21 +1146,11 @@ function progView(){
 }
 
 const expanded = new Set();
-const YT = q => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q + ' technika');
-const GI = q => 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(q + ' ćwiczenie');
-function howtoHTML(name, cid){
-  const ct = cid ? TEST_BY_ID[cid] : null, info = ct && ct.info;
-  const q = ct ? ct.name : name;
-  return `${info ? `<p><b>Pracują:</b> ${esc(info[0])}</p><p>${esc(info[1])}</p>` : '<p>Brak opisu dla tego ćwiczenia, ale możesz zobaczyć, jak wygląda:</p>'}
-    <div class="howlinks"><a href="${YT(q)}" target="_blank" rel="noopener">▶ Film na YouTube</a><a href="${GI(q)}" target="_blank" rel="noopener">🖼 Zdjęcia w Google</a></div>
-    <p class="hownote">Film i zdjęcia otwierają się w przeglądarce i potrzebują internetu.</p>`;
-}
-const howBtn = (name, cid) => `<button type="button" class="howbtn" data-how="1" data-name="${esc(name)}" data-cid="${cid||''}">Jak robić?</button>`;
 function testCard(t, te){
   const es = S.entries.filter(e => e.testId===te.id).sort((a,b)=>b.ts-a.ts);
   const unit = esc(te.unit||'');
   const tag = te.cid ? 'liczy się do odznak' : 'własny test';
-  if(!es.length) return `<div class="tcard"><div class="thead"><div class="nm">${esc(te.name)}<small>${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div><div class="big"><span>brak wyników</span></div></div><div class="trow2">${howBtn(te.name, te.cid)}</div><div class="howto" hidden></div></div>`;
+  if(!es.length) return `<div class="tcard"><div class="thead"><div class="nm">${esc(te.name)}<small>${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div><div class="big"><span>brak wyników</span></div></div><div class="trow2">${eyeBtn(te.name, te.cid, t.cat)}</div><div class="howto" hidden></div></div>`;
   const last = es[0].value, first = es[es.length-1].value, best = bestOf(te);
   const diff = last - first, good = te.dir==='down' ? diff < 0 : diff > 0;
   const dcls = diff===0 ? 'flat' : good ? 'up' : 'down';
@@ -1094,9 +1159,9 @@ function testCard(t, te){
     <div class="thead"><div class="nm">${esc(te.name)}<small>${es.length} ${es.length===1?'wynik':es.length<5?'wyniki':'wyników'} · ${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div>
       <div class="big num"><b>${fmt(last)}</b><span>${unit}</span><div class="delta ${dcls}">${diff>0?'+':''}${fmt(diff)} ${unit} od startu</div></div></div>
     ${es.length>1 ? `<canvas class="chart" data-chart="${te.id}"></canvas>` : ''}
-    <div class="trow2"><span class="pr">Rekord ${fmt(best)} ${unit}</span>${(x => `<span class="tlvl num">Poz. ${x.lvl} ćwiczenia<i><b style="width:${Math.round(x.pct*100)}%"></b></i></span>`)(testXP(te))}${howBtn(te.name, te.cid)}</div>
+    <div class="trow2"><span class="pr">Rekord ${fmt(best)} ${unit}</span>${(x => `<span class="tlvl num">Poz. ${x.lvl} ćwiczenia<i><b style="width:${Math.round(x.pct*100)}%"></b></i></span>`)(testXP(te))}${eyeBtn(te.name, te.cid, t.cat)}</div>
     <div class="howto" hidden></div>
-    <div class="hist">${es.slice(0,showN).map(e => `<div class="hrow num"><span>${fmtDay(e.ts)}</span><b>${fmt(e.value)} ${unit}${e.value===best?' ★':''}</b><button class="x" data-delentry="${e.id}">Usuń</button></div>`).join('')}</div>
+    <div class="hist">${es.slice(0,showN).map(e => `<div class="hrow num"><span>${fmtDay(e.ts)}</span><b>${fmt(e.value)} ${unit}${e.reps?' × '+e.reps:''}${e.value===best?' ★':''}</b><button class="x" data-delentry="${e.id}">Usuń</button></div>`).join('')}</div>
     ${es.length>4 ? `<button class="more" data-more="${te.id}">${expanded.has(te.id)?'Pokaż mniej':'Pokaż wszystkie ('+es.length+')'}</button>`:''}
   </div>`;
 }
@@ -1202,9 +1267,9 @@ function updHint(row, catId){
   const name = $('.tn',row).value, unit = $('.tu',row).value, h = $('.thint',row);
   if(!name.trim()){ h.textContent = ''; h.className = 'thint'; return null; }
   const m = matchTest(name, unit, catId);
-  if(m && !m.unitMismatch){ h.innerHTML = `✓ ${esc(m.test.name)} · liczy się do odznak ${howBtn(m.test.name, m.test.id)}`; h.className = 'thint ok'; }
-  else if(m){ h.innerHTML = `Rozpoznano „${esc(m.test.name)}”, ale odznaki liczą się w ${esc(m.test.unit)} ${howBtn(m.test.name, m.test.id)}`; h.className = 'thint warn'; }
-  else { h.innerHTML = `Własny test · punkty i poziom tak, odznaki za postęp tak ${howBtn(name, '')}`; h.className = 'thint'; }
+  if(m && !m.unitMismatch){ h.innerHTML = `✓ ${esc(m.test.name)} · liczy się do odznak ${eyeBtn(m.test.name, m.test.id, catId)}`; h.className = 'thint ok'; }
+  else if(m){ h.innerHTML = `Rozpoznano „${esc(m.test.name)}”, ale odznaki liczą się w ${esc(m.test.unit)} ${eyeBtn(m.test.name, m.test.id, catId)}`; h.className = 'thint warn'; }
+  else { h.innerHTML = `Własny test · punkty i poziom tak, odznaki za postęp tak ${eyeBtn(name, '', catId)}`; h.className = 'thint'; }
   if(!$('.howto',row)) row.insertAdjacentHTML('beforeend','<div class="howto" hidden></div>'); else $('.howto',row).hidden = true;
   return m;
 }
@@ -1244,7 +1309,7 @@ function chipsHTML(catId, taken, limit, group){
     const free = c.tests.filter(t => inG(t,gx) && !taken.has(t.id));
     return `<div class="chiphead">${c.icon} Wybierz ${c.id==='gym'?'partię, potem stuknij ćwiczenie':'przedmiot, potem stuknij test'}, żeby dodać:</div>
       <div class="gtabs">${tabs}</div>
-      <div class="chips">${free.length ? free.map(t => `<button type="button" class="chip" data-chip="${t.id}">${esc(c.id==='learn' ? (n => n[0].toUpperCase()+n.slice(1))(t.name.replace(/^[^:]+: /,'')) : t.name)}<small>${esc(t.unit)}</small></button>`).join('') : '<span class="chiphead">Wszystko z tej grupy już dodane.</span>'}</div>`;
+      <div class="chips">${free.length ? free.map(t => `<button type="button" class="chip" data-chip="${t.id}">${hasImg(t.id)?`<img class="chimg" src="img/${t.id}.jpg" alt="" loading="lazy">`:''}${esc(c.id==='learn' ? (n => n[0].toUpperCase()+n.slice(1))(t.name.replace(/^[^:]+: /,'')) : t.name)}<small>${esc(t.unit)}</small></button>`).join('') : '<span class="chiphead">Wszystko z tej grupy już dodane.</span>'}</div>`;
   }
   const free = c.tests.filter(t => !taken.has(t.id));
   if(!free.length) return '';
@@ -1261,7 +1326,9 @@ function taskForm(t, presetType){
   openSheet(`
     <h4>${isEdit?'Edytuj zadanie':'Nowe zadanie'}</h4>
     <p class="sub">Liczy się tydzień: od poniedziałku do niedzieli.</p>
+    ${isEdit ? '' : `<div class="lab" style="margin-bottom:8px">Gotowe do wyboru</div><div class="chips" id="presets">${PRESETS.map(([n,mn,nr]) => `<button type="button" class="chip" data-preset="${esc(n)}" data-min="${mn}" data-norm="${nr}">${esc(n)}<small>${mn===7?'codziennie':mn+'×/tydz.'}</small></button>`).join('')}</div>`}
     <div class="field"><label for="fName">Nazwa</label><input id="fName" class="inp" placeholder="np. Siłownia, Bieganie, Matma" value="${esc(d.name)}" maxlength="40"></div>
+    <div class="gymhint" id="gymHint" hidden>Siłownia? Lepiej utwórz <b>trening</b>: plan ćwiczeń po kolei z ciężarami. <button type="button" class="small-btn" id="toWorkout">Utwórz trening</button></div>
     <div class="catrow"><span id="catLabel"></span>
       <select id="fCat" aria-label="Kategoria">
         <option value="auto">Kategoria: automatycznie</option>
@@ -1297,12 +1364,18 @@ function taskForm(t, presetType){
     const refresh = () => {
       const cid = curCat(), c = CAT_BY_ID[cid] || OTHER, auto = $('#fCat',sh).value==='auto';
       $('#catLabel',sh).innerHTML = auto && $('#fName',sh).value.trim() ? (cid==='other' ? 'Nie rozpoznano kategorii' : `Rozpoznano: <b>${c.icon} ${esc(c.name)}</b>`) : '';
-      if(!typeTouched && c.sport && c.tests.length) setType('progress');
+      if(!typeTouched && c.sport && c.tests.length && cid!=='gym') setType('progress');
+      if(!isEdit) $('#gymHint',sh).hidden = cid!=='gym';
       const taken = new Set([...rows.querySelectorAll('.trow')].map(r => { const m = updHint(r, cid); return m && !m.unitMismatch ? m.test.id : null; }).filter(Boolean));
       if(!groupTouched) chipGroup = detectGroup(cid, $('#fName',sh).value);
       $('#chipBox',sh).innerHTML = chipsHTML(cid, taken, chipsAll ? 0 : 10, chipGroup);
     };
     $('#fName',sh).addEventListener('input', refresh);
+    const pr = $('#presets',sh);
+    if(pr) pr.addEventListener('click', e => { const b = e.target.closest('[data-preset]'); if(!b) return;
+      $('#fName',sh).value = b.dataset.preset; min = +b.dataset.min; norm = +b.dataset.norm;
+      $('#vMin',sh).innerHTML = min+'<small>×</small>'; $('#vNorm',sh).innerHTML = norm+'<small>×</small>'; buzz(10); refresh(); });
+    const tw = $('#toWorkout',sh); if(tw) tw.onclick = () => workoutForm(null);
     $('#fCat',sh).addEventListener('change', refresh);
     sh.querySelectorAll('.type').forEach(b => b.onclick = () => { typeTouched = true; setType(b.dataset.type); });
     sh.querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
@@ -1356,6 +1429,7 @@ function taskForm(t, presetType){
 function snapshot(t){ const w = thisWeek(); const st = streakInfo(t); return {c: count(t,w), met: metMin(t,w), gold: isGold(t,w), lvl: xpInfo().lvl, streak: st.streak, prof: profInfo(t.cat||'other').lvl}; }
 
 function goTask(t){
+  if(t.type==='workout') return workoutSheet(t);
   if(t.type==='progress') return resultSheet(t, true);
   const before = snapshot(t);
   const log = addLog(t);
@@ -1374,7 +1448,7 @@ function resultSheet(t, withLog){
   openSheet(`
     <h4>${catOf(t).icon} ${esc(t.name)}</h4>
     <p class="sub">${withLog?'Wpisz wyniki z tego treningu. Puste pola zostaną pominięte.':'Dodaj wyniki bez zaliczania treningu.'}</p>
-    <div id="logRows">${t.tests.map(te => logRowHTML(te)).join('')}</div>
+    <div id="logRows">${t.tests.map(te => logRowHTML(te, t.cat)).join('')}</div>
     ${t.tests.length?'':'<p class="hint" id="noTests">To zadanie nie ma jeszcze testów. Wybierz z listy albo wpisz własny.</p>'}
     <div class="newtest" id="newTest" ${t.tests.length?'hidden':''}>
       <div id="rChips"></div>
@@ -1393,7 +1467,7 @@ function resultSheet(t, withLog){
     const drawChips = () => { $('#rChips',sh).innerHTML = chipsHTML(t.cat, takenIds(), 0, rGroup); };
     const addTestObj = te => {
       t.tests.push(te); save();
-      $('#logRows',sh).insertAdjacentHTML('beforeend', logRowHTML(te));
+      $('#logRows',sh).insertAdjacentHTML('beforeend', logRowHTML(te, t.cat));
       const h = $('#noTests',sh); if(h) h.remove();
       drawChips();
       $('#logRows .logt:last-child input',sh).focus();
@@ -1443,12 +1517,12 @@ function resultSheet(t, withLog){
     const first = $('#logRows input',sh); if(first) setTimeout(()=>first.focus(), 250);
   });
 }
-function logRowHTML(te){
+function logRowHTML(te, catId){
   const last = lastOf(te), best = bestOf(te), u = esc(te.unit||'');
   return `<div class="logt" data-tid="${te.id}">
     <div class="nm"><b>${esc(te.name)}${u?' · '+u:''}</b><small class="num">${last===null?'pierwszy wynik':'ostatnio '+fmt(last)+' · rekord '+fmt(best)}</small></div>
     <input class="inp num" inputmode="decimal" placeholder="${last===null?'0':fmt(last)}" aria-label="${esc(te.name)}">
-    <div class="logx">${howBtn(te.name, te.cid)}</div><div class="howto" hidden></div>
+    <div class="logx">${eyeBtn(te.name, te.cid, catId)}</div><div class="howto" hidden></div>
   </div>`;
 }
 
@@ -1506,7 +1580,7 @@ function detailSheet(t){
   const nextTier = STREAK_W.find(w => w > st.streak);
   openSheet(`
     <h4>${catOf(t).icon} ${esc(t.name)}</h4>
-    <p class="sub">${esc(catOf(t).name)} · ${t.type==='progress'?'01 + progres':'01'} · minimum ${t.min}× · norma ${t.norm}× w tygodniu</p>
+    <p class="sub">${esc(catOf(t).name)} · ${t.type==='workout'?'trening':t.type==='progress'?'01 + progres':'01'} · minimum ${t.min}× · norma ${t.norm}× w tygodniu</p>
     <div class="dstats">
       <div><small>Passa</small><b class="num" style="color:${st.streak?'var(--flame)':'inherit'}">${st.streak}</b></div>
       <div><small>Najdłuższa</small><b class="num">${st.best}</b></div>
@@ -1519,10 +1593,13 @@ function detailSheet(t){
     <div class="lab" style="margin-bottom:4px">W tym tygodniu</div>
     <div class="hist" style="border-top:0">${logs.length ? logs.map(l => `<div class="hrow num"><span>${DAYS[(new Date(l.ts).getDay()+6)%7]} ${fmtDay(l.ts)}, ${pad(new Date(l.ts).getHours())}:${pad(new Date(l.ts).getMinutes())}</span><button class="x" data-dellog="${l.id}">Cofnij</button></div>`).join('') : '<div class="hrow"><span>Jeszcze nic. Zalicz pierwszy raz.</span></div>'}</div>
     <div class="btns">
-      <button class="btn" id="dEdit">Edytuj zadanie</button>
+      ${t.type==='workout' ? `<div class="lab" style="margin-top:6px">Plan</div><ol class="plan ro">${(t.tests||[]).map(te => `<li class="prow">${thumb(te.cid)}<div class="pmid"><b>${esc(te.name)}</b><span class="psets">${te.sets||3} × ${esc(te.reps||'10')}</span></div></li>`).join('')}</ol>` : ''}
+      <button class="btn" id="dEdit">${t.type==='workout'?'Edytuj trening':'Edytuj zadanie'}</button>
+      ${t.type==='progress' && t.cat==='gym' ? '<button class="btn" id="dConvert">Zrób z tego plan treningowy</button>' : ''}
       <button class="btn ghost" id="dClose">Zamknij</button>
     </div>`, sh => {
-    $('#dEdit',sh).onclick = () => taskForm(t);
+    $('#dEdit',sh).onclick = () => t.type==='workout' ? workoutForm(t) : taskForm(t);
+    const cv = $('#dConvert',sh); if(cv) cv.onclick = () => workoutForm(t, true);
     $('#dClose',sh).onclick = closeSheet;
     sh.querySelectorAll('[data-dellog]').forEach(b => b.onclick = () => {
       if(!b.classList.contains('sure')){ b.classList.add('sure'); b.textContent = 'Na pewno?'; return; }
@@ -1550,7 +1627,7 @@ function settingsSheet(){
       <button class="btn danger" id="sReset">Zresetuj konto do zera</button>
       <button class="btn ghost" id="sClose">Zamknij</button>
     </div>
-    <p class="hint num" style="margin-top:14px">Wersja 5 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
+    <p class="hint num" style="margin-top:14px">Wersja 6 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
     $('#sClose',sh).onclick = closeSheet;
     $('#sName',sh).addEventListener('change', e => { S.name = e.target.value.trim(); save(); render(); toast(S.name ? 'Cześć, '+S.name+'!' : 'Usunięto nazwę'); });
     const rs = $('#sReset',sh); let rsStep = 0;
@@ -1629,13 +1706,221 @@ function tick(){
 let persisted = false;
 function askPersist(){ if(persisted) return; persisted = true; try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(e){} }
 
+/* ========= v6: oczko z obrazkiem, wybór Zadanie/Trening, plan treningowy ========= */
+const EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const hasImg = cid => !!cid && IMG.has(cid);
+const showEye = (cid, catId) => hasImg(cid) || catId==='gym' || catId==='cali';
+function eyeBtn(name, cid, catId){
+  if(!showEye(cid, catId)) return '';
+  return `<button type="button" class="eyebtn" data-how="1" data-name="${esc(name)}" data-cid="${cid||''}" aria-label="Pokaż, jak wygląda: ${esc(name)}">${EYE}</button>`;
+}
+function eyeHTML(name, cid){
+  const ct = cid ? TEST_BY_ID[cid] : null;
+  const muscles = ct && ct.info ? ct.info[0] : '', eq = cid ? EQUIP[cid] : '';
+  const desc = (muscles || eq) ? `<p class="exinfo">${muscles ? `<b>Pracują:</b> ${esc(muscles)}` : ''}${muscles && eq ? '<br>' : ''}${eq ? `<b>Sprzęt:</b> ${esc(eq)}` : ''}</p>` : '';
+  if(hasImg(cid)) return `<div class="exanim" style="background-image:url(img/${cid}.jpg)" role="img" aria-label="${esc(ct ? ct.name : name)}, ruch od pozycji startowej do końcowej"></div>
+    <p class="excap">Pozycja startowa ↔ końcowa</p>${desc}`;
+  return `<p class="exinfo">Nie mam obrazka dla „${esc(name)}”.</p>${desc}
+    <div class="howlinks"><a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(name + ' ćwiczenie')}" target="_blank" rel="noopener">Zobacz zdjęcia w Google</a></div>`;
+}
+const thumb = cid => hasImg(cid) ? `<span class="cth"><img src="img/${cid}.jpg" alt="" loading="lazy"></span>` : `<span class="cth none">${EYE}</span>`;
+
+/* wybór: zadanie albo trening */
+function addChooser(){
+  openSheet(`
+    <h4>Co dodajesz?</h4>
+    <p class="sub">Zadanie to nawyk albo cel na tydzień. Trening to plan ćwiczeń po kolei, w którym wpisujesz ciężary.</p>
+    <div class="choose">
+      <button class="chooseopt" id="chTask"><span class="chi">✓</span><b>Utwórz zadanie</b><span>Weź leki, zjedz owoc, rozciąganie, bieganie, nauka…</span></button>
+      <button class="chooseopt" id="chWork"><span class="chi">🏋️</span><b>Utwórz trening</b><span>Plan na siłownię: ćwiczenia po kolei, serie, ciężary i progres.</span></button>
+    </div>
+    <div class="btns"><button class="btn ghost" id="chCancel">Anuluj</button></div>`, sh => {
+    $('#chTask',sh).onclick = () => taskForm(null);
+    $('#chWork',sh).onclick = () => workoutForm(null);
+    $('#chCancel',sh).onclick = closeSheet;
+  });
+}
+
+/* gotowe nawyki do zadania */
+const PRESETS = [
+  ['Weź leki',7,7],['Zjedz owoc',5,7],['Rozciąganie',5,7],['Pij 2 l wody',6,7],['Spacer 10 000 kroków',4,7],
+  ['Czytanie 10 stron',5,7],['Medytacja 10 min',4,7],['Nauka',4,6],['Matma',2,3],['Sen przed 23:00',5,7],
+  ['Zimny prysznic',3,5],['Bez słodyczy',5,7],['Bieganie',2,3],['Basen',1,2],['Rower',2,3],['Sprzątanie',1,2],['Gotowanie w domu',3,5],['Witaminy',7,7]
+];
+
+/* ---------- formularz treningu ---------- */
+const WORKOUT_NAMES = ['Klata + triceps','Plecy + biceps','Nogi','Barki','Push','Pull','FBW (całe ciało)','Góra','Dół','Trening A','Trening B'];
+function planRowHTML(te){
+  const cid = te.cid || '';
+  return `<li class="prow" data-tid="${te.id||''}" data-cid="${cid}" data-name="${esc(te.name)}">
+    <span class="pnum"></span>${thumb(cid)}
+    <div class="pmid"><b>${esc(te.name)}</b>
+      <span class="psets"><input class="inp ps" inputmode="numeric" value="${te.sets||3}" aria-label="Serie"> serie × <input class="inp pr2" value="${esc(te.reps||'10')}" aria-label="Powtórzenia"> powt.</span></div>
+    <div class="pact"><button type="button" class="mv" data-mv="-1" aria-label="W górę">↑</button><button type="button" class="mv" data-mv="1" aria-label="W dół">↓</button><button type="button" class="mv rmx" data-rm="1" aria-label="Usuń">✕</button></div>
+  </li>`;
+}
+function picksHTML(taken, group){
+  const c = CAT_BY_ID.gym;
+  const inG = (t, x) => x.tag ? (t.tags||[]).includes(x.id) : t.g===x.id;
+  const g = c.groups.some(x => x.id===group) ? group : 'all';
+  const tabs = `<button type="button" class="gtab ${g==='all'?'on':''}" data-group="all">Wszystkie</button>` +
+    c.groups.map(x => `<button type="button" class="gtab ${x.id===g?'on':''}" data-group="${x.id}">${esc(x.name)}<small>${c.tests.filter(t => inG(t,x)).length}</small></button>`).join('');
+  const card = t => `<button type="button" class="pick ${taken.has(t.id)?'added':''}" data-pick="${t.id}">${thumb(t.id)}<span class="pn">${esc(t.name)}</span>${taken.has(t.id)?'<em>✓ w planie</em>':''}</button>`;
+  const sections = (g==='all' ? c.groups.filter(x => !x.tag) : [c.groups.find(x => x.id===g)])
+    .map(x => `<div class="psec"><div class="psech">${esc(x.name)}</div><div class="picks">${c.tests.filter(t => inG(t,x)).map(card).join('')}</div></div>`).join('');
+  return `<div class="gtabs">${tabs}</div>${sections}`;
+}
+function workoutForm(t, convertFrom){
+  const isEdit = !!t;
+  const d = t ? {...t, tests:(t.tests||[]).map(x => ({...x}))} : {name:'', min:1, norm:1, tests:[]};
+  openSheet(`
+    <h4>${isEdit ? (convertFrom ? 'Zrób plan z „'+esc(t.name)+'”' : 'Edytuj trening') : 'Nowy trening'}</h4>
+    <p class="sub">Ułóż ćwiczenia w kolejności, w jakiej je robisz. Na treningu wpiszesz ciężary, a apka zrobi z nich wykresy.</p>
+    <div class="field"><label for="wName">Nazwa treningu</label><input id="wName" class="inp" maxlength="40" placeholder="np. Klata + triceps" value="${esc(d.name)}"></div>
+    ${isEdit ? '' : `<div class="chips" style="margin-top:-8px">${WORKOUT_NAMES.map(n => `<button type="button" class="chip" data-wname="${esc(n)}">${esc(n)}</button>`).join('')}</div>`}
+    <div class="steps" style="margin-top:12px">
+      <div class="stepper"><span class="lab">Minimum / tydz.</span><div class="row"><button type="button" data-st="min" data-d="-1" aria-label="Mniej">−</button><b class="num" id="vMin">${d.min}<small>×</small></b><button type="button" data-st="min" data-d="1" aria-label="Więcej">+</button></div></div>
+      <div class="stepper"><span class="lab">Norma / tydz.</span><div class="row"><button type="button" data-st="norm" data-d="-1" aria-label="Mniej">−</button><b class="num" id="vNorm">${d.norm}<small>×</small></b><button type="button" data-st="norm" data-d="1" aria-label="Więcej">+</button></div></div>
+    </div>
+    <p class="hint">Ile razy w tygodniu robisz <b>ten</b> trening. Minimum trzyma passę, norma daje złoty tydzień.</p>
+    <div class="lab" style="margin-bottom:8px">Plan treningu <span id="planCount"></span></div>
+    <ol class="plan" id="plan">${d.tests.map(planRowHTML).join('')}</ol>
+    <p class="hint" id="planEmpty" ${d.tests.length?'hidden':''}>Plan jest pusty. Stuknij ćwiczenia poniżej. Dodadzą się w tej kolejności, w jakiej je stukasz.</p>
+    <div class="lab" style="margin:16px 0 8px">Dodaj ćwiczenia</div>
+    <div id="picks"></div>
+    <div class="ownex"><input class="inp" id="ownName" placeholder="Albo wpisz własne ćwiczenie"><button type="button" class="small-btn" id="ownAdd">Dodaj</button></div>
+    <div class="err" id="wErr" hidden></div>
+    <div class="btns">
+      <button class="btn pri" id="wSave">${isEdit ? 'Zapisz trening' : 'Utwórz trening'}</button>
+      ${isEdit && !convertFrom ? '<button class="btn danger" id="wDel">Usuń trening</button>' : ''}
+      <button class="btn ghost" id="wCancel">Anuluj</button>
+    </div>`, sh => {
+    let min = d.min, norm = d.norm, group = detectGroup('gym', d.name) || 'all', groupTouched = false;
+    const plan = $('#plan',sh);
+    const taken = () => new Set([...plan.querySelectorAll('.prow')].map(r => r.dataset.cid).filter(Boolean));
+    const refresh = () => {
+      $('#picks',sh).innerHTML = picksHTML(taken(), group);
+      const n = plan.querySelectorAll('.prow').length;
+      $('#planEmpty',sh).hidden = n > 0; $('#planCount',sh).textContent = n ? `· ${n} ćw.` : '';
+    };
+    const add = te => { plan.insertAdjacentHTML('beforeend', planRowHTML(te)); buzz(10); refresh(); };
+    $('#wName',sh).addEventListener('input', () => { if(!groupTouched){ const g = detectGroup('gym', $('#wName',sh).value); if(g){ group = g; refresh(); } } });
+    sh.querySelectorAll('[data-wname]').forEach(b => b.onclick = () => { $('#wName',sh).value = b.dataset.wname; const g = detectGroup('gym', b.dataset.wname); if(g && !groupTouched){ group = g; refresh(); } });
+    sh.querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
+      const k = b.dataset.st, dv = +b.dataset.d;
+      if(k==='min'){ min = Math.max(1, Math.min(14, min+dv)); if(norm<min) norm = min; }
+      else { norm = Math.max(1, Math.min(14, norm+dv)); if(min>norm) min = norm; }
+      $('#vMin',sh).innerHTML = min+'<small>×</small>'; $('#vNorm',sh).innerHTML = norm+'<small>×</small>'; buzz(8);
+    });
+    $('#picks',sh).addEventListener('click', e => {
+      const gt = e.target.closest('[data-group]'); if(gt){ group = gt.dataset.group; groupTouched = true; refresh(); return; }
+      const p = e.target.closest('[data-pick]'); if(!p) return;
+      const ct = TEST_BY_ID[p.dataset.pick];
+      if(taken().has(ct.id)){ const r = plan.querySelector(`.prow[data-cid="${ct.id}"]`); if(r){ r.remove(); refresh(); } return; }
+      add({name:ct.name, cid:ct.id});
+    });
+    plan.addEventListener('click', e => {
+      const r = e.target.closest('.prow'); if(!r) return;
+      if(e.target.closest('[data-rm]')){ r.remove(); refresh(); return; }
+      const mv = e.target.closest('[data-mv]');
+      if(mv){ if(mv.dataset.mv==='-1' && r.previousElementSibling) r.parentNode.insertBefore(r, r.previousElementSibling); else if(mv.dataset.mv==='1' && r.nextElementSibling) r.parentNode.insertBefore(r.nextElementSibling, r); buzz(6); }
+    });
+    const addOwn = () => {
+      const name = $('#ownName',sh).value.trim(); if(!name) return;
+      const m = matchTest(name, 'kg', 'gym');
+      add({name, cid: m && !m.unitMismatch ? m.test.id : ''});
+      $('#ownName',sh).value = '';
+      if(m && !m.unitMismatch) toast(`Rozpoznano: ${m.test.name}`);
+    };
+    $('#ownAdd',sh).onclick = addOwn;
+    $('#ownName',sh).addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); addOwn(); } });
+    $('#wCancel',sh).onclick = closeSheet;
+    $('#wSave',sh).onclick = () => {
+      const name = $('#wName',sh).value.trim();
+      const err = msg => { const e = $('#wErr',sh); e.textContent = msg; e.hidden = false; };
+      if(!name){ err('Wpisz nazwę treningu.'); $('#wName',sh).focus(); return; }
+      const rows = [...plan.querySelectorAll('.prow')];
+      if(!rows.length){ err('Dodaj co najmniej jedno ćwiczenie.'); return; }
+      const old = new Map((t ? t.tests||[] : []).map(x => [x.id, x]));
+      const tests = rows.map(r => {
+        const prev = old.get(r.dataset.tid);
+        const te = {id: r.dataset.tid || uid(), name: r.dataset.name, unit: prev ? prev.unit || 'kg' : 'kg', dir: prev ? prev.dir || 'up' : 'up',
+          sets: Math.max(1, parseInt($('.ps',r).value) || 3), reps: $('.pr2',r).value.trim() || '10'};
+        if(r.dataset.cid){ te.cid = r.dataset.cid; te.dir = TEST_BY_ID[te.cid].dir; if(!prev) te.unit = TEST_BY_ID[te.cid].unit; }
+        return te;
+      });
+      if(isEdit){ Object.assign(t, {name, min, norm, type:'workout', cat:'gym', catManual:true, tests}); }
+      else {
+        if(!S.startWeek) S.startWeek = thisWeek();
+        S.tasks.push({id:uid(), name, type:'workout', min, norm, cat:'gym', catManual:true, tests, startWeek: thisWeek(), created: Date.now()});
+      }
+      save(); closeSheet(); render(); toast(isEdit ? 'Zapisano trening' : 'Utworzono trening: '+name);
+      celebrateBadges();
+    };
+    const del = $('#wDel',sh);
+    if(del) del.onclick = () => {
+      if(!del.classList.contains('sure')){ del.classList.add('sure'); del.textContent = 'Na pewno? Usunie też historię i wyniki'; return; }
+      S.tasks = S.tasks.filter(x => x.id!==t.id); S.logs = S.logs.filter(l => l.taskId!==t.id); S.entries = S.entries.filter(e => e.taskId!==t.id);
+      save(); closeSheet(); render(); toast('Usunięto trening');
+    };
+    refresh();
+    if(!isEdit) setTimeout(() => $('#wName',sh).focus(), 250);
+  });
+}
+
+/* ---------- robienie treningu ---------- */
+function lastEntry(te){ const es = S.entries.filter(e => e.testId===te.id).sort((a,b)=>b.ts-a.ts); return es[0] || null; }
+function workoutSheet(t){
+  const tests = t.tests || [];
+  openSheet(`
+    <h4>🏋️ ${esc(t.name)}</h4>
+    <p class="sub">Wpisz ciężar i powtórzenia z najcięższej serii. Ćwiczenia, których nie robisz, zostaw puste.</p>
+    <div class="wlist">${tests.map((te, i) => { const le = lastEntry(te), best = bestOf(te);
+      return `<div class="wex" data-tid="${te.id}">
+        <button type="button" class="wthumb" data-how="1" data-name="${esc(te.name)}" data-cid="${te.cid||''}" aria-label="Pokaż, jak wygląda: ${esc(te.name)}">${thumb(te.cid)}<span class="wn">${i+1}</span></button>
+        <div class="wbody">
+          <b>${esc(te.name)}</b>
+          <small class="num">Plan ${te.sets||3} × ${esc(te.reps||'10')}${le ? ` · ostatnio ${fmt(le.value)} ${esc(te.unit||'kg')}${le.reps ? ' × '+le.reps : ''}` : ' · pierwszy raz'}${best!==null ? ` · rekord ${fmt(best)}` : ''}</small>
+          <div class="wins"><input class="inp num wkg" inputmode="decimal" placeholder="${le ? fmt(le.value) : '0'}" aria-label="Ciężar: ${esc(te.name)}"><span>${esc(te.unit||'kg')} ×</span><input class="inp num wreps" inputmode="numeric" placeholder="${le && le.reps ? le.reps : '–'}" aria-label="Powtórzenia: ${esc(te.name)}"><span>powt.</span></div>
+        </div>
+        <div class="howto" hidden></div>
+      </div>`; }).join('')}</div>
+    <div class="btns">
+      <button class="btn pri" id="wFinish">Zakończ trening</button>
+      <button class="btn" id="wSkip">Zalicz bez wpisywania</button>
+      <button class="btn ghost" id="wCancel2">Anuluj</button>
+    </div>`, sh => {
+    $('#wCancel2',sh).onclick = closeSheet;
+    $('#wSkip',sh).onclick = () => { const before = snapshot(t); const log = addLog(t); closeSheet(); afterChange(t, before, [], log); };
+    $('#wFinish',sh).onclick = () => {
+      const vals = []; let bad = null;
+      sh.querySelectorAll('.wex').forEach(r => {
+        const v = parseNum($('.wkg',r).value); const reps = parseInt($('.wreps',r).value);
+        if(v===null) return;
+        if(isNaN(v)){ bad = $('.wkg',r); return; }
+        vals.push({testId: r.dataset.tid, value: v, reps: isNaN(reps) ? null : reps});
+      });
+      if(bad){ bad.classList.add('shake'); bad.focus(); setTimeout(()=>bad.classList.remove('shake'),400); return; }
+      const before = snapshot(t), prs = [], now = new Date(), log = addLog(t);
+      vals.forEach(v => {
+        const te = tests.find(x => x.id===v.testId), prev = bestOf(te);
+        if(prev!==null && better(te, v.value, prev)) prs.push(`${te.name} ${fmt(v.value)} ${te.unit||'kg'}`);
+        const e = {id:uid(), taskId:t.id, testId:v.testId, value:v.value, ts: now.getTime(), day: ymd(now), week: mondayKey(now), logId: log.id};
+        if(v.reps) e.reps = v.reps;
+        S.entries.push(e);
+      });
+      closeSheet(); afterChange(t, before, prs, log);
+    };
+  });
+}
+
 /* ========= zdarzenia ========= */
 document.addEventListener('click', e => {
   const hb = e.target.closest('[data-how]');
   if(hb){
-    const box = $('.howto', hb.closest('.tcard, .logt, .trow')); if(!box) return;
-    if(box.hidden) box.innerHTML = howtoHTML(hb.dataset.name, hb.dataset.cid);
-    box.hidden = !box.hidden; hb.textContent = box.hidden ? 'Jak robić?' : 'Zwiń';
+    const box = $('.howto', hb.closest('.tcard, .logt, .trow, .wex')); if(!box) return;
+    if(box.hidden) box.innerHTML = eyeHTML(hb.dataset.name, hb.dataset.cid);
+    box.hidden = !box.hidden; hb.classList.toggle('on', !box.hidden);
     return;
   }
   const go = e.target.closest('[data-go]');
@@ -1654,10 +1939,10 @@ document.addEventListener('click', e => {
   if(e.target.closest('#openSettings')) return settingsSheet();
   if(e.target.closest('#openProfile')){ tab = 'profile'; render(); scrollTo(0,0); return; }
   if(e.target.closest('#backTasks')){ tab = 'tasks'; render(); scrollTo(0,0); return; }
-  if(e.target.closest('#emptyAdd')) return taskForm(null);
-  if(e.target.closest('#emptyAddP')) return taskForm(null, 'progress');
+  if(e.target.closest('#emptyAdd')) return addChooser();
+  if(e.target.closest('#emptyAddP')) return addChooser();
 });
-$('#fab').onclick = () => taskForm(null, tab==='prog' ? 'progress' : 'check');
+$('#fab').onclick = () => addChooser();
 $('#tabTasks').onclick = () => { tab = 'tasks'; render(); scrollTo(0,0); };
 $('#tabProg').onclick = () => { tab = 'prog'; render(); scrollTo(0,0); };
 addEventListener('resize', () => { if(tab==='prog') drawCharts(); });

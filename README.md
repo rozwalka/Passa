@@ -17,3 +17,6 @@ Odinstalowanie apki albo wyczyszczenie danych Chrome kasuje dane, więc rób kop
 ## Aktualizacja
 Podmień pliki w repozytorium. Apka pobierze nową wersję sama przy następnym otwarciu z internetem
 (czasem trzeba ją otworzyć dwa razy). Dane zostają.
+
+## Zdjęcia ćwiczeń
+Obrazki w folderze img pochodzą z bazy free-exercise-db (github.com/yuhonas/free-exercise-db), udostępnionej jako domena publiczna (Unlicense).
