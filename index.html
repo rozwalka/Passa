@@ -202,6 +202,58 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 @keyframes burst{0%{transform:scale(.4);opacity:0}18%{transform:scale(1.08);opacity:1}30%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:scale(1.04)}}
 .shake{animation:shake .35s}
 @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+/* v2: kategorie, podpowiedzi, profil */
+.lvl{padding:4px 4px 4px 4px;gap:4px}
+.lvbtn{display:flex;align-items:center;gap:10px;padding:4px 6px 4px 10px;border-radius:999px}
+.lvbtn:active{background:var(--surface2)}
+.cico{font-size:16px;line-height:1}
+.stitle{font-size:12.5px;font-weight:700;color:var(--flame2);letter-spacing:.01em}
+.card.gold .stitle{color:var(--gold)}
+.catrow{display:flex;align-items:center;gap:8px;margin:-6px 0 16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.catrow select{background:var(--surface2);border:1.5px solid transparent;border-radius:12px;padding:8px 10px;color:var(--fg);max-width:100%}
+.catrow b{color:var(--fg)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
+.chip{font-size:13px;font-weight:600;padding:8px 11px;border-radius:999px;background:var(--surface2);border:1px solid var(--line);text-align:left}
+.chip small{color:var(--muted);font-weight:500;margin-left:4px}
+.chip:active{transform:scale(.96)}
+.newtest .chip{background:var(--surface)}
+.chiphead{font-size:12px;color:var(--muted);margin:6px 2px 6px}
+.thint{font-size:12px;color:var(--muted);margin:-2px 4px 10px;min-height:0}
+.thint.ok{color:var(--ok)}
+.thint.warn{color:var(--flame2)}
+.thint:empty{display:none}
+.trow .testrow{margin-bottom:6px}
+
+/* profil */
+.backbar{display:flex;align-items:center;gap:10px;margin:22px 0 4px}
+.backbar button{font-size:14px;font-weight:600;color:var(--muted);padding:8px 12px 8px 0}
+.lvcard{background:linear-gradient(150deg,rgba(255,122,26,.16),rgba(245,197,66,.06) 60%,transparent),var(--surface);border-radius:var(--r);padding:18px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.lvcard .lvnum small{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.lvcard .lvnum b{font-size:48px;line-height:1;letter-spacing:-.03em}
+.lvcard .xpbar{width:100%;height:10px}
+.lvcard span{display:block;font-size:13px;color:var(--muted);margin-top:8px}
+.profs{display:flex;flex-direction:column;gap:10px}
+.prof{background:var(--surface);border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+.pico{width:46px;height:46px;border-radius:14px;background:var(--surface2);display:grid;place-items:center;font-size:24px}
+.pmain{min-width:0;display:flex;flex-direction:column;gap:3px}
+.pmain small{color:var(--muted);font-size:12px}
+.pmain b{font-size:17px;letter-spacing:-.01em;overflow-wrap:anywhere}
+.pbar{display:block;height:6px;border-radius:6px;background:var(--surface2);overflow:hidden;margin-top:4px}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--flame),var(--gold))}
+.pnext{font-size:12px;color:var(--muted)}
+.pcount{text-align:right;font-size:22px}
+.pcount small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.bgh{display:flex;align-items:center;gap:8px;font-size:15px;margin:18px 2px 10px}
+.bgh small{color:var(--muted);font-weight:500;font-size:12px}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.badge{background:var(--surface);border:1.5px solid transparent;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.badge .bi{font-size:22px;line-height:1}
+.badge b{font-size:13.5px;line-height:1.25;overflow-wrap:anywhere}
+.badge small{font-size:11.5px;color:var(--muted);line-height:1.3;overflow-wrap:anywhere}
+.badge.on{border-color:var(--gold);background:linear-gradient(160deg,rgba(245,197,66,.12),transparent 70%),var(--surface)}
+.badge.off{opacity:.5}
+.badge.off .bi{filter:grayscale(1)}
+.note{font-size:12.5px;color:var(--muted);line-height:1.45;margin:10px 2px 0}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -215,13 +267,314 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 <canvas id="fx"></canvas>
 
 <script>
+/* ========= katalog: kategorie, testy, tytuły ========= */
+// T(id, nazwa, jednostka, kierunek, słowa kluczowe, progi odznak [[wartość, nazwa]], słowa wykluczające)
+const T = (id, name, unit, dir, kw, b, neg) => ({id, name, unit, dir, kw, b: b||[], neg: neg||[]});
+const STREAK_W = [1, 2, 4, 8, 12, 26, 52];
+const PROF_T = [0, 5, 15, 30, 60, 100, 200];
+
+const CATS = [
+{id:'gym', name:'Siłownia', icon:'🏋️', sport:true,
+ kw:['silown','silka','silke','silce','silki','silow','gym','pakow','kulturyst','trening silowy','ciezar','sztang','hantl','fbw','push pull','klata','leg day','dzien nog','powerlift','trojboj','crossfit','fitness','trening'],
+ prof:['Karnet na pokaz','Świeżak z siłki','Bywalec ławki','Byczek','Koksu z osiedla','Pudzian z bloku','Bestia, kurde, bestia'],
+ streak:['Pierwszy raz bez wymówek','Karnet się zwraca','Mistrz ławki','Byczek z rozpiski','Leg day nie pominięty','Pół roku żelaza','Rok na żelazie, bez spiny'],
+ tests:[
+  T('bench','Wyciskanie na ławce płaskiej','kg','up',['lawka plaska','lawce plaskiej','klata plaska','klatka plaska','plaska lawka','bench','wyciskanie lezac','wyciskanie na lawce','klata','lawka','bp'],[[60,'Pół setki z hakiem'],[80,'Ławka zaliczona'],[100,'Setka na klacie'],[120,'Klata jak szafa'],[140,'Wyciskacz z piekła']],['skos','incline','hantl','wask','ujemn']),
+  T('squat','Przysiad ze sztangą','kg','up',['przysiad','przysiady','squat','back squat'],[[60,'Nogi istnieją'],[100,'Setka w dół'],[140,'Uda jak pnie'],[180,'Nogi z betonu'],[220,'Przysiadowy potwór']],['bulgar','bez obciaz','pistol','przedni','front','jednej']),
+  T('deadlift','Martwy ciąg','kg','up',['martwy ciag','martwy','martwego','deadlift','mc','dl'],[[100,'Podniósł setkę z ziemi'],[140,'Plecy ze stali'],[180,'Wyrywacz chodników'],[220,'Dźwig budowlany'],[250,'Martwy, ale nie ty']],['rumun','rdl','prostych']),
+  T('ohp','Wyciskanie żołnierskie','kg','up',['zolniersk','ohp','overhead','wyciskanie nad glowe','military','wyciskanie stojac'],[[40,'Barki w budowie'],[60,'Żołnierz z rozkazu'],[80,'Generał barków'],[100,'Atlas trzyma niebo']],['hantl']),
+  T('incline','Wyciskanie na skosie dodatnim','kg','up',['skos','skosie','skosnej','skosna','incline'],[[60,'Górna klata się budzi'],[80,'Skośny sztos'],[100,'Setka pod kątem']],['ujemn']),
+  T('dbbench','Wyciskanie hantli na ławce','kg','up',['wyciskanie hantli','hantle na lawce','hantli na lawce','hantl'],[[30,'Hantle nie gryzą'],[40,'Hantlowy wymiatacz'],[50,'Hantle jak walizki']],['skos','barki','nad glowe','wiosl','uginan','mlotk','wznos','rozpiet','siedzac','biceps','bicek','bicka','curl','tricep','francus']),
+  T('row','Wiosłowanie sztangą','kg','up',['wioslowan','wioslo','barbell row','pendlay','row'],[[60,'Wioślarz z ławki'],[80,'Plecy jak drzwi'],[100,'Galernik roku']],['hantl','hantel','maszyn','ergo','wyciag','siedzac']),
+  T('dbrow','Wiosłowanie hantlem','kg','up',['wioslowanie hantl','hantlem w opadzie','db row','wioslowanie jednoracz'],[[30,'Jedną ręką'],[45,'Piła łańcuchowa']]),
+  T('pulldown','Ściąganie drążka wyciągu','kg','up',['sciagan','wyciag gorny','wyciagu gornego','lat pulldown','pulldown','drazek wyciagu','drazka do klatki'],[[50,'Skrzydła rosną'],[70,'Nietoperz z siłki'],[90,'Szeroki jak framuga']],['triceps','linki','linka']),
+  T('wpullup','Podciąganie z obciążeniem','kg','up',['podciaganie z obciaz','podciaganie z ciezar','weighted pull'],[[10,'Plus dyszka'],[20,'Pas z talerzem'],[40,'Kaloryfer na plecach']]),
+  T('wdips','Dipy z obciążeniem','kg','up',['dipy z obciaz','porecze z obciaz','poreczach z obciaz','weighted dip'],[[20,'Poręcze się uginają'],[40,'Triceps z kosmosu']]),
+  T('curl','Uginanie ramion ze sztangą','kg','up',['uginanie ramion','biceps','curl','bicek','bicka','uginanie sztangi','modlitewnik'],[[30,'Bicek w natarciu'],[40,'Pompa na bicka'],[50,'Ramiona jak bochenki']],['hantl','mlotk','nog','leg','hammer']),
+  T('dbcurl','Uginanie ramion z hantlami','kg','up',['biceps hantl','uginanie hantli','uginanie ramion z hantl','hantle biceps','hantlami','bicek hantl'],[[14,'Hantelki poszły w ruch'],[20,'Bicek jak piłka'],[26,'Rękaw za ciasny']],['mlotk','hammer']),
+  T('hammer','Uginanie młotkowe','kg','up',['mlotk','hammer'],[[16,'Młotek Thora'],[24,'Przedramię jak kłoda']]),
+  T('french','Wyciskanie francuskie','kg','up',['francusk','skull','lamanie'],[[30,'Bagietka zjedzona'],[45,'Triceps po francusku']]),
+  T('pushdown','Prostowanie ramion na wyciągu','kg','up',['prostowanie ramion','pushdown','triceps na wyciagu','wyciag triceps','linka','linki'],[[30,'Podkowa się rysuje'],[50,'Podkowa jak u konia']]),
+  T('legpress','Wypychanie na suwnicy','kg','up',['suwnic','leg press','prasa','wypychanie nogami','wypychanie nog'],[[150,'Suwnica drży'],[250,'Ćwierć tony'],[350,'Nogi jak tłoki']],['bioder']),
+  T('hipthrust','Hip thrust','kg','up',['hip thrust','hipthrust','unoszenie bioder','wypychanie bioder','glute','mostek ze sztanga'],[[80,'Pośladek się budzi'],[140,'Dupa ze stali'],[200,'Pośladki kosmiczne']]),
+  T('bulgarian','Przysiad bułgarski','kg','up',['bulgar','wykrok','wykroki','lunge'],[[20,'Bułgaria, kurde, boli'],[40,'Wakacje w Sofii']]),
+  T('frontsquat','Przysiad przedni','kg','up',['przysiad przedni','front squat','przedni'],[[80,'Przód też się liczy'],[120,'Olimpijczyk z osiedla']]),
+  T('rdl','Martwy ciąg rumuński','kg','up',['rumun','rdl','na prostych','prostych nogach'],[[80,'Rumuńskie wakacje'],[120,'Dwójki ze stali']]),
+  T('legext','Wyprosty nóg na maszynie','kg','up',['wyprosty','prostowanie nog','leg extension','czworoglow'],[[60,'Czwórki w ogniu']]),
+  T('legcurl','Uginanie nóg na maszynie','kg','up',['uginanie nog','leg curl','dwuglow','dwojk'],[[50,'Dwójki pracują']]),
+  T('calves','Wspięcia na palce','kg','up',['wspiecia','wspiecie','lydk','calf','palce'],[[80,'Łydki z obory'],[150,'Łydki jak u kolarza']]),
+  T('lateral','Wznosy hantli bokiem','kg','up',['wznosy','unoszenie bokiem','unoszenie hantli bokiem','lateral','odwodzenie','boczny'],[[10,'Bark w 3D'],[16,'Barki jak kokosy']],['nog']),
+  T('dbpress','Wyciskanie hantli nad głowę','kg','up',['hantli nad glowe','hantle nad glowe','hantli siedzac','arnold','barki hantl'],[[20,'Barki się kręcą'],[30,'Okrągłe jak arbuzy']]),
+  T('flyes','Rozpiętki','kg','up',['rozpietk','fly','flyes','butterfly','motylek','krzyzowanie linek','brama'],[[20,'Rozpiętość jak orzeł']]),
+  T('shrugs','Szrugsy','kg','up',['szrug','shrug','kaptur'],[[60,'Kaptur na zimę'],[100,'Szyi brak']])
+ ]},
+{id:'run', name:'Bieganie', icon:'🏃', sport:true,
+ kw:['biega','bieg','biegow','run','running','jogg','trucht','maraton','parkrun','polmaraton'],
+ prof:['Biega do autobusu','Truchtacz','Parkrunowiec','Biegacz z przekonania','Maratończyk w budowie','Kenijczyk z Pragi','Forrest Gump, cholera'],
+ streak:['Buty założone','Dwa tygodnie bez zadyszki','Miesiąc w biegu','Kolana jeszcze żyją','Kwartał na asfalcie','Pół roku, dalej biegnie','Run Forrest, run!'],
+ tests:[
+  T('r5k','Bieg 5 km','min','down',['5 km','5km','piatka','5k','parkrun'],[[35,'Piątka pękła'],[30,'Poniżej 30, kurde'],[25,'Piątka w 25'],[22,'Struś Pędziwiatr'],[20,'Kenijczyk z Pragi']]),
+  T('r10k','Bieg 10 km','min','down',['10 km','10km','dycha','dyszka','10k'],[[65,'Dycha ukończona'],[55,'Dycha w 55'],[50,'Dycha z zapasem'],[45,'Dycha jak z bicza'],[40,'Elita z Biedronki']]),
+  T('rhalf','Półmaraton','min','down',['polmaraton','pol maraton','21 km','half'],[[150,'Pół szaleństwa'],[120,'Połówka w 2 godziny'],[105,'Połówka z ogniem'],[90,'Półbóg']]),
+  T('rfull','Maraton','min','down',['maraton','42 km','marathon'],[[300,'Przeżył maraton'],[240,'Sub 4, cholera'],[210,'Sub 3:30'],[180,'Sub 3, ty potworze']],['pol','half','ultra']),
+  T('rlong','Najdłuższy bieg','km','up',['najdluzsz','dlugie wybieganie','long run','dystans biegu','dystans'],[[10,'Dziesiątka w nogach'],[21.1,'Dystans połówki'],[30,'Ściana na 30.'],[42.2,'Królewski dystans']]),
+  T('rweek','Kilometry w tygodniu','km','up',['kilometry w tyg','km w tyg','tygodniow','kilometraz'],[[20,'Dwudziestka tygodniowo'],[40,'Czterdziecha'],[60,'Maszyna do kilometrów'],[100,'Kenia na wakacjach']]),
+  T('rpace','Tempo średnie','min/km','down',['tempo','pace','min km'],[[6,'Szóstka z przodu'],[5,'Piątka z przodu'],[4.5,'Szybki jak ZUS po składki']]),
+  T('r1k','Bieg 1 km','min','down',['1 km','1km','kilometr'],[[5,'Kilometr bez zadyszki'],[4,'Kilometr w 4'],[3.5,'Rakieta']]),
+  T('cooper','Test Coopera','m','up',['cooper'],[[2400,'Cooper zaliczony'],[2800,'Cooper by się zdziwił'],[3200,'Cooper płacze']]),
+  T('r100','Sprint 100 m','s','down',['100 m','100m','sprint','setka'],[[16,'Szybszy niż autobus'],[14,'Bolt z osiedla'],[12.5,'Usain, przesuń się']])
+ ]},
+{id:'bike', name:'Rower', icon:'🚴', sport:true,
+ kw:['rower','kolar','bike','cycl','mtb','szosa','spinning','gravel'],
+ prof:['Rower w piwnicy','Niedzielny rowerzysta','Pan z licznikiem','Kolarz z Lidla','Peleton z osiedla','Szosowy wyjadacz','Tour de Pologne, wymiatacz'],
+ streak:['Łańcuch nasmarowany','Dwa tygodnie w siodle','Miesiąc pedałowania','Tyłek już nie boli','Kwartał na dwóch kółkach','Pół roku z wiatrem','Rok w siodle, dupa ze stali'],
+ tests:[
+  T('blong','Najdłuższa trasa','km','up',['najdluzsz','trasa','dystans'],[[50,'Pięćdziesiątka w siodle'],[100,'Setka na rowerze'],[200,'Dwusetka, dupa boli'],[300,'Tyłek z żelaza']]),
+  T('bweek','Kilometry w tygodniu','km','up',['tygod','kilometraz'],[[100,'Stówka tygodniowo'],[200,'Peleton się boi']]),
+  T('bspeed','Średnia prędkość','km/h','up',['srednia','predkosc','km h','tempo'],[[25,'Dwudziestka piątka'],[30,'Trzydziecha na liczniku'],[35,'Tour de Wieś']]),
+  T('belev','Przewyższenie','m','up',['przewyzsz','podjazd','elevation','metry w gore'],[[500,'Pół kilometra w górę'],[1000,'Kozica na rowerze'],[2000,'Alpy z Mazowsza']]),
+  T('ftp','FTP','W','up',['ftp','moc','wat','waty'],[[200,'Dwusetka watów'],[250,'Elektrownia'],[300,'Elektrownia Bełchatów']]),
+  T('b20k','Czas na 20 km','min','down',['20 km','20km'],[[45,'Dwudziestka w 45'],[35,'Ścigant']])
+ ]},
+{id:'swim', name:'Pływanie', icon:'🏊', sport:true,
+ kw:['plyw','basen','swim','kraul','plywalni'],
+ prof:['Kółko ratunkowe','Żabka z dziadkiem','Bywalec basenu','Kraulowiec','Rekin z pływalni','Phelps z miejskiego','Aquaman, kurde'],
+ streak:['Czepek założony','Chlor we włosach','Miesiąc w wodzie','Skóra jak rodzynek','Kwartał na torze','Pół roku z płetwami','Rok w wodzie, prawie ryba'],
+ tests:[
+  T('s50','50 m kraulem','s','down',['50 m','50m'],[[50,'Nie utonął'],[40,'Rybka'],[32,'Rekin z basenu']]),
+  T('s100','100 m kraulem','min','down',['100 m','100m','setka'],[[2.5,'Setka w wodzie'],[2,'Setka w 2 minuty'],[1.6,'Phelps z pływalni miejskiej']]),
+  T('s400','400 m','min','down',['400 m','400m','400'],[[10,'Czterysta bez łapania liny'],[8,'Delfin']]),
+  T('s1k','1 km pływania','min','down',['1 km','1km','1000 m','kilometr'],[[30,'Kilometr w wodzie'],[22,'Torpeda']]),
+  T('sdist','Dystans na treningu','m','up',['dystans','metry','ile metrow'],[[1000,'Kilometr z kafelkami'],[2000,'Dwa kilosy chloru'],[3000,'Skóra jak u ryby']]),
+  T('slen','Długości basenu bez przerwy','dł.','up',['dlugosci','bez przerwy','basenow'],[[10,'Dziesiątka bez zatrzymania'],[40,'Kilometr non stop']])
+ ]},
+{id:'cali', name:'Kalistenika', icon:'🤸', sport:true,
+ kw:['kalisten','calisthen','street workout','drazek','drazku','pompk','podciag','trzepak','workout'],
+ prof:['Leżak','Pompkowy żółtodziób','Małpa z trzepaka','Street workoutowiec','Gimnastyk z osiedla','Ninja z placu zabaw','Grawitacja ma problem'],
+ streak:['Drążek dotknięty','Dwa tygodnie pompek','Miesiąc na trzepaku','Ciało jako siłownia','Kwartał bez sprzętu','Pół roku, trzepak twój','Rok, grawitacja przegrała'],
+ tests:[
+  T('pullups','Podciąganie','powt.','up',['podciag','pull up','pullup','drazek'],[[1,'Pierwsze podciągnięcie, kurde!'],[10,'Dycha na drążku'],[20,'Małpa z placu zabaw'],[30,'Spider-Man z osiedla']],['obciaz','ciezar']),
+  T('pushups','Pompki','powt.','up',['pompk','pompy','push up','pushup'],[[20,'Pompka nie boli'],[50,'Pół setki pomp'],[100,'Stówa pompek, ja pierdzielę']]),
+  T('dips','Dipy na poręczach','powt.','up',['dip','dipy','porecz'],[[10,'Poręcze opanowane'],[25,'Triceps z blokowiska']],['obciaz']),
+  T('plank','Plank','s','up',['plank','deska','podpor'],[[60,'Minuta deski'],[180,'Deska jak z tartaku'],[300,'Pięć minut cierpienia']]),
+  T('muscleup','Muscle-up','powt.','up',['muscle','wybicie'],[[1,'Pierwsze wybicie'],[5,'Ninja z trzepaka'],[10,'Grawitacja? Nie znam']]),
+  T('bwsquat','Przysiady bez obciążenia','powt.','up',['przysiad','przysiady','squat'],[[50,'Pół setki w dół'],[100,'Uda płoną']]),
+  T('handstand','Stanie na rękach','s','up',['stanie na rekach','handstand','na rekach'],[[10,'Świat do góry nogami'],[30,'Cyrk Zalewski'],[60,'Minuta na rękach']]),
+  T('lsit','L-sit','s','up',['l sit','lsit'],[[10,'Litera L zaliczona'],[30,'Brzuch jak kafle']]),
+  T('hang','Wiszenie na drążku','s','up',['wiszen','zwis','dead hang','hang'],[[60,'Minuta zwisu'],[120,'Leniwiec pro']]),
+  T('pistol','Pistol squat','powt.','up',['pistol','przysiad na jednej'],[[1,'Pistolet załadowany'],[10,'Rewolwerowiec']]),
+  T('situps','Brzuszki','powt.','up',['brzusz','spiecia','crunch','sit up'],[[50,'Kaloryferek'],[100,'Sześciopak w drodze']]),
+  T('burpees','Burpees','powt.','up',['burpe','padnij powstan'],[[20,'Padnij, powstań'],[50,'Burpeesowy masochista']]),
+  T('legraise','Wznosy nóg w zwisie','powt.','up',['wznos','unoszenie nog','toes to bar','nogi do drazka'],[[10,'Nogi w górę'],[20,'Brzuch z betonu']])
+ ]},
+{id:'combat', name:'Sporty walki', icon:'🥊', sport:true,
+ kw:['boks','box','mma','worek','worku','kickbox','bjj','jiu','judo','zapas','muay','karate','taekwondo','sparing','sztuki walki','krav'],
+ prof:['Worek treningowy','Pierwsza rękawica','Gardę trzyma','Zawodnik z klubu','Fighter z osiedla','Rocky Balboa z Ursusa','Ręce zgłoszone jako broń'],
+ streak:['Rękawice założone','Dwa tygodnie ciosów','Miesiąc w klatce','Nos jeszcze prosty','Kwartał na macie','Pół roku obijania','Rok, pas twój'],
+ tests:[
+  T('bag','Rundy na worku','rundy','up',['worek','worku','bag'],[[6,'Worek się boi'],[12,'Worek ma traumę']]),
+  T('sparring','Rundy sparingów','rundy','up',['sparing','rundy'],[[5,'Pierwsza krew'],[10,'Twarz jak tarcza']]),
+  T('rope','Skakanka bez przerwy','min','up',['skakank','jump rope'],[[3,'Skakanka się nie plącze'],[10,'Rocky z osiedla']]),
+  T('punches','Ciosy w 1 minutę','powt.','up',['ciosy','ciosow','uderzen'],[[100,'Karabin maszynowy'],[200,'Ręce jak śmigła']]),
+  T('kicks','Kopnięcia w 1 minutę','powt.','up',['kopniec','kopnie','kicks'],[[60,'Van Damme z działki']]),
+  T('pads','Rundy na tarczach','rundy','up',['tarcz','pady','lapy'],[[10,'Trener ma siniaki']])
+ ]},
+{id:'yoga', name:'Joga i rozciąganie', icon:'🧘', sport:true,
+ kw:['joga','yoga','rozciag','stretch','mobil','pilates','gibkosc','szpagat'],
+ prof:['Sztywny jak deska','Mata rozwinięta','Pies z głową w dół','Gumowy','Precel','Człowiek guma','Jogin, ja pierdzielę'],
+ streak:['Mata rozwinięta','Dwa tygodnie rozciągania','Miesiąc gibkości','Kręgosłup dziękuje','Kwartał na macie','Pół roku zen','Rok, dotyka stóp bez stękania'],
+ tests:[
+  T('reach','Skłon w przód (za palce)','cm','up',['sklon','sit and reach','gibkosc'],[[0,'Dotknął palców!'],[10,'Gumowy'],[20,'Człowiek guma']]),
+  T('split','Szpagat (do ziemi)','cm','down',['szpagat','split'],[[20,'Szpagat na horyzoncie'],[5,'Prawie Van Damme'],[0,'Szpagat, kurde!']]),
+  T('ysession','Czas sesji','min','up',['czas','sesja','sesji','minut'],[[30,'Pół godziny zen'],[60,'Godzina na macie']]),
+  T('bridge','Mostek','s','up',['mostek','most','wheel'],[[30,'Mostek trzyma']]),
+  T('crow','Pozycja kruka','s','up',['kruk','crow'],[[10,'Kruk wylądował']])
+ ]},
+{id:'med', name:'Medytacja', icon:'🕯️',
+ kw:['medyt','mindful','oddech','breath','uwazn','headspace','wycisz','relaks'],
+ prof:['Myśli jak w Biedronce','Oddycha świadomie','Spokojny','Wyciszony','Mnich z bloku','Dalajlama z Mazowsza','Oświecony, kurde'],
+ streak:['Pierwszy oddech','Dwa tygodnie ciszy','Miesiąc spokoju','Głowa się przewietrza','Kwartał zen','Pół roku bez spiny','Rok, nic cię nie rusza'],
+ tests:[
+  T('mtime','Czas medytacji','min','up',['czas','medytac','sesja','minut'],[[10,'Dziesięć minut ciszy'],[20,'Mózg na wolnym biegu'],[45,'Mnich z Tybetu'],[60,'Oświecony z bloku']]),
+  T('mweek','Minuty w tygodniu','min','up',['w tygodniu','tygodniow','suma'],[[60,'Godzina spokoju'],[150,'Zen level: Netflix off']]),
+  T('breath','Wstrzymanie oddechu','s','up',['oddech','wstrzym','bezdech','breath hold','co2'],[[60,'Minuta bez powietrza'],[120,'Płetwonurek'],[180,'Wim Hof by się uśmiechnął']]),
+  T('calm','Ocena spokoju (1–10)','pkt','up',['ocena','spokoj','samopoczuc','nastroj'],[])
+ ]},
+{id:'learn', name:'Nauka', icon:'📚',
+ kw:['nauk','ucze','uczy','uczen','matm','matem','fizyk','fizy','chemi','biolog','histori','geograf','egzamin','matur','kolokw','szkol','lekcj','zadania domowe','studi','sesj','wkuw','korepet'],
+ prof:['Ściąga w piórniku','Uczący się','Ogarnięty','Kujon','Prymus','Profesor z ławki','Einstein, cholera'],
+ streak:['Zeszyt otwarty','Dwa tygodnie nauki','Miesiąc bez wymówek','Mózg na siłowni','Kwartał wkuwania','Pół roku w książkach','Rok, chodząca encyklopedia'],
+ tests:[
+  T('ltime','Czas nauki','h','up',['czas','godzin','godziny nauki'],[[2,'Dwie godziny bez telefonu'],[4,'Kujon mode on'],[8,'Biblioteka to mój dom']]),
+  T('ltasks','Rozwiązane zadania','szt.','up',['zadan','zadania','rozwiazan','przyklad','cwiczen'],[[10,'Dycha zadań'],[30,'Maszyna do zadań'],[50,'Zbiór zadań w kawałkach']]),
+  T('lexam','Wynik próbnej matury / testu','%','up',['matur','probn','test','sprawdzian','egzamin','wynik','kolokw','procent'],[[50,'Zdane, uff'],[70,'Siódemka z przodu'],[90,'Kujon wszech czasów'],[100,'Sto procent, cholera!']]),
+  T('lgrade','Ocena','ocena','up',['ocena','ocen','stopien'],[[5,'Piątka, mamo!'],[6,'Celujący bez ściągi']]),
+  T('lcards','Fiszki / powtórki','szt.','up',['fiszk','powtork','anki','karty'],[[100,'Setka fiszek'],[500,'Pamięć słonia']]),
+  T('lnotes','Strony notatek','str.','up',['notatk','strony','strona'],[[10,'Zeszyt nie jest pusty']])
+ ]},
+{id:'lang', name:'Języki', icon:'🗣️',
+ kw:['angiel','angol','niemiec','hiszpan','francus','wlosk','rosyjsk','japon','korea','jezyk','duolingo','english','slowk','fiszk','ielts','toefl','fce','cae'],
+ prof:['Yes, no, thank you','Turysta z rozmówkami','Dogada się w hotelu','Gaduła','Prawie native','Poliglota z osiedla','Native z Mławy'],
+ streak:['Pierwsze słówko','Sowa zadowolona','Miesiąc po obcemu','Myśli w obcym','Kwartał z akcentem','Pół roku, sowa dumna','Rok, tłumacz w drodze'],
+ tests:[
+  T('words','Nowe słówka','szt.','up',['slowk','slowa','vocab','wyrazy'],[[20,'Dwadzieścia nowych słów'],[50,'Słownik w kieszeni'],[100,'Poliglota z osiedla']]),
+  T('langtime','Czas nauki języka','min','up',['czas','minut','nauki'],[[30,'Pół godziny po obcemu'],[60,'Godzina native']]),
+  T('duo','Seria Duolingo','dni','up',['duolingo','seria','streak','dni'],[[30,'Sowa zadowolona'],[100,'Sowa milczy z szacunku'],[365,'Rok z zieloną sową']]),
+  T('langtest','Wynik testu językowego','%','up',['test','wynik','egzamin','certyfikat','procent'],[[60,'Dogadasz się w hotelu'],[80,'Prawie native'],[95,'Native z Mławy']]),
+  T('speak','Minuty rozmowy','min','up',['rozmow','speaking','mowienie','konwersac'],[[30,'Gada jak najęty'],[120,'Nawija po obcemu']])
+ ]},
+{id:'read', name:'Czytanie', icon:'📖',
+ kw:['czyta','ksiazk','lektur','read','book','audiobook','kindle'],
+ prof:['Czyta etykiety','Okazjonalny czytelnik','Czytelnik','Mól książkowy','Pożeracz kartek','Biblioteka chodząca','Sienkiewicz by się wzruszył'],
+ streak:['Pierwsza strona','Dwa tygodnie z książką','Miesiąc bez scrolla','Zakładka się nie nudzi','Kwartał lektur','Pół roku czytania','Rok, księgarnia cię zna'],
+ tests:[
+  T('pages','Przeczytane strony','str.','up',['stron','strony','str'],[[50,'Pięćdziesiąt stron'],[100,'Stówa stron'],[300,'Pożeracz kartek']]),
+  T('books','Przeczytane książki','szt.','up',['ksiazk','pozycj','lektur'],[[1,'Pierwsza zaliczona'],[5,'Mól książkowy'],[12,'Książka na miesiąc'],[30,'Biblioteka chodząca']]),
+  T('readtime','Czas czytania','min','up',['czas','minut'],[[30,'Pół godziny bez scrolla'],[90,'Wciągnęło na amen']])
+ ]},
+{id:'code', name:'Programowanie', icon:'💻',
+ kw:['program','kod','kodow','koduj','coding','code','python','javascript','java','typescript','leetcode','react','frontend','backend','web dev','aplikacj','apk','swift','kotlin'],
+ prof:['Hello World','Kopiuje ze Stack Overflow','Junior','Mid','Senior od jutra','10x developer','Linus Torvalds z piwnicy'],
+ streak:['Pierwszy commit','Dwa tygodnie w IDE','Miesiąc kodowania','Bugów coraz mniej','Kwartał zielonych kwadracików','Pół roku w terminalu','Rok, kod się sam pisze'],
+ tests:[
+  T('leet','Rozwiązane zadania (LeetCode itp.)','szt.','up',['leetcode','zadan','kata','codewars','problem','hackerrank'],[[10,'Dycha algorytmów'],[50,'Algorytmiczny koks'],[150,'Hash mapa w genach']]),
+  T('codetime','Czas kodowania','h','up',['czas','godzin','kodowan'],[[2,'Dwie godzinki w IDE'],[6,'Kawa zamieniona w kod'],[10,'Zapomniał zjeść obiad']]),
+  T('commits','Commity','szt.','up',['commit','push','pull request'],[[10,'Git push i spać'],[50,'Zielone kwadraciki']]),
+  T('projects','Ukończone projekty','szt.','up',['projekt','aplikac','apki','deploy'],[[1,'Pierwszy deploy'],[5,'Seryjny twórca']])
+ ]},
+{id:'music', name:'Muzyka', icon:'🎸',
+ kw:['gitar','pianin','fortepian','keyboard','perkus','bebn','spiew','wokal','instrument','ukulele','skrzyp','muzyk','dj','granie na'],
+ prof:['Cztery akordy','Ogniskowy grajek','Gra do kotleta','Muzyk','Wirtuoz z garażu','Gwiazda z osiedla','Hendrix by się wzruszył'],
+ streak:['Instrument nastrojony','Dwa tygodnie grania','Miesiąc z metronomem','Palce przestały boleć','Kwartał prób','Pół roku, sąsiedzi przywykli','Rok, trasa koncertowa w drodze'],
+ tests:[
+  T('mpractice','Czas ćwiczenia','min','up',['czas','minut','cwicz'],[[30,'Pół godziny bez fałszu'],[90,'Sąsiedzi wiedzą']]),
+  T('bpm','Tempo metronomu','BPM','up',['bpm','metronom','tempo'],[[120,'Stodwudziestka'],[160,'Palce jak błyskawice'],[200,'Shred z garażu']]),
+  T('songs','Opanowane utwory','szt.','up',['utwor','piosenk','kawalk','numer'],[[1,'Pierwszy kawałek'],[10,'Repertuar na ognisko'],[25,'Szafa grająca']]),
+  T('chords','Nowe akordy / skale','szt.','up',['akord','skal','gam'],[[10,'Nie tylko 4 akordy']])
+ ]},
+{id:'walk', name:'Spacery', icon:'🚶', sport:true,
+ kw:['spacer','krok','chodz','walk','steps','nordic','dreptan'],
+ prof:['Kanapowiec','Spacerowicz','Chodziarz','Krokomistrz','Piechur','Pielgrzym','Do Santiago na piechotę'],
+ streak:['Pierwszy spacer','Dwa tygodnie kroków','Miesiąc w ruchu','Krokomierz się grzeje','Kwartał piechotą','Pół roku na nogach','Rok, buty do wymiany'],
+ tests:[
+  T('steps','Kroki dziennie','kroki','up',['krok','steps'],[[8000,'Osiem tysięcy kroków'],[10000,'Dziesięć tysięcy, wymiata'],[20000,'Buty zdarte']]),
+  T('wdist','Dystans spaceru','km','up',['dystans','km','spacer'],[[5,'Piątka spacerem'],[15,'Pielgrzym'],[30,'Do Częstochowy bliżej']]),
+  T('wtime','Czas spaceru','min','up',['czas','minut'],[[60,'Godzina na świeżym']])
+ ]},
+{id:'climb', name:'Wspinaczka i góry', icon:'🧗', sport:true,
+ kw:['wspin','bould','sciank','climb','gory','gorach','trekk','wedrow','szlak','tatry','szczyt'],
+ prof:['Boi się drabiny','Pierwszy chwyt','Ściankowicz','Kozica','Gekon','Pająk z Jury','Kukuczka by kiwnął głową'],
+ streak:['Magnezja na rękach','Dwa tygodnie w pionie','Miesiąc na chwytach','Palce jak haki','Kwartał w górach','Pół roku pionu','Rok, ściana to dom'],
+ tests:[
+  T('vgrade','Najtrudniejszy boulder','V','up',['boulder','bould','skala v','problem'],[[3,'V3 pękło'],[5,'Palce z hakami'],[7,'Gekon']]),
+  T('walltime','Czas na ścianie','min','up',['czas','scian'],[[60,'Godzina na chwytach']]),
+  T('celev','Przewyższenie','m','up',['przewyzsz','metry w gore','podejscie'],[[500,'Pół kilosa w pionie'],[1000,'Kozica'],[2000,'Ze schroniska na szczyt']]),
+  T('peaks','Zdobyte szczyty','szt.','up',['szczyt','korona','zdobyt'],[[1,'Pierwszy szczyt'],[10,'Zdobywca'],[28,'Korona Gór Polski']]),
+  T('hangboard','Wiszenie na listwie','s','up',['listw','hangboard','chwytotablic'],[[10,'Palce ze stali'],[30,'Haki zamiast palców']])
+ ]},
+{id:'team', name:'Piłka i gry', icon:'⚽', sport:true,
+ kw:['pilk','nozn','football','soccer','kosz','basket','siatk','volley','tenis','squash','badminton','padel','hokej','reczn','orlik','mecz','pingpong','ping pong'],
+ prof:['Na ławce rezerwowych','Wchodzi z ławki','Zawodnik z orlika','Pewniak w składzie','Kapitan osiedla','Gwiazda podwórka','Lewandowski, ale z orlika'],
+ streak:['Pierwszy mecz','Dwa tygodnie grania','Miesiąc w składzie','Forma rośnie','Kwartał na boisku','Pół roku, kontrakt przedłużony','Rok, legenda orlika'],
+ tests:[
+  T('matches','Rozegrane mecze','szt.','up',['mecz','gra','gry','granie'],[[10,'Dycha meczów'],[50,'Ligowiec z orlika']]),
+  T('goals','Gole / punkty','szt.','up',['gol','bramk','punkt'],[[10,'Lewy z orlika'],[50,'Król strzelców osiedla']]),
+  T('juggle','Żonglerka','odbicia','up',['zonglerk','podbijan','kiepki','keepy'],[[20,'Piłka nie spada'],[100,'Stówa na nodze'],[500,'Cyrkowiec']]),
+  T('shots','Celne rzuty na 10','szt.','up',['rzut','rzuty','wolne','trojk','osobist'],[[7,'Ręka się rozgrzewa'],[10,'Dziesięć na dziesięć!']]),
+  T('sprint30','Sprint 30 m','s','down',['sprint','30 m','30m'],[[5,'Szybki jak skrzydłowy'],[4.2,'Mbappé z podwórka']]),
+  T('serve','Celne serwisy','%','up',['serw','serwis'],[[70,'Serwis siedzi'],[90,'As za asem']])
+ ]},
+{id:'sleep', name:'Sen', icon:'😴',
+ kw:['sen','spanie','sleep','wysyp','pobudk','wstawan','budzik','zasypia','drzemk'],
+ prof:['Zombie','Drzemkowicz','Wyspany czasami','Ranny ptaszek','Mistrz snu','Śpiący królewicz','Śpi jak zabity, ale żyje'],
+ streak:['Pierwsza noc','Dwa tygodnie bez zarywania','Miesiąc wyspany','Budzik przestał wkurzać','Kwartał snu','Pół roku bez zombie','Rok, poduszka cię kocha'],
+ tests:[
+  T('sleeph','Godziny snu','h','up',['godzin','sen','spania','sleep'],[[7,'Wyspany jak dziecko'],[8,'Ósemka w łóżku']]),
+  T('ontime','Dni z pobudką o czasie','dni','up',['pobudk','wstawan','budzik','o czasie'],[[5,'Budzik bez drzemki'],[7,'Ranny ptaszek']])
+ ]},
+{id:'cold', name:'Zimno i hart ducha', icon:'🧊',
+ kw:['mors','zimn','prysznic','lodow','ice bath','cold','zimno','sauna'],
+ prof:['Zmarzlak','Zimny prysznic przeżyty','Morsik','Mors','Pingwin','Niedźwiedź polarny','Wim Hof, kurde'],
+ streak:['Pierwsze zimno','Dwa tygodnie dygotania','Miesiąc w lodzie','Zimno? Jakie zimno','Kwartał morsowania','Pół roku, lód się wstydzi','Rok, krew zamarznięta'],
+ tests:[
+  T('coldtime','Czas w zimnej wodzie','min','up',['czas','zimn','lodow','minut'],[[1,'Minuta w lodzie'],[3,'Morsik'],[10,'Pingwin pełną gębą']]),
+  T('coldtemp','Temperatura wody','°C','down',['temperatur','stopni','temp'],[[10,'Dycha stopni'],[4,'Prawie lód'],[1,'Lód to jest to']])
+ ]},
+{id:'clean', name:'Dom i porządek', icon:'🧹',
+ kw:['sprzat','porzad','odkurz','pranie','zmywa','prasow','ogarn','mycie okien'],
+ prof:['Chlewik','Odkurzacz w szafie','Ogarnia czasem','Porządnicki','Perfekcyjny','Pani Rozenek by pochwaliła','Mieszkanie z katalogu'],
+ streak:['Pierwsze ogarnięcie','Dwa tygodnie porządku','Miesiąc czysto','Kurz się boi','Kwartał porządku','Pół roku bez chlewu','Rok, czysto jak w IKEA'],
+ tests:[
+  T('rooms','Posprzątane pomieszczenia','szt.','up',['pomieszczen','pokoj','sprzat'],[[5,'Odkurzacz to przyjaciel'],[20,'Mieszkanie jak z katalogu']]),
+  T('cleantime','Czas sprzątania','min','up',['czas','minut'],[[60,'Godzina porządków']])
+ ]},
+{id:'cook', name:'Gotowanie', icon:'🍳',
+ kw:['gotow','kuchn','przepis','cook','piecz','obiad','meal prep'],
+ prof:['Wodę przypala','Jajecznica master','Kucharz domowy','Szef patelni','MasterChef z bloku','Gessler by pochwaliła','Ramsay bez przekleństw'],
+ streak:['Pierwsze danie','Dwa tygodnie gotowania','Miesiąc w kuchni','Kebab płacze','Kwartał garów','Pół roku przy kuchence','Rok, restauracja w drodze'],
+ tests:[
+  T('recipes','Nowe przepisy','szt.','up',['przepis','danie','dania','nowe'],[[1,'Nie tylko jajecznica'],[10,'MasterChef z bloku'],[30,'Gessler by pochwaliła']]),
+  T('homemeals','Domowe posiłki w tygodniu','szt.','up',['posil','obiad','domowe'],[[7,'Cały tydzień bez kebaba']])
+ ]}
+];
+const OTHER = {id:'other', name:'Inne', icon:'⭐', kw:[], tests:[],
+ prof:['Nowicjusz','Początkujący','Regularny','Wytrwały','Weteran','Mistrz','Legenda'],
+ streak:['Zaczęło się','Dwa z rzędu, nieźle','Miesiąc bez wymówek','Nawyk się klei','Kwartał jak skała','Pół roku, kurde, szacun','Rok. Legenda.']};
+const CAT_BY_ID = Object.fromEntries([...CATS, OTHER].map(c => [c.id, c]));
+const TEST_BY_ID = {};
+CATS.forEach(c => c.tests.forEach(t => { TEST_BY_ID[t.id] = Object.assign(t, {cat: c.id}); }));
+
+/* ========= rozpoznawanie słów (odporne na wielkość liter, ogonki i literówki) ========= */
+function norm(s){ return String(s||'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim(); }
+function lev(a, b){
+  const m = a.length, n = b.length; if(!m) return n; if(!n) return m;
+  let prev = Array.from({length:n+1}, (_,j) => j);
+  for(let i=1;i<=m;i++){ const cur=[i]; for(let j=1;j<=n;j++) cur[j] = Math.min(prev[j]+1, cur[j-1]+1, prev[j-1] + (a[i-1]===b[j-1]?0:1)); prev = cur; }
+  return prev[n];
+}
+function kwScore(text, tokens, kw){
+  kw = norm(kw); if(!kw) return 0;
+  if(kw.includes(' ')) return (' '+text+' ').includes(' '+kw) ? kw.length+1 : 0;
+  let best = 0;
+  for(const t of tokens){
+    if(kw.length <= 3){ if(t===kw) best = Math.max(best, kw.length+1); continue; }
+    if(t.startsWith(kw)){ best = Math.max(best, kw.length+1); continue; }
+    if(kw.length >= 5 && t.length >= kw.length-1){
+      const allow = kw.length >= 8 ? 2 : 1;
+      let d = 99;
+      for(const L of [kw.length-1, kw.length, kw.length+1]) if(L <= t.length) d = Math.min(d, lev(t.slice(0,L), kw));
+      if(d <= allow) best = Math.max(best, kw.length - d);
+    }
+  }
+  return best;
+}
+function scoreList(name, list){ const text = norm(name), tokens = text.split(' ').filter(Boolean); let s = 0; for(const kw of list) s = Math.max(s, kwScore(text, tokens, kw)); return s; }
+function detectCat(name){
+  let best = null, bs = 0;
+  for(const c of CATS){ const s = scoreList(name, [...c.kw, c.name]); if(s > bs){ bs = s; best = c.id; } }
+  return best;
+}
+const normUnit = u => norm(u).replace(/\s/g,'');
+// zwraca {test, unitMismatch} albo null
+function matchTest(name, unit, catId){
+  if(!norm(name)) return null;
+  const pick = list => { let best=null, bs=0; for(const t of list){ if(t.neg.length && scoreList(name, t.neg) > 0) continue; const s = scoreList(name, [...t.kw, t.name]); if(s > bs){ bs = s; best = t; } } return {best, bs}; };
+  const cat = CAT_BY_ID[catId];
+  let r = cat && cat.tests.length ? pick(cat.tests) : {best:null, bs:0};
+  if(!r.best){ const all = pick(Object.values(TEST_BY_ID).filter(t => CAT_BY_ID[t.cat].sport)); if(all.bs >= 6) r = all; }
+  if(!r.best) return null;
+  const u = normUnit(unit);
+  return {test: r.best, unitMismatch: !!u && u !== normUnit(r.best.unit)};
+}
+</script>
+<script>
 'use strict';
 /* ========= dane ========= */
 const KEY = 'passa.v1';
 let S = load();
 function load(){
   try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s && Array.isArray(s.tasks)) return s; }catch(e){}
-  return {v:1, tasks:[], logs:[], entries:[]};
+  return {v:2, tasks:[], logs:[], entries:[]};
 }
 function save(){
   try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ toast('Nie udało się zapisać. Zrób kopię zapasową w ustawieniach.'); }
@@ -229,6 +582,21 @@ function save(){
 const uid = () => Math.random().toString(36).slice(2,9) + Date.now().toString(36).slice(-5);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $ = (s, el=document) => el.querySelector(s);
+
+/* łączy test z katalogiem (dla odznak) */
+function linkTest(te, catId){
+  const m = matchTest(te.name, te.unit, catId);
+  if(m && !m.unitMismatch){ te.cid = m.test.id; if(!te.unit) te.unit = m.test.unit; te.dir = m.test.dir; }
+  else delete te.cid;
+  return m;
+}
+function migrate(){
+  if((S.v||1) < 2){
+    S.tasks.forEach(t => { if(!t.cat) t.cat = detectCat(t.name) || 'other'; (t.tests||[]).forEach(te => linkTest(te, t.cat)); });
+    S.v = 2; save();
+  }
+}
+migrate();
 
 /* ========= daty (tydzień od poniedziałku) ========= */
 const pad = n => String(n).padStart(2,'0');
@@ -259,6 +627,7 @@ const count = (t, w) => logsOf(t, w).length;
 const hasEntry = (t, w) => S.entries.some(e => e.taskId===t.id && e.week===w);
 const metMin = (t, w) => count(t,w) >= t.min;
 const isGold = (t, w) => count(t,w) >= t.norm && (t.type!=='progress' || hasEntry(t,w));
+const catOf = t => CAT_BY_ID[t.cat] || OTHER;
 
 function streakInfo(t){
   const cur = thisWeek();
@@ -273,15 +642,21 @@ function streakInfo(t){
   }
   return {streak: s + (curMet?1:0), curMet, best, golds};
 }
-function perfectStreak(){
-  const active = S.tasks;
-  if(!active.length) return 0;
+function streakTier(n){ let i = -1; STREAK_W.forEach((w,k) => { if(n >= w) i = k; }); return i; }
+function streakTitle(t, n){ const i = streakTier(n); return i < 0 ? '' : catOf(t).streak[i]; }
+
+function perfectStats(){
+  const ts = S.tasks; if(!ts.length) return {cur:0, best:0, count:0};
   const cur = thisWeek();
-  const ok = w => { const ts = active.filter(t => t.startWeek <= w); return ts.length>0 && ts.every(t => metMin(t,w)); };
+  const ok = w => { const a = ts.filter(t => t.startWeek <= w); return a.length>0 && a.every(t => metMin(t,w)); };
   let s = 0, w = addWeeks(cur, -1);
   while(ok(w)){ s++; w = addWeeks(w,-1); }
-  return s + (ok(cur)?1:0);
+  const start = ts.reduce((m,t) => t.startWeek < m ? t.startWeek : m, cur);
+  let best = 0, run = 0, n = 0;
+  for(const wk of weeksRange(start, cur)){ if(ok(wk)){ run++; n++; best = Math.max(best, run); } else if(wk!==cur) run = 0; }
+  return {cur: s + (ok(cur)?1:0), best, count: n};
 }
+const better = (te, a, b) => te.dir==='down' ? a < b : a > b;
 function prCount(){
   let n = 0;
   for(const t of S.tasks) for(const te of (t.tests||[])){
@@ -291,20 +666,72 @@ function prCount(){
   }
   return n;
 }
-const better = (te, a, b) => te.dir==='down' ? a < b : a > b;
 function bestOf(te){ const es = S.entries.filter(e=>e.testId===te.id); if(!es.length) return null; return es.reduce((b,e)=> better(te,e.value,b)?e.value:b, es[0].value); }
 function lastOf(te){ const es = S.entries.filter(e=>e.testId===te.id).sort((a,b)=>b.ts-a.ts); return es[0] ? es[0].value : null; }
 
+/* ========= profesje ========= */
+function catCompletions(catId){ const ids = new Set(S.tasks.filter(t => (t.cat||'other')===catId).map(t => t.id)); return S.logs.filter(l => ids.has(l.taskId)).length; }
+function profInfo(catId){
+  const c = CAT_BY_ID[catId] || OTHER, n = catCompletions(catId);
+  let lvl = 0; PROF_T.forEach((th,i) => { if(n >= th) lvl = i; });
+  const next = PROF_T[lvl+1];
+  const pct = next ? (n - PROF_T[lvl]) / (next - PROF_T[lvl]) : 1;
+  return {cat:c, n, lvl, title:c.prof[lvl], next, nextTitle: next ? c.prof[lvl+1] : null, pct};
+}
+const usedCats = () => [...new Set(S.tasks.map(t => t.cat || 'other'))];
+
+/* ========= odznaki ========= */
+function badgeDefs(){
+  const defs = [];
+  const st = S.tasks.map(t => ({t, s: streakInfo(t)}));
+  const golds = st.reduce((a,x) => a + x.s.golds, 0);
+  const ps = perfectStats(), prs = prCount();
+  const G = (id, name, req, ok) => defs.push({id:'g:'+id, group:'general', icon:'🏅', name, req, ok});
+  G('first', 'Pierwsze koty za płoty', 'Pierwsze zaliczenie', S.logs.length >= 1);
+  G('logs50', 'Pół setki, kurde', '50 zaliczeń', S.logs.length >= 50);
+  G('logs100', 'Stówa zaliczeń', '100 zaliczeń', S.logs.length >= 100);
+  G('logs500', 'Maszyna do odhaczania', '500 zaliczeń', S.logs.length >= 500);
+  G('gold1', 'Złoty strzał', 'Pierwszy złoty tydzień', golds >= 1);
+  G('gold10', 'Złota rączka', '10 złotych tygodni', golds >= 10);
+  G('gold50', 'Złoty chłopak', '50 złotych tygodni', golds >= 50);
+  G('perfect1', 'Tydzień bez wymówek', 'Wszystkie minima w jednym tygodniu', ps.count >= 1);
+  G('perfect4', 'Miesiąc jak z obrazka', '4 idealne tygodnie z rzędu', ps.best >= 4);
+  G('perfect12', 'Kwartał bez wtopy', '12 idealnych tygodni z rzędu', ps.best >= 12);
+  G('pr1', 'Pierwszy rekord', 'Pobij swój wynik w dowolnym teście', prs >= 1);
+  G('pr25', 'Kolekcjoner rekordów', '25 pobitych rekordów', prs >= 25);
+  for(const catId of usedCats()){
+    const c = CAT_BY_ID[catId] || OTHER;
+    const bestStreak = Math.max(0, ...st.filter(x => (x.t.cat||'other')===catId).map(x => x.s.best));
+    [[4,2],[12,4],[26,5],[52,6]].forEach(([w,i]) => defs.push({id:`s:${catId}:${w}`, group:catId, icon:c.icon, name:c.streak[i], req:`Passa ${w} tyg. w kategorii ${c.name}`, ok: bestStreak >= w}));
+  }
+  const seen = new Set();
+  for(const t of S.tasks) for(const te of (t.tests||[])){
+    if(!te.cid || seen.has(te.cid)) continue; seen.add(te.cid);
+    const ct = TEST_BY_ID[te.cid]; if(!ct) continue;
+    const vals = S.entries.filter(e => { const tt = findTest(e.testId); return tt && tt.cid===te.cid; }).map(e => e.value);
+    const best = vals.length ? (ct.dir==='down' ? Math.min(...vals) : Math.max(...vals)) : null;
+    ct.b.forEach(([v, name], i) => defs.push({id:`r:${ct.id}:${i}`, group:ct.cat, icon:CAT_BY_ID[ct.cat].icon, name, req:`${ct.name} ${ct.dir==='down'?'≤':'≥'} ${fmt(v)} ${ct.unit}`, ok: best!==null && (ct.dir==='down' ? best <= v : best >= v)}));
+  }
+  return defs;
+}
+function findTest(testId){ for(const t of S.tasks) for(const te of (t.tests||[])) if(te.id===testId) return te; return null; }
+function newBadges(){
+  const defs = badgeDefs(), seen = new Set(S.badges || []);
+  const nu = defs.filter(d => d.ok && !seen.has(d.id));
+  if(nu.length){ S.badges = [...seen, ...nu.map(d => d.id)]; save(); }
+  return nu;
+}
+
 function xpInfo(){
   const cur = thisWeek();
-  let xp = S.logs.length*10 + prCount()*25;
+  let xp = S.logs.length*10 + prCount()*25 + (S.badges ? S.badges.length*40 : 0);
   for(const t of S.tasks) for(const w of weeksRange(t.startWeek, cur)){
     if(metMin(t,w)) xp += 30;
     if(isGold(t,w)) xp += 60;
   }
   let lvl = 1; while(xp >= 50*lvl*(lvl+1)) lvl++;
   const lo = 50*(lvl-1)*lvl, hi = 50*lvl*(lvl+1);
-  return {xp, lvl, pct: Math.max(0, Math.min(1, (xp-lo)/(hi-lo)))};
+  return {xp, lvl, pct: Math.max(0, Math.min(1, (xp-lo)/(hi-lo))), toNext: hi - xp};
 }
 
 /* ========= widok ========= */
@@ -316,7 +743,7 @@ const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 
 function render(){
   $('#tabTasks').classList.toggle('on', tab==='tasks');
   $('#tabProg').classList.toggle('on', tab==='prog');
-  $('#app').innerHTML = header() + (tab==='tasks' ? tasksView() : progView());
+  $('#app').innerHTML = header() + (tab==='tasks' ? tasksView() : tab==='prog' ? progView() : profileView());
   if(tab==='prog') drawCharts();
 }
 
@@ -326,25 +753,27 @@ function header(){
   const x = xpInfo();
   const metCount = S.tasks.filter(t => metMin(t,cur)).length;
   const gold = S.tasks.filter(t => isGold(t,cur)).length;
+  const perf = perfectStats().cur;
   const range = mon.getMonth()===sun.getMonth() ? `${mon.getDate()}–${sun.getDate()} ${MON[sun.getMonth()]}` : `${mon.getDate()} ${MON[mon.getMonth()]} – ${sun.getDate()} ${MON[sun.getMonth()]}`;
   return `
   <div class="top">
     <div class="wk"><b>Tydzień ${isoWeek(now)}</b><span>${range} · ${left===1?'ostatni dzień':'zostało '+left+' dni'}</span></div>
-    <div class="lvl" title="${x.xp} XP"><span class="lv">Poz. ${x.lvl}</span><span class="xpbar"><i style="width:${Math.round(x.pct*100)}%"></i></span>
+    <div class="lvl">
+      <button class="lvbtn" id="openProfile" aria-label="Profil, poziom ${x.lvl}"><span class="lv">Poz. ${x.lvl}</span><span class="xpbar"><i style="width:${Math.round(x.pct*100)}%"></i></span></button>
       <button class="gear" id="openSettings" aria-label="Ustawienia"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3.4h-4l-.3 2.6a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.6 7.6 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.3 2.6h4l.3-2.6a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button>
     </div>
   </div>
   <div class="days">${DAYS.map((d,i)=>`<div class="day ${i<ti?'past':''} ${i===ti?'today':''}"><i></i>${d}</div>`).join('')}</div>
-  ${S.tasks.length ? `<div class="sum">
+  ${S.tasks.length && tab!=='profile' ? `<div class="sum">
     <div class="stat"><small>Minimum w tym tyg.</small><b class="num">${metCount}<em>/ ${S.tasks.length}</em></b></div>
     <div class="stat"><small>Złote</small><b class="num" style="color:${gold?'var(--gold)':'inherit'}">${gold}</b></div>
-    <div class="stat"><small>Idealne tyg. z rzędu</small><b class="num" style="color:${perfectStreak()?'var(--flame)':'inherit'}">${perfectStreak()}</b></div>
+    <div class="stat"><small>Idealne tyg. z rzędu</small><b class="num" style="color:${perf?'var(--flame)':'inherit'}">${perf}</b></div>
   </div>` : ''}`;
 }
 
 function tasksView(){
   if(!S.tasks.length) return `<h2>Zadania</h2><div class="empty"><b>Dodaj pierwsze zadanie</b>
-    Ustawiasz, ile razy w tygodniu minimum i ile to norma. Minimum trzyma passę, norma daje złoty tydzień.
+    Ustawiasz, ile razy w tygodniu minimum i ile to norma. Minimum trzyma passę, norma daje złoty tydzień. Wpisz np. „Siłownia”, „Bieganie” albo „Matma”, a apka podsunie gotowe ćwiczenia i odznaki.
     <div class="example"><button class="btn pri" id="emptyAdd">Dodaj zadanie</button></div></div>`;
   return `<h2>Zadania</h2><div class="list">${S.tasks.map(taskCard).join('')}</div>`;
 }
@@ -365,9 +794,11 @@ function taskCard(t){
   else if(met) status = `<b>Passa bezpieczna</b> · jeszcze ${t.norm-c} do złotego`;
   else status = `<b>Jeszcze ${t.min-c}</b> do minimum · ${left===1?'ostatni dzień':'zostało '+left+' dni'}`;
   const flameCls = gold ? 'gold' : (st.streak>0 ? 'on' : '');
+  const title = streakTitle(t, st.streak);
   return `<div class="card ${gold?'gold':met?'met':''} ${risk?'risk':''}" data-id="${t.id}">
     <button class="main" data-detail="${t.id}" aria-label="Szczegóły: ${esc(t.name)}">
-      <span class="tname">${esc(t.name)} <span class="tag ${t.type==='progress'?'p':''}">${t.type==='progress'?'01 + progres':'01'}</span></span>
+      <span class="tname"><span class="cico" aria-hidden="true">${catOf(t).icon}</span>${esc(t.name)} <span class="tag ${t.type==='progress'?'p':''}">${t.type==='progress'?'01 + progres':'01'}</span></span>
+      ${title ? `<span class="stitle">${esc(title)}</span>` : ''}
       <span class="pips" aria-label="${c} z ${t.norm}">${pips}</span>
       <span class="status num">${status}</span>
       <span class="status num">min ${t.min}× · norma ${t.norm}× · zrobione ${c}×</span>
@@ -382,11 +813,11 @@ function taskCard(t){
 function progView(){
   const pts = S.tasks.filter(t => t.type==='progress');
   if(!pts.length) return `<h2>Progres</h2><div class="empty"><b>Brak zadań z progresem</b>
-    Dodaj zadanie typu „01 + progres”, np. Siłownia z testem „Klata płaska, kg”. Po każdym zaliczeniu wpiszesz wynik, a tu zrobi się wykres.
+    Dodaj zadanie typu „01 + progres”, np. Siłownia z testem „Wyciskanie na ławce płaskiej”. Po każdym zaliczeniu wpiszesz wynik, a tu zrobi się wykres.
     <div class="example"><button class="btn pri" id="emptyAddP">Dodaj zadanie z progresem</button></div></div>`;
   return pts.map(t => `<div class="ptask">
-    <h3><span>${esc(t.name)}</span><button class="small-btn" data-addres="${t.id}">Dodaj wynik</button></h3>
-    ${(t.tests||[]).length ? t.tests.map(te => testCard(t,te)).join('') : `<div class="empty">Brak testów. Dodaj je przy zaliczaniu albo w edycji zadania.</div>`}
+    <h3><span>${catOf(t).icon} ${esc(t.name)}</span><button class="small-btn" data-addres="${t.id}">Dodaj wynik</button></h3>
+    ${(t.tests||[]).length ? t.tests.map(te => testCard(t,te)).join('') : `<div class="empty">Brak testów. Dodaj je przyciskiem „Dodaj wynik”.</div>`}
   </div>`).join('');
 }
 
@@ -394,13 +825,14 @@ const expanded = new Set();
 function testCard(t, te){
   const es = S.entries.filter(e => e.testId===te.id).sort((a,b)=>b.ts-a.ts);
   const unit = esc(te.unit||'');
-  if(!es.length) return `<div class="tcard"><div class="thead"><div class="nm">${esc(te.name)}<small>${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'}</small></div><div class="big"><span>brak wyników</span></div></div></div>`;
+  const tag = te.cid ? 'liczy się do odznak' : 'własny test';
+  if(!es.length) return `<div class="tcard"><div class="thead"><div class="nm">${esc(te.name)}<small>${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div><div class="big"><span>brak wyników</span></div></div></div>`;
   const last = es[0].value, first = es[es.length-1].value, best = bestOf(te);
   const diff = last - first, good = te.dir==='down' ? diff < 0 : diff > 0;
   const dcls = diff===0 ? 'flat' : good ? 'up' : 'down';
   const showN = expanded.has(te.id) ? es.length : 4;
   return `<div class="tcard">
-    <div class="thead"><div class="nm">${esc(te.name)}<small>${es.length} ${es.length===1?'wynik':es.length<5?'wyniki':'wyników'} · ${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'}</small></div>
+    <div class="thead"><div class="nm">${esc(te.name)}<small>${es.length} ${es.length===1?'wynik':es.length<5?'wyniki':'wyników'} · ${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div>
       <div class="big num"><b>${fmt(last)}</b><span>${unit}</span><div class="delta ${dcls}">${diff>0?'+':''}${fmt(diff)} ${unit} od startu</div></div></div>
     ${es.length>1 ? `<canvas class="chart" data-chart="${te.id}"></canvas>` : ''}
     <div class="pr">Rekord ${fmt(best)} ${unit}</div>
@@ -409,13 +841,39 @@ function testCard(t, te){
   </div>`;
 }
 
+function profileView(){
+  const x = xpInfo();
+  const cats = usedCats().map(profInfo).sort((a,b) => b.n - a.n);
+  const defs = badgeDefs();
+  const earned = defs.filter(d => d.ok).length;
+  const groups = [['general', {name:'Ogólne', icon:'🏅'}], ...usedCats().map(id => [id, CAT_BY_ID[id] || OTHER])];
+  const badgeHTML = d => `<div class="badge ${d.ok?'on':'off'}"><span class="bi">${d.ok?d.icon:'🔒'}</span><b>${esc(d.name)}</b><small>${esc(d.req)}</small></div>`;
+  return `
+  <div class="backbar"><button id="backTasks">← Zadania</button></div>
+  <div class="lvcard">
+    <div class="lvnum"><small>Poziom</small><b class="num">${x.lvl}</b></div>
+    <div><span class="xpbar"><i style="width:${Math.round(x.pct*100)}%"></i></span><span class="num">${x.xp} XP · ${x.toNext} XP do poziomu ${x.lvl+1}</span></div>
+  </div>
+  <h2>Profesje</h2>
+  ${cats.length ? `<div class="profs">${cats.map(p => `<div class="prof">
+    <span class="pico" aria-hidden="true">${p.cat.icon}</span>
+    <div class="pmain"><small>${esc(p.cat.name)} · ranga ${p.lvl+1}/${PROF_T.length}</small><b>${esc(p.title)}</b>
+      <span class="pbar"><i style="width:${Math.round(p.pct*100)}%"></i></span>
+      <span class="pnext num">${p.next ? `jeszcze ${p.next - p.n} zaliczeń do „${esc(p.nextTitle)}”` : 'Najwyższa ranga. Szacun.'}</span></div>
+    <b class="pcount num">${p.n}<small>zaliczeń</small></b>
+  </div>`).join('')}</div>` : `<div class="empty">Dodaj zadanie, a pojawi się tu twoja profesja.</div>`}
+  <h2>Odznaki · ${earned}/${defs.length}</h2>
+  ${groups.map(([id, c]) => { const ds = defs.filter(d => d.group===id); if(!ds.length) return '';
+    return `<div class="bgh">${c.icon} ${esc(c.name)} <small class="num">${ds.filter(d=>d.ok).length}/${ds.length}</small></div><div class="bgrid">${ds.sort((a,b)=>(b.ok-a.ok)).map(badgeHTML).join('')}</div>`; }).join('')}
+  <p class="note">Odznaki za wyniki dostajesz tylko za testy rozpoznane przez apkę (te z dopiskiem „liczy się do odznak”). Testy wpisane po swojemu też mają wykres, ale bez odznak.</p>`;
+}
+
 /* ========= wykres ========= */
 function drawCharts(){
   const cs = getComputedStyle(document.documentElement);
   const col = n => cs.getPropertyValue(n).trim();
   document.querySelectorAll('canvas[data-chart]').forEach(cv => {
-    let te; for(const t of S.tasks) for(const x of (t.tests||[])) if(x.id===cv.dataset.chart) te = x;
-    if(!te) return;
+    const te = findTest(cv.dataset.chart); if(!te) return;
     const es = S.entries.filter(e => e.testId===te.id).sort((a,b)=>a.ts-b.ts);
     const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
     cv.width = W*dpr; cv.height = H*dpr;
@@ -429,26 +887,21 @@ function drawCharts(){
     const X = ts => L + (W-L-R) * (ts-t0)/span;
     const Y = v => T + (H-T-B) * (1 - (v-lo)/(hi-lo));
     g.font = '11px system-ui, Roboto, sans-serif'; g.textBaseline = 'middle';
-    // siatka
     for(let v=lo; v<=hi+step/2; v+=step){
       const y = Math.round(Y(v))+.5;
       g.strokeStyle = col('--line'); g.lineWidth = 1; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke();
       g.fillStyle = col('--muted'); g.textAlign = 'right'; g.fillText(fmt(v), L-8, y);
     }
-    // oś x: pierwsza, środkowa, ostatnia data
-    g.textAlign = 'center'; g.textBaseline = 'alphabetic';
+    g.textBaseline = 'alphabetic';
     const xs = es.length>2 ? [es[0], es[Math.floor((es.length-1)/2)], es[es.length-1]] : [es[0], es[es.length-1]];
     xs.forEach((e,i) => { g.textAlign = i===0?'left':i===xs.length-1?'right':'center'; g.fillStyle = col('--muted'); g.fillText(dd(e.ts), i===0?L:i===xs.length-1?W-R:X(e.ts), H-6); });
-    // wypełnienie
     const grad = g.createLinearGradient(0,T,0,H-B);
     grad.addColorStop(0, hexA(col('--chart'), .28)); grad.addColorStop(1, hexA(col('--chart'), 0));
     g.beginPath(); g.moveTo(X(es[0].ts), H-B);
     es.forEach(e => g.lineTo(X(e.ts), Y(e.value)));
     g.lineTo(X(t1), H-B); g.closePath(); g.fillStyle = grad; g.fill();
-    // linia
     g.beginPath(); es.forEach((e,i) => i ? g.lineTo(X(e.ts),Y(e.value)) : g.moveTo(X(e.ts),Y(e.value)));
     g.strokeStyle = col('--chart'); g.lineWidth = 2.5; g.lineJoin = 'round'; g.stroke();
-    // punkty
     const best = bestOf(te);
     es.forEach((e,i) => {
       const last = i===es.length-1, isB = e.value===best;
@@ -472,38 +925,76 @@ function openSheet(html, onMount){
 }
 function closeSheet(){ const s = $('#scrim'); if(s) s.remove(); }
 
+/* wiersz testu z podpowiedzią, czy liczy się do odznak */
 function testRowHTML(te, removable){
-  return `<div class="testrow ${removable?'has-rm':''}" data-tid="${te?te.id:''}">
-    <input class="inp tn" placeholder="np. Klata płaska" value="${te?esc(te.name):''}" aria-label="Nazwa testu">
-    <input class="inp tu" placeholder="kg" value="${te?esc(te.unit||''):''}" aria-label="Jednostka">
-    <button type="button" class="dir" data-dir="${te&&te.dir==='down'?'down':'up'}">${te&&te.dir==='down'?'mniej ↓':'więcej ↑'}</button>
-    ${removable?'<button type="button" class="rm" aria-label="Usuń test">✕</button>':''}
+  const down = te && te.dir==='down';
+  return `<div class="trow" data-tid="${te&&te.id?te.id:''}">
+    <div class="testrow ${removable?'has-rm':''}">
+      <input class="inp tn" placeholder="np. Klata płaska" value="${te?esc(te.name):''}" aria-label="Nazwa testu">
+      <input class="inp tu" placeholder="kg" value="${te?esc(te.unit||''):''}" aria-label="Jednostka">
+      <button type="button" class="dir" data-dir="${down?'down':'up'}">${down?'mniej ↓':'więcej ↑'}</button>
+      ${removable?'<button type="button" class="rm" aria-label="Usuń test">✕</button>':''}
+    </div>
+    <div class="thint"></div>
   </div>`;
 }
-function bindTestRows(root){
+function updHint(row, catId){
+  const name = $('.tn',row).value, unit = $('.tu',row).value, h = $('.thint',row);
+  if(!name.trim()){ h.textContent = ''; h.className = 'thint'; return null; }
+  const m = matchTest(name, unit, catId);
+  if(m && !m.unitMismatch){ h.textContent = `✓ ${m.test.name} · liczy się do odznak`; h.className = 'thint ok'; }
+  else if(m){ h.textContent = `Rozpoznano „${m.test.name}”, ale odznaki liczą się w ${m.test.unit}`; h.className = 'thint warn'; }
+  else { h.textContent = 'Własny test · wykres tak, odznak brak'; h.className = 'thint'; }
+  return m;
+}
+function bindTestRows(root, getCat, onChange){
   root.addEventListener('click', e => {
     const d = e.target.closest('.dir');
     if(d){ const down = d.dataset.dir!=='down'; d.dataset.dir = down?'down':'up'; d.textContent = down?'mniej ↓':'więcej ↑'; }
     const rm = e.target.closest('.rm');
-    if(rm) rm.closest('.testrow').remove();
+    if(rm){ rm.closest('.trow').remove(); onChange && onChange(); }
+  });
+  root.addEventListener('input', e => {
+    const row = e.target.closest('.trow'); if(!row) return;
+    const m = updHint(row, getCat());
+    if(m && !m.unitMismatch && e.target.classList.contains('tn')){
+      const dbtn = $('.dir',row); const down = m.test.dir==='down'; dbtn.dataset.dir = down?'down':'up'; dbtn.textContent = down?'mniej ↓':'więcej ↑';
+      const u = $('.tu',row); if(!u.value) u.placeholder = m.test.unit;
+    }
+    onChange && onChange();
   });
 }
-function readTests(root){
-  return [...root.querySelectorAll('.testrow')].map(r => ({
-    id: r.dataset.tid || uid(),
-    name: $('.tn', r).value.trim(),
-    unit: $('.tu', r).value.trim(),
-    dir: $('.dir', r).dataset.dir==='down' ? 'down' : 'up'
-  })).filter(x => x.name);
+function readTests(root, catId){
+  return [...root.querySelectorAll('.trow')].map(r => {
+    const te = {id: r.dataset.tid || uid(), name: $('.tn', r).value.trim(), unit: $('.tu', r).value.trim(), dir: $('.dir', r).dataset.dir==='down' ? 'down' : 'up'};
+    if(te.name) linkTest(te, catId);
+    return te;
+  }).filter(x => x.name);
+}
+/* chipsy z popularnymi testami kategorii */
+function chipsHTML(catId, taken, limit){
+  const c = CAT_BY_ID[catId]; if(!c || !c.tests.length) return '';
+  const free = c.tests.filter(t => !taken.has(t.id));
+  if(!free.length) return '';
+  const shown = limit ? free.slice(0, limit) : free;
+  return `<div class="chiphead">${c.icon} Popularne w kategorii ${esc(c.name)}, stuknij, żeby dodać:</div>
+    <div class="chips">${shown.map(t => `<button type="button" class="chip" data-chip="${t.id}">${esc(t.name)}<small>${esc(t.unit)}</small></button>`).join('')}
+    ${limit && free.length > limit ? `<button type="button" class="chip" data-chipmore="1">+ ${free.length-limit} więcej</button>` : ''}</div>`;
 }
 
 function taskForm(t, presetType){
   const isEdit = !!t;
-  const d = t ? {...t} : {name:'', type: presetType||'check', min:1, norm:2, tests:[]};
+  const d = t ? {...t, tests:(t.tests||[]).map(x=>({...x}))} : {name:'', type: presetType||'check', min:1, norm:2, tests:[], cat:null};
+  const manual = isEdit && t.catManual ? t.cat : 'auto';
   openSheet(`
     <h4>${isEdit?'Edytuj zadanie':'Nowe zadanie'}</h4>
     <p class="sub">Liczy się tydzień: od poniedziałku do niedzieli.</p>
-    <div class="field"><label for="fName">Nazwa</label><input id="fName" class="inp" placeholder="np. Siłownia, Matma" value="${esc(d.name)}" maxlength="40"></div>
+    <div class="field"><label for="fName">Nazwa</label><input id="fName" class="inp" placeholder="np. Siłownia, Bieganie, Matma" value="${esc(d.name)}" maxlength="40"></div>
+    <div class="catrow"><span id="catLabel"></span>
+      <select id="fCat" aria-label="Kategoria">
+        <option value="auto">Kategoria: automatycznie</option>
+        ${[...CATS, OTHER].map(c => `<option value="${c.id}" ${manual===c.id?'selected':''}>${c.icon} ${esc(c.name)}</option>`).join('')}
+      </select></div>
     <div class="lab" style="margin-bottom:8px">Typ zadania</div>
     <div class="types">
       <button type="button" class="type ${d.type==='check'?'on':''}" data-type="check"><span class="code">01</span><b>Zalicz</b><span>Tylko odhaczasz, że zrobione.</span></button>
@@ -516,9 +1007,10 @@ function taskForm(t, presetType){
     <p class="hint"><b>Minimum</b> trzyma passę tygodni. <i>Norma</i> daje złoty tydzień i więcej XP.</p>
     <div id="testsBox" ${d.type==='progress'?'':'hidden'}>
       <div class="lab" style="margin-bottom:8px">Testy do wykresu</div>
-      <div id="testRows">${(d.tests.length?d.tests:[null]).map(te => testRowHTML(te, true)).join('')}</div>
-      <button type="button" class="addt" id="addTest">+ Dodaj test</button>
-      <p class="hint" style="margin-top:6px">Każdy test ma swój wykres. Czas możesz wpisywać jako 24:30. Testów może być ile chcesz.</p>
+      <div id="testRows">${d.tests.map(te => testRowHTML(te, true)).join('')}</div>
+      <div id="chipBox"></div>
+      <button type="button" class="addt" id="addTest">+ Wpisz własny test</button>
+      <p class="hint" style="margin-top:6px">Każdy test ma swój wykres. Czas wpiszesz jako 24:30. Testów może być ile chcesz.</p>
     </div>
     <div class="err" id="fErr" hidden></div>
     <div class="btns">
@@ -526,32 +1018,49 @@ function taskForm(t, presetType){
       ${isEdit?'<button class="btn danger" id="fDel">Usuń zadanie</button>':''}
       <button class="btn ghost" id="fCancel">Anuluj</button>
     </div>`, sh => {
-    let type = d.type, min = d.min, norm = d.norm;
-    const upd = () => { $('#vMin',sh).innerHTML = min+'<small>×</small>'; $('#vNorm',sh).innerHTML = norm+'<small>×</small>'; };
-    sh.querySelectorAll('.type').forEach(b => b.onclick = () => {
-      type = b.dataset.type; sh.querySelectorAll('.type').forEach(x => x.classList.toggle('on', x===b));
-      $('#testsBox',sh).hidden = type!=='progress';
-    });
+    let type = d.type, min = d.min, norm = d.norm, typeTouched = isEdit, chipsAll = false;
+    const rows = $('#testRows',sh);
+    const curCat = () => { const v = $('#fCat',sh).value; return v!=='auto' ? v : (detectCat($('#fName',sh).value) || 'other'); };
+    const setType = v => { type = v; sh.querySelectorAll('.type').forEach(x => x.classList.toggle('on', x.dataset.type===v)); $('#testsBox',sh).hidden = v!=='progress'; };
+    const refresh = () => {
+      const cid = curCat(), c = CAT_BY_ID[cid] || OTHER, auto = $('#fCat',sh).value==='auto';
+      $('#catLabel',sh).innerHTML = auto && $('#fName',sh).value.trim() ? (cid==='other' ? 'Nie rozpoznano kategorii' : `Rozpoznano: <b>${c.icon} ${esc(c.name)}</b>`) : '';
+      if(!typeTouched && c.sport && c.tests.length) setType('progress');
+      const taken = new Set([...rows.querySelectorAll('.trow')].map(r => { const m = updHint(r, cid); return m && !m.unitMismatch ? m.test.id : null; }).filter(Boolean));
+      $('#chipBox',sh).innerHTML = chipsHTML(cid, taken, chipsAll ? 0 : 10);
+    };
+    $('#fName',sh).addEventListener('input', refresh);
+    $('#fCat',sh).addEventListener('change', refresh);
+    sh.querySelectorAll('.type').forEach(b => b.onclick = () => { typeTouched = true; setType(b.dataset.type); });
     sh.querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
       const k = b.dataset.st, dv = +b.dataset.d;
       if(k==='min'){ min = Math.max(1, Math.min(14, min+dv)); if(norm<min) norm = min; }
       else { norm = Math.max(1, Math.min(14, norm+dv)); if(min>norm) min = norm; }
-      upd(); buzz(8);
+      $('#vMin',sh).innerHTML = min+'<small>×</small>'; $('#vNorm',sh).innerHTML = norm+'<small>×</small>'; buzz(8);
     });
-    bindTestRows($('#testRows',sh));
-    $('#addTest',sh).onclick = () => { $('#testRows',sh).insertAdjacentHTML('beforeend', testRowHTML(null,true)); $('#testRows .testrow:last-child .tn',sh).focus(); };
+    bindTestRows(rows, curCat, refresh);
+    $('#chipBox',sh).addEventListener('click', e => {
+      if(e.target.closest('[data-chipmore]')){ chipsAll = true; refresh(); return; }
+      const ch = e.target.closest('[data-chip]'); if(!ch) return;
+      const ct = TEST_BY_ID[ch.dataset.chip];
+      rows.insertAdjacentHTML('beforeend', testRowHTML({name:ct.name, unit:ct.unit, dir:ct.dir}, true));
+      buzz(10); refresh();
+    });
+    $('#addTest',sh).onclick = () => { rows.insertAdjacentHTML('beforeend', testRowHTML(null,true)); $('.trow:last-child .tn',rows).focus(); };
     $('#fCancel',sh).onclick = closeSheet;
     $('#fSave',sh).onclick = () => {
       const name = $('#fName',sh).value.trim();
       if(!name){ const e = $('#fErr',sh); e.textContent = 'Wpisz nazwę zadania.'; e.hidden = false; $('#fName',sh).focus(); return; }
-      const tests = readTests($('#testRows',sh));
+      const cat = curCat(), catManual = $('#fCat',sh).value!=='auto';
+      const tests = readTests(rows, cat);
       if(isEdit){
-        Object.assign(t, {name, type, min, norm});
-        if(type==='progress') t.tests = tests;
+        Object.assign(t, {name, type, min, norm, cat, catManual});
+        if(type==='progress' || (t.tests||[]).length) t.tests = tests;
       } else {
-        S.tasks.push({id:uid(), name, type, min, norm, tests: type==='progress'?tests:[], startWeek: thisWeek(), created: Date.now()});
+        S.tasks.push({id:uid(), name, type, min, norm, cat, catManual, tests: type==='progress'?tests:[], startWeek: thisWeek(), created: Date.now()});
       }
       save(); closeSheet(); render(); toast(isEdit?'Zapisano zmiany':'Dodano: '+name);
+      celebrateBadges();
     };
     if(isEdit){
       const del = $('#fDel',sh);
@@ -563,18 +1072,19 @@ function taskForm(t, presetType){
         save(); closeSheet(); render(); toast('Usunięto zadanie');
       };
     }
+    refresh();
     if(!isEdit) setTimeout(() => $('#fName',sh).focus(), 250);
   });
 }
 
 /* zaliczanie */
-function snapshot(t){ const w = thisWeek(); return {c: count(t,w), met: metMin(t,w), gold: isGold(t,w), lvl: xpInfo().lvl, streak: streakInfo(t).streak}; }
+function snapshot(t){ const w = thisWeek(); const st = streakInfo(t); return {c: count(t,w), met: metMin(t,w), gold: isGold(t,w), lvl: xpInfo().lvl, streak: st.streak, prof: profInfo(t.cat||'other').lvl}; }
 
-function goTask(t, btn){
-  if(t.type==='progress') return resultSheet(t, true, btn);
+function goTask(t){
+  if(t.type==='progress') return resultSheet(t, true);
   const before = snapshot(t);
   const log = addLog(t);
-  afterChange(t, before, [], btn, log);
+  afterChange(t, before, [], log);
 }
 function addLog(t){
   const now = new Date();
@@ -583,39 +1093,52 @@ function addLog(t){
   return log;
 }
 
-function resultSheet(t, withLog, btn){
-  const tests = t.tests || [];
+function resultSheet(t, withLog){
+  t.tests = t.tests || [];
+  const takenIds = () => new Set(t.tests.map(x => x.cid).filter(Boolean));
   openSheet(`
-    <h4>${esc(t.name)}</h4>
+    <h4>${catOf(t).icon} ${esc(t.name)}</h4>
     <p class="sub">${withLog?'Wpisz wyniki z tego treningu. Puste pola zostaną pominięte.':'Dodaj wyniki bez zaliczania treningu.'}</p>
-    <div id="logRows">${tests.map(te => logRowHTML(te)).join('')}</div>
-    ${tests.length?'':'<p class="hint">To zadanie nie ma jeszcze testów. Dodaj pierwszy poniżej.</p>'}
-    <div class="newtest" id="newTest" ${tests.length?'hidden':''}>
-      <div class="lab" style="margin-bottom:8px">Nowy test</div>
+    <div id="logRows">${t.tests.map(te => logRowHTML(te)).join('')}</div>
+    ${t.tests.length?'':'<p class="hint" id="noTests">To zadanie nie ma jeszcze testów. Wybierz z listy albo wpisz własny.</p>'}
+    <div class="newtest" id="newTest" ${t.tests.length?'hidden':''}>
+      <div id="rChips"></div>
+      <div class="lab" style="margin:6px 0 8px">Albo wpisz własny</div>
       ${testRowHTML(null,false)}
       <button type="button" class="small-btn" id="ntAdd">Dodaj test</button>
     </div>
-    <button type="button" class="addt" id="ntOpen" ${tests.length?'':'hidden'}>+ Nowy test</button>
+    <button type="button" class="addt" id="ntOpen" ${t.tests.length?'':'hidden'}>+ Nowy test</button>
     <div class="btns">
       <button class="btn pri" id="rSave">${withLog?'Zapisz i zalicz':'Zapisz wyniki'}</button>
       ${withLog?'<button class="btn" id="rSkip">Zalicz bez wyniku</button>':''}
       <button class="btn ghost" id="rCancel">Anuluj</button>
     </div>`, sh => {
-    bindTestRows($('#newTest',sh));
-    $('#ntOpen',sh).onclick = () => { $('#newTest',sh).hidden = false; $('#ntOpen',sh).hidden = true; $('#newTest .tn',sh).focus(); };
-    $('#ntAdd',sh).onclick = () => {
-      const [nt] = readTests($('#newTest',sh));
-      if(!nt){ $('#newTest .tn',sh).focus(); return; }
-      t.tests = t.tests || []; t.tests.push(nt); save();
-      $('#logRows',sh).insertAdjacentHTML('beforeend', logRowHTML(nt));
-      $('#newTest .tn',sh).value=''; $('#newTest .tu',sh).value='';
-      $('#newTest',sh).hidden = true; $('#ntOpen',sh).hidden = false;
-      const h = sh.querySelector('.hint'); if(h && !tests.length) h.remove();
+    const nt = $('#newTest',sh);
+    const drawChips = () => { $('#rChips',sh).innerHTML = chipsHTML(t.cat, takenIds(), 0); };
+    const addTestObj = te => {
+      t.tests.push(te); save();
+      $('#logRows',sh).insertAdjacentHTML('beforeend', logRowHTML(te));
+      const h = $('#noTests',sh); if(h) h.remove();
+      drawChips();
       $('#logRows .logt:last-child input',sh).focus();
+    };
+    drawChips();
+    bindTestRows(nt, () => t.cat);
+    $('#rChips',sh).addEventListener('click', e => {
+      const ch = e.target.closest('[data-chip]'); if(!ch) return;
+      const ct = TEST_BY_ID[ch.dataset.chip];
+      addTestObj({id:uid(), name:ct.name, unit:ct.unit, dir:ct.dir, cid:ct.id}); buzz(10);
+    });
+    $('#ntOpen',sh).onclick = () => { nt.hidden = false; $('#ntOpen',sh).hidden = true; };
+    $('#ntAdd',sh).onclick = () => {
+      const [te] = readTests(nt, t.cat);
+      if(!te){ $('.tn',nt).focus(); return; }
+      addTestObj(te);
+      $('.tn',nt).value=''; $('.tu',nt).value=''; $('.tu',nt).placeholder='kg'; updHint($('.trow',nt), t.cat);
     };
     $('#rCancel',sh).onclick = closeSheet;
     if(withLog) $('#rSkip',sh).onclick = () => {
-      const before = snapshot(t); const log = addLog(t); closeSheet(); afterChange(t, before, [], btn, log);
+      const before = snapshot(t); const log = addLog(t); closeSheet(); afterChange(t, before, [], log);
     };
     $('#rSave',sh).onclick = () => {
       const vals = []; let bad = null;
@@ -638,7 +1161,7 @@ function resultSheet(t, withLog, btn){
         S.entries.push({id:uid(), taskId:t.id, testId:v.testId, value:v.value, ts: now.getTime(), day: ymd(now), week: mondayKey(now), logId: log?log.id:null});
       });
       askPersist();
-      closeSheet(); afterChange(t, before, prs, btn, log, !withLog);
+      closeSheet(); afterChange(t, before, prs, log, !withLog);
     };
     const first = $('#logRows input',sh); if(first) setTimeout(()=>first.focus(), 250);
   });
@@ -651,22 +1174,39 @@ function logRowHTML(te){
   </div>`;
 }
 
-function afterChange(t, before, prs, btn, log, entriesOnly){
+/* kolejka świętowania: konfetti, wibracje, wielkie napisy jeden po drugim */
+const celQ = []; let celBusy = false;
+function celebrate(ev){ celQ.push(ev); if(!celBusy) nextCel(); }
+function nextCel(){
+  const ev = celQ.shift(); if(!ev){ celBusy = false; return; }
+  celBusy = true;
+  if(ev.conf) confetti(ev.conf, ev.x, ev.y);
+  if(ev.buzz) buzz(ev.buzz);
+  if(ev.title) burst(ev.title, ev.sub, ev.gold);
+  setTimeout(nextCel, ev.title ? 2050 : 250);
+}
+function celebrateBadges(){
+  const nu = newBadges();
+  nu.slice(0,3).forEach(b => celebrate({conf:'gold', buzz:[30,40,30,40,90], title:'Nowa odznaka', sub:`${b.icon} ${b.name}`, gold:true}));
+  if(nu.length > 3) setTimeout(() => toast(`I jeszcze ${nu.length-3} odznak. Zajrzyj do profilu`), 6500);
+}
+
+function afterChange(t, before, prs, log, entriesOnly){
   save();
   const after = snapshot(t);
   render();
   const newBtn = document.querySelector(`[data-go="${t.id}"]`);
-  if(newBtn){ newBtn.classList.add('pop'); }
-  const origin = newBtn ? newBtn.getBoundingClientRect() : null;
-  const ox = origin ? origin.left+origin.width/2 : innerWidth/2, oy = origin ? origin.top+origin.height/2 : innerHeight/2;
-
-  if(!before.gold && after.gold){ confetti('gold'); buzz([40,60,40,60,120]); burst('Złoty tydzień', `${t.name} · passa ${after.streak} tyg.`, true); }
-  else if(!before.met && after.met){ confetti('big'); buzz([30,50,90]); burst(after.streak>1?'Passa '+after.streak+' tyg.':'Minimum!', after.streak>1?`${t.name} · utrzymana`:`${t.name} · passa ruszyła`); }
-  else if(prs.length){ confetti('gold'); buzz([30,40,30,40,80]); burst('Nowy rekord', prs.join(', '), true); }
-  else if(!entriesOnly){ confetti('small', ox, oy); buzz(25); }
-  if(prs.length && (before.gold!==after.gold || before.met!==after.met)) setTimeout(()=>toast('Nowy rekord: '+prs.join(', ')), 2000);
-  if(after.lvl > before.lvl) setTimeout(()=>{ burst('Poziom '+after.lvl, 'Tak trzymaj', true); confetti('big'); buzz([50,50,50]); }, 2100);
-
+  if(newBtn) newBtn.classList.add('pop');
+  const r = newBtn ? newBtn.getBoundingClientRect() : null;
+  if(!entriesOnly) celebrate({conf:'small', x: r ? r.left+r.width/2 : innerWidth/2, y: r ? r.top+r.height/2 : innerHeight/2, buzz:25});
+  const stt = streakTitle(t, after.streak);
+  if(!before.gold && after.gold) celebrate({conf:'gold', buzz:[40,60,40,60,120], title:'Złoty tydzień', sub:`${t.name} · ${stt || 'passa '+after.streak+' tyg.'}`, gold:true});
+  else if(!before.met && after.met) celebrate({conf:'big', buzz:[30,50,90], title: after.streak>1 ? 'Passa '+after.streak+' tyg.' : 'Minimum!', sub: stt ? `${t.name} · ${stt}` : `${t.name} · passa ruszyła`});
+  if(prs.length) celebrate({conf:'gold', buzz:[30,40,30,40,80], title:'Nowy rekord', sub: prs.join(', '), gold:true});
+  if(after.prof > before.prof){ const p = profInfo(t.cat||'other'); celebrate({conf:'big', buzz:[50,50,50,50,120], title:'Nowa ranga', sub:`${p.cat.icon} ${p.title}`, gold:true}); }
+  celebrateBadges();
+  const lv = xpInfo().lvl;
+  if(lv > before.lvl) celebrate({conf:'big', buzz:[50,50,50], title:'Poziom '+lv, sub:'Tak trzymaj', gold:true});
   if(log) toast(`Zaliczone: ${t.name} (${after.c}×)`, 'Cofnij', () => {
     S.logs = S.logs.filter(l => l.id!==log.id);
     S.entries = S.entries.filter(e => e.logId!==log.id);
@@ -677,7 +1217,7 @@ function afterChange(t, before, prs, btn, log, entriesOnly){
 
 /* szczegóły zadania */
 function detailSheet(t){
-  const st = streakInfo(t), cur = thisWeek();
+  const st = streakInfo(t), cur = thisWeek(), p = profInfo(t.cat||'other');
   const weeks = []; for(let i=11;i>=0;i--) weeks.push(addWeeks(cur,-i));
   const cells = weeks.map(w => {
     if(w < t.startWeek) return '<i class="none"></i>';
@@ -685,14 +1225,16 @@ function detailSheet(t){
     return `<i class="${c} ${w===cur?'cur':''}" title="${fmtDay(parseKey(w))}: ${count(t,w)}×"></i>`;
   }).join('');
   const logs = logsOf(t, cur).sort((a,b)=>b.ts-a.ts);
+  const nextTier = STREAK_W.find(w => w > st.streak);
   openSheet(`
-    <h4>${esc(t.name)}</h4>
-    <p class="sub">${t.type==='progress'?'01 + progres':'01'} · minimum ${t.min}× · norma ${t.norm}× w tygodniu</p>
+    <h4>${catOf(t).icon} ${esc(t.name)}</h4>
+    <p class="sub">${esc(catOf(t).name)} · ${t.type==='progress'?'01 + progres':'01'} · minimum ${t.min}× · norma ${t.norm}× w tygodniu</p>
     <div class="dstats">
       <div><small>Passa</small><b class="num" style="color:${st.streak?'var(--flame)':'inherit'}">${st.streak}</b></div>
       <div><small>Najdłuższa</small><b class="num">${st.best}</b></div>
       <div><small>Złote tyg.</small><b class="num" style="color:${st.golds?'var(--gold)':'inherit'}">${st.golds}</b></div>
     </div>
+    <p class="hint">${st.streak ? `Tytuł passy: <b>${esc(streakTitle(t, st.streak))}</b>. ` : ''}${nextTier ? `Za ${nextTier - st.streak} tyg. wpada „${esc(catOf(t).streak[STREAK_W.indexOf(nextTier)])}”.` : 'Masz najwyższy tytuł passy.'}<br>Ranga: <i>${esc(p.title)}</i>${p.next ? ` · jeszcze ${p.next - p.n} zaliczeń do „${esc(p.nextTitle)}”` : ''}</p>
     <div class="lab">Ostatnie 12 tygodni</div>
     <div class="grid12">${cells}</div>
     <div class="legend"><span><i style="background:var(--gold)"></i>złoty</span><span><i style="background:var(--flame)"></i>minimum</span><span><i style="background:#3A2530"></i>pudło</span></div>
@@ -728,7 +1270,7 @@ function settingsSheet(){
       <input type="file" id="sFile" accept="application/json,.json" hidden>
       <button class="btn ghost" id="sClose">Zamknij</button>
     </div>
-    <p class="hint num" style="margin-top:14px">${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
+    <p class="hint num" style="margin-top:14px">Wersja 2 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
     $('#sClose',sh).onclick = closeSheet;
     const ins = $('#sInstall',sh); if(ins) ins.onclick = async () => { installEvt.prompt(); await installEvt.userChoice; installEvt = null; closeSheet(); };
     $('#sExport',sh).onclick = () => {
@@ -743,7 +1285,8 @@ function settingsSheet(){
       try{
         const d = JSON.parse(await f.text());
         if(!d || !Array.isArray(d.tasks) || !Array.isArray(d.logs) || !Array.isArray(d.entries)) throw 0;
-        S = d; save(); closeSheet(); render(); toast('Wczytano kopię');
+        S = d; migrate(); if(!Array.isArray(S.badges)) S.badges = badgeDefs().filter(x=>x.ok).map(x=>x.id);
+        save(); closeSheet(); render(); toast('Wczytano kopię');
       }catch(err){ toast('To nie jest plik kopii z Passy'); }
     };
   });
@@ -801,7 +1344,7 @@ function askPersist(){ if(persisted) return; persisted = true; try{ navigator.st
 /* ========= zdarzenia ========= */
 document.addEventListener('click', e => {
   const go = e.target.closest('[data-go]');
-  if(go){ const t = S.tasks.find(x => x.id===go.dataset.go); if(t) goTask(t, go); return; }
+  if(go){ const t = S.tasks.find(x => x.id===go.dataset.go); if(t) goTask(t); return; }
   const det = e.target.closest('[data-detail]');
   if(det){ const t = S.tasks.find(x => x.id===det.dataset.detail); if(t) detailSheet(t); return; }
   const ar = e.target.closest('[data-addres]');
@@ -814,6 +1357,8 @@ document.addEventListener('click', e => {
   const mo = e.target.closest('[data-more]');
   if(mo){ const id = mo.dataset.more; expanded.has(id) ? expanded.delete(id) : expanded.add(id); render(); return; }
   if(e.target.closest('#openSettings')) return settingsSheet();
+  if(e.target.closest('#openProfile')){ tab = 'profile'; render(); scrollTo(0,0); return; }
+  if(e.target.closest('#backTasks')){ tab = 'tasks'; render(); scrollTo(0,0); return; }
   if(e.target.closest('#emptyAdd')) return taskForm(null);
   if(e.target.closest('#emptyAddP')) return taskForm(null, 'progress');
 });
@@ -824,6 +1369,12 @@ addEventListener('resize', () => { if(tab==='prog') drawCharts(); });
 document.addEventListener('visibilitychange', () => { if(!document.hidden && !$('#scrim')) render(); });
 addEventListener('keydown', e => { if(e.key==='Escape') closeSheet(); });
 
+/* start: odznaki zdobyte przed aktualizacją zapisujemy po cichu */
+if(!Array.isArray(S.badges)){
+  const had = badgeDefs().filter(d => d.ok);
+  S.badges = had.map(d => d.id); save();
+  if(had.length) setTimeout(() => toast(`Nowość: profesje i odznaki. Masz już ${had.length}. Stuknij „Poz.” u góry`), 800);
+}
 render();
 if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>

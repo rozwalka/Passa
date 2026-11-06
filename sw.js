@@ -1,5 +1,5 @@
 // Passa: działa offline. Pliki apki trzymane w pamięci telefonu, aktualizowane w tle, gdy jest internet.
-const CACHE = 'passa-v1';
+const CACHE = 'passa-v2';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable.png'];
 
 self.addEventListener('install', e => {
