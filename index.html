@@ -262,6 +262,23 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 .gtab.on{background:var(--flame);color:#1B0D00}
 .newtest .gtab{background:var(--surface)}
 .newtest .gtab.on{background:var(--flame)}
+/* v5: jak robić, poziom ćwiczenia */
+.trow2{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.trow2 .pr{margin-top:0}
+.tlvl{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--chart);background:rgba(134,162,255,.1);padding:3px 8px;border-radius:6px}
+.tlvl i{display:block;width:34px;height:5px;border-radius:5px;background:var(--surface2);overflow:hidden}
+.tlvl i b{display:block;height:100%;background:var(--chart)}
+.howbtn{font-size:12px;font-weight:700;color:var(--flame2);padding:3px 8px;border-radius:6px;background:rgba(255,178,62,.1)}
+.thint .howbtn{margin-left:4px}
+.howto{background:var(--surface2);border-radius:14px;padding:12px 14px;margin:8px 0 10px;font-size:13.5px;line-height:1.5}
+.howto p{margin:0 0 8px}
+.howto b{color:var(--fg)}
+.howlinks{display:flex;flex-wrap:wrap;gap:8px}
+.howlinks a{font-size:13px;font-weight:700;color:var(--fg);background:var(--surface);border:1px solid var(--line);padding:8px 12px;border-radius:10px;text-decoration:none}
+.hownote{font-size:11.5px;color:var(--muted);margin:8px 0 0!important}
+.logt .logx,.logt .howto{grid-column:1/-1}
+.logt .logx{margin-top:-4px}
+.newtest .howto,.sheet .howto{background:var(--bg)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -585,6 +602,138 @@ const OTHER = {id:'other', name:'Inne', icon:'⭐', kw:[], tests:[],
 const CAT_BY_ID = Object.fromEntries([...CATS, OTHER].map(c => [c.id, c]));
 const TEST_BY_ID = {};
 const GYM_G = {chest:['bench','incline','decline','dbbench','flyes'], back:['deadlift','row','dbrow','pulldown','cablerow','wpullup','shrugs'], biceps:['curl','dbcurl','hammer','preacher'], triceps:['french','pushdown','closegrip','wdips'], shoulders:['ohp','dbpress','lateral','reardelt'], legs:['squat','frontsquat','legpress','bulgarian','rdl','hipthrust','legext','legcurl','calves']};
+/* ========= siłownia v5: więcej ćwiczeń (wyciąg, maszyny, brzuch) + opisy ========= */
+(() => {
+  const gym = CATS.find(c => c.id==='gym');
+  const byId = id => gym.tests.find(t => t.id===id);
+  const addKw = (id, k) => byId(id).kw.push(...k), addNeg = (id, n) => byId(id).neg.push(...n);
+  const setKw = (id, k) => byId(id).kw = k;
+  // poprawki słów kluczowych, żeby nowe ćwiczenia się nie myliły ze starymi
+  byId('flyes').name = 'Rozpiętki z hantlami'; setKw('flyes', ['rozpietk','fly','flyes']); addNeg('flyes', ['brama','lin','maszyn','wyciag']);
+  byId('reardelt').name = 'Odwrotne rozpiętki'; setKw('reardelt', ['odwrotne rozpietki','odwrotne','reverse fly','tylny akton','tyl barku']);
+  setKw('rdl', ['rumun','rdl','prostych nogach']);
+  addNeg('incline', ['hantl']); addNeg('pulldown', ['wask','trojkat','v gryf','podchwyt','prostych']);
+  addNeg('closegrip', ['sciag','wiosl','drazk']); addNeg('row', ['t sztang','t bar','tbar','landmine']);
+  addNeg('cablerow', ['jednorac']); addNeg('curl', ['wyciag','koncentr']); addNeg('hammer', ['wyciag','lin','strength']);
+  addNeg('pushdown', ['nad glow']); addNeg('lateral', ['wyciag']); addNeg('legext', ['tulow','grzbiet']);
+  addNeg('squat', ['hack','smith','maszyn','goblet','hantl','kettl']); addNeg('deadlift', ['sumo']);
+  gym.tests.push(
+    T('dbincline','Wyciskanie hantli na skosie','kg','up',['hantli na skos','hantle na skos','skos hantl','hantlami na skos'],[[25,'Górna klata w hantlach'],[35,'Skośne hantle, sztos']]),
+    T('cablecross','Krzyżowanie linek na bramie','kg','up',['krzyzowanie linek','brama','bramie','cable cross','crossover','linki klata'],[[15,'Linki skrzyżowane'],[30,'Brama otwarta']]),
+    T('pecdeck','Butterfly na maszynie','kg','up',['butterfly','pec deck','motylek'],[[50,'Motylek z siłki'],[80,'Klata jak motyl']]),
+    T('chestpress','Wyciskanie na maszynie (klatka)','kg','up',['wyciskanie na maszynie','chest press','maszyna klata','maszynie klat'],[[60,'Maszyna się poddaje'],[100,'Setka na maszynie']],['bark','glow']),
+    T('pulldownclose','Ściąganie drążka wąsko (V-gryf)','kg','up',['sciaganie wasko','waskim uchwytem','v gryf','trojkat','v bar','wasko do klatki'],[[50,'Trójkąt opanowany'],[70,'Plecy w V']]),
+    T('pulldownsup','Ściąganie drążka podchwytem','kg','up',['podchwyt'],[[50,'Podchwyt jak w zegarku'],[70,'Bicek też się załapał']]),
+    T('onearmcable','Wiosłowanie jednorącz na wyciągu','kg','up',['jednoracz na wyciag','jedna reka wyciag','wioslowanie jednorac'],[[25,'Jedną ręką na lince'],[40,'Pół pleców, dwa razy mocniej']]),
+    T('straightarm','Ściąganie na prostych ramionach','kg','up',['prostych ramion','prostych rekach','pullover','straight arm'],[[25,'Najszerszy obudzony'],[40,'Skrzydła jak u nietoperza']]),
+    T('tbar','Wiosłowanie T-sztangą','kg','up',['t sztang','t bar','tbar','landmine'],[[40,'T jak tytan'],[70,'Plecy w kształcie T']]),
+    T('machinerow','Wiosłowanie na maszynie','kg','up',['wioslowanie na maszyn','maszyna plecy','hammer strength'],[[60,'Maszyna do wiosłowania'],[100,'Galernik na maszynie']]),
+    T('backext','Wyprosty tułowia (hiperekstensje)','kg','up',['wyprosty tulow','hiperekstens','hyperextens','back extension','prostowanie tulow','rzymska','lawka rzymska'],[[10,'Krzyż ze stali'],[20,'Lędźwie pancerne']]),
+    T('cablecurl','Uginanie ramion na wyciągu','kg','up',['uginanie na wyciag','uginanie ramion na wyciag','biceps wyciag','biceps na wyciag','cable curl'],[[25,'Bicek na lince'],[40,'Wyciąg płacze']]),
+    T('ropehammer','Uginanie liną na wyciągu (młotkowe)','kg','up',['mlotkowe na wyciag','lina biceps','uginanie lina','uginanie linka','rope hammer'],[[25,'Lina naprężona'],[40,'Przedramię jak lina okrętowa']]),
+    T('concentration','Uginanie koncentryczne','kg','up',['koncentr'],[[16,'Szczyt bicka'],[24,'Bicek jak górka']]),
+    T('overheadcable','Prostowanie ramion nad głową na wyciągu','kg','up',['nad glowa na wyciag','nad glowe na wyciag','triceps nad glow','overhead extension','prostowanie nad glow'],[[20,'Długa głowa w akcji'],[35,'Triceps od sufitu']]),
+    T('kickback','Prostowanie ramienia w opadzie','kg','up',['kickback tricep','prostowanie w opadzie','triceps w opadzie','kickback'],[[10,'Kopnięcie tricepsa'],[16,'Triceps jak sprężyna']],['nog','posladk','glute']),
+    T('cablelateral','Wznosy bokiem na wyciągu','kg','up',['wznosy na wyciag','wznosy bokiem na wyciag','lateral cable','odwodzenie na wyciag'],[[10,'Bark na lince'],[20,'Kokosy z wyciągu']]),
+    T('facepull','Face pull (lina do twarzy)','kg','up',['face pull','facepull','do twarzy','lina do twarzy'],[[20,'Twarz bez urazy'],[40,'Tył barku jak kamień']]),
+    T('shoulderpress','Wyciskanie na maszynie (barki)','kg','up',['maszynie bark','maszyna bark','shoulder press'],[[40,'Barki na maszynie'],[70,'Maszyna barkowa padła']]),
+    T('uprightrow','Podciąganie sztangi wzdłuż tułowia','kg','up',['wzdluz tulowia','upright row','podciaganie sztangi'],[[30,'Bark i kaptur'],[50,'Kaptur z kolcami']]),
+    T('hacksquat','Hack przysiad (maszyna)','kg','up',['hack','hak przysiad','hack squat'],[[100,'Hack zhakowany'],[180,'Maszyna się poci']]),
+    T('smithsquat','Przysiad na maszynie Smitha','kg','up',['smith','smitha'],[[80,'Smith ogarnięty'],[140,'Agent Smith']]),
+    T('goblet','Przysiad z hantlą (goblet)','kg','up',['goblet','przysiad z hantl','przysiad z kettl'],[[24,'Kielich pełny'],[40,'Puchar mistrza']]),
+    T('sumo','Martwy ciąg sumo','kg','up',['sumo'],[[120,'Sumo bez kimona'],[180,'Zapaśnik z Tokio']]),
+    T('abductor','Odwodzenie nóg na maszynie','kg','up',['odwodzenie nog','abduktor','abduct','odwodziciel'],[[60,'Biodra stabilne'],[100,'Biodra z betonu']]),
+    T('adductor','Przywodzenie nóg na maszynie','kg','up',['przywodzenie','adduktor','adduct','przywodziciel'],[[60,'Uda zwarte'],[100,'Orzechy łupie udami']]),
+    T('cablekick','Odwodzenie nogi w tył na wyciągu','kg','up',['nogi w tyl','kickback nog','kickback posladk','glute kickback','nogi na wyciag'],[[15,'Pośladek na lince'],[30,'Kopnięcie osła']]),
+    T('cablecrunch','Allahy (spięcia na wyciągu)','kg','up',['allah','spiecia na wyciag','cable crunch','brzuch na wyciag','brzuch wyciag'],[[40,'Brzuch na kolanach'],[70,'Sześciopak na lince']]),
+    T('woodchop','Drwal na wyciągu','kg','up',['drwal','woodchop','rabanie','skret tulowia'],[[15,'Drwal z siłki'],[30,'Siekiera w dłoniach']]),
+    T('abwheel','Kółko do brzucha','powt.','up',['kolko','ab wheel','rollout','roller'],[[10,'Kółko się kręci'],[30,'Brzuch ze stali']])
+  );
+  gym.groups.push({id:'abs', name:'Brzuch', kw:['brzuch','abs','sześciopak','szesciopak']});
+  gym.groups.push({id:'cable', name:'Wyciąg', kw:['wyciag','linki','cable'], tag:true});
+  gym.groups.push({id:'machine', name:'Maszyny', kw:['maszyn','machine'], tag:true});
+  Object.assign(GYM_G, {
+    chest: [...GYM_G.chest, 'dbincline','cablecross','pecdeck','chestpress'],
+    back: [...GYM_G.back, 'pulldownclose','pulldownsup','onearmcable','straightarm','tbar','machinerow','backext'],
+    biceps: [...GYM_G.biceps, 'cablecurl','ropehammer','concentration'],
+    triceps: [...GYM_G.triceps, 'overheadcable','kickback'],
+    shoulders: [...GYM_G.shoulders, 'cablelateral','facepull','shoulderpress','uprightrow'],
+    legs: [...GYM_G.legs, 'hacksquat','smithsquat','goblet','sumo','abductor','adductor','cablekick'],
+    abs: ['cablecrunch','woodchop','abwheel']
+  });
+  const CABLE = ['pulldown','pulldownclose','pulldownsup','cablerow','onearmcable','straightarm','cablecurl','ropehammer','pushdown','overheadcable','cablelateral','facepull','cablecross','cablekick','cablecrunch','woodchop'];
+  const MACHINE = ['pecdeck','chestpress','machinerow','shoulderpress','hacksquat','smithsquat','abductor','adductor','legpress','legext','legcurl'];
+  gym.tests.forEach(t => { t.tags = []; if(CABLE.includes(t.id)) t.tags.push('cable'); if(MACHINE.includes(t.id)) t.tags.push('machine'); });
+
+  // [mięśnie, jak robić]
+  const INFO = {
+    bench:['Klatka, przednie barki, triceps','Leżysz na ławce, łopatki ściągnięte, stopy mocno na ziemi. Opuść sztangę do dolnej części klatki, łokcie ok. 45° od tułowia, i wypchnij w górę.'],
+    incline:['Górna klatka, barki, triceps','Ławka ustawiona na 30–45°. Opuść sztangę na górną część klatki pod obojczykami i wypchnij pionowo w górę.'],
+    decline:['Dolna klatka, triceps','Ławka z głową niżej, nogi zablokowane. Sztanga schodzi na dół klatki, wypychasz łukiem lekko w stronę twarzy.'],
+    dbbench:['Klatka, barki, triceps','Hantle nad klatką, łopatki ściągnięte. Opuszczaj szeroko, aż poczujesz rozciągnięcie klatki, i wypchnij, zbliżając hantle u góry.'],
+    dbincline:['Górna klatka, barki','Jak wyciskanie hantli, ale na ławce 30–45°. Nie rozkładaj łokci całkiem na boki.'],
+    flyes:['Klatka (rozciąganie)','Leżysz z hantlami nad klatką, łokcie lekko ugięte. Rozkładaj ręce łukiem na boki do rozciągnięcia i wróć tym samym łukiem.'],
+    cablecross:['Klatka, przednie barki','Stań między wyciągami, lekki wykrok i pochylenie. Ściągaj uchwyty łukiem przed siebie, aż dłonie się spotkają, i wracaj powoli.'],
+    pecdeck:['Klatka','Siedzisz plecami do oparcia, przedramiona lub dłonie na uchwytach. Zbliż ramiona przed sobą, przytrzymaj chwilę, wróć powoli.'],
+    chestpress:['Klatka, triceps','Uchwyty na wysokości środka klatki. Wypchnij do prawie prostych rąk, łopatki przy oparciu.'],
+    deadlift:['Plecy, pośladki, dwójki, cały tył','Sztanga nad środkiem stopy, plecy proste, chwyt tuż za nogami. Wypchnij podłogę nogami, sztanga sunie po nogach, na górze wyprostuj biodra.'],
+    sumo:['Pośladki, przywodziciele, plecy','Szeroki rozstaw stóp, palce na zewnątrz, chwyt między nogami. Kolana wypychaj na boki, plecy proste, wstań z ciężarem.'],
+    row:['Najszerszy grzbietu, środek pleców, biceps','Pochyl tułów do ok. 45°, plecy proste. Przyciągaj sztangę do dolnej części brzucha, ściągając łopatki.'],
+    dbrow:['Najszerszy grzbietu, środek pleców','Kolano i ręka na ławce, plecy płasko. Przyciągaj hantel do biodra łokciem przy tułowiu.'],
+    tbar:['Środek pleców, najszerszy','Stań okrakiem nad sztangą w landmine, pochyl tułów. Przyciągaj uchwyt do klatki, łopatki razem.'],
+    machinerow:['Środek pleców, najszerszy','Klatka oparta o podkładkę. Przyciągaj uchwyty do tułowia, ściągnij łopatki, wróć powoli.'],
+    pulldown:['Najszerszy grzbietu, biceps','Siedzisz, uda zablokowane. Ściągaj drążek szerokim nachwytem do górnej części klatki, lekko odchylony, łokcie w dół.'],
+    pulldownclose:['Najszerszy grzbietu, środek pleców','Uchwyt V (trójkąt) na wyciągu górnym. Ściągaj do klatki, łokcie blisko tułowia, klatka do przodu.'],
+    pulldownsup:['Najszerszy grzbietu, biceps','Drążek chwytem podchwytem na szerokość barków. Ściągaj do górnej klatki, łokcie prowadź w dół i do tyłu.'],
+    cablerow:['Środek pleców, najszerszy, biceps','Siedzisz, stopy na podporze, plecy proste. Przyciągaj uchwyt do brzucha, ściągnij łopatki, nie bujaj tułowiem.'],
+    onearmcable:['Najszerszy grzbietu','Uchwyt jednorącz na wyciągu dolnym lub w połowie wysokości. Przyciągaj do biodra z lekkim skrętem, druga ręka stabilizuje.'],
+    straightarm:['Najszerszy grzbietu','Stań przodem do wyciągu górnego, drążek lub lina, ręce prawie proste. Ściągaj łukiem do ud, czując najszerszy.'],
+    wpullup:['Najszerszy, biceps, środek pleców','Pas z talerzem albo hantel między nogami. Podciągnij się brodą nad drążek, zejdź do pełnego zwisu.'],
+    shrugs:['Kaptury (czworoboczny)','Sztanga lub hantle w dłoniach, ręce proste. Unoś barki do uszu, przytrzymaj sekundę, opuść.'],
+    backext:['Dolny grzbiet, pośladki','Na ławce rzymskiej, biodra na poduszce. Opuść tułów, potem wyprostuj się do linii ciała, bez przeprostu.'],
+    curl:['Biceps','Stań prosto, sztanga podchwytem. Uginaj łokcie bez bujania, łokcie przy bokach, opuszczaj powoli.'],
+    dbcurl:['Biceps','Hantle w dłoniach, łokcie przy tułowiu. Uginaj z lekką supinacją (kciuk na zewnątrz), opuszczaj kontrolowanie.'],
+    hammer:['Biceps, ramienny, przedramię','Hantle chwytem neutralnym (kciuki w górę). Uginaj bez obracania dłoni.'],
+    preacher:['Biceps (dolna część)','Ramiona oparte o modlitewnik. Uginaj sztangę lub hantel, na dole nie prostuj łokcia do końca z szarpnięciem.'],
+    cablecurl:['Biceps','Stań przodem do wyciągu dolnego, drążek lub uchwyt. Uginaj łokcie, które zostają przy bokach. Wyciąg trzyma napięcie przez cały ruch.'],
+    ropehammer:['Biceps, ramienny, przedramię','Lina na wyciągu dolnym, chwyt neutralny. Uginaj jak przy młotkowych, na górze rozciągnij końce liny.'],
+    concentration:['Biceps','Siedzisz, łokieć oparty o wewnętrzną stronę uda. Uginaj hantel do barku, na górze mocno spnij biceps.'],
+    french:['Triceps (długa głowa)','Leżysz, sztanga łamana nad czołem. Uginaj tylko łokcie, opuszczając sztangę za głowę lub do czoła, i prostuj.'],
+    pushdown:['Triceps','Stań przy wyciągu górnym, łokcie przyklejone do boków. Prostuj ręce w dół do pełnego wyprostu, wracaj do kąta 90°.'],
+    overheadcable:['Triceps (długa głowa)','Plecami do wyciągu, lina nad głową. Prostuj łokcie do przodu i w górę, łokcie celują przed siebie.'],
+    closegrip:['Triceps, klatka','Jak wyciskanie na ławce, ale chwyt na szerokość barków. Łokcie blisko tułowia.'],
+    wdips:['Triceps, dolna klatka, barki','Na poręczach z pasem i obciążeniem. Zejdź do kąta ok. 90° w łokciach i wypchnij się w górę.'],
+    kickback:['Triceps','W opadzie tułowia, ramię równolegle do podłogi. Prostuj łokieć do tyłu, ramię się nie rusza.'],
+    ohp:['Barki, triceps, górna klatka','Stoisz, sztanga na obojczykach. Wypchnij nad głowę, przesuwając głowę lekko do tyłu, na górze głowa pod sztangą. Brzuch i pośladki spięte.'],
+    dbpress:['Barki, triceps','Siedzisz lub stoisz, hantle na wysokości uszu. Wypchnij nad głowę, nie stukaj hantlami.'],
+    shoulderpress:['Barki, triceps','Siedzisz w maszynie, uchwyty przy barkach. Wypchnij w górę do prawie prostych rąk i opuszczaj powoli.'],
+    lateral:['Boczny akton barku','Hantle przy biodrach, łokcie lekko ugięte. Unoś ręce bokiem do wysokości barków, prowadząc łokciami.'],
+    cablelateral:['Boczny akton barku','Bokiem do wyciągu dolnego, uchwyt w dalszej ręce. Unoś bokiem do wysokości barku. Wyciąg daje napięcie od samego dołu.'],
+    reardelt:['Tylny akton barku, środek pleców','W opadzie tułowia albo na maszynie odwrotnie. Rozkładaj ręce na boki, łopatki nie ściągaj za mocno.'],
+    facepull:['Tylny bark, rotatory, środek pleców','Lina na wyciągu górnym na wysokości twarzy. Przyciągaj do czoła, rozciągając końce liny na boki, łokcie wysoko.'],
+    uprightrow:['Boczny bark, kaptury','Sztanga wąsko lub średnio przed udami. Podciągaj wzdłuż tułowia do dolnej klatki, łokcie wyżej niż dłonie.'],
+    squat:['Czworogłowe, pośladki, przywodziciele','Sztanga na górze pleców, stopy na szerokość barków. Zejdź biodrami w tył i w dół, aż uda będą co najmniej równoległe do ziemi, kolana nad palcami, i wstań.'],
+    frontsquat:['Czworogłowe, pośladki, core','Sztanga na przedniej części barków, łokcie wysoko. Schodzisz pionowo w dół i wstajesz.'],
+    goblet:['Czworogłowe, pośladki','Hantel lub kettlebell trzymasz przy klatce. Zejdź głęboko, łokcie między kolanami, i wstań.'],
+    hacksquat:['Czworogłowe, pośladki','Plecy na oparciu maszyny, stopy na platformie. Zejdź głęboko i wypchnij platformę.'],
+    smithsquat:['Czworogłowe, pośladki','Sztanga prowadzona w maszynie Smitha. Stopy możesz dać lekko do przodu, zejdź i wstań.'],
+    legpress:['Czworogłowe, pośladki','Plecy przy oparciu, stopy na platformie na szerokość bioder. Opuść do kąta ok. 90° w kolanach, nie odrywaj pośladków.'],
+    bulgarian:['Czworogłowe, pośladki','Tylna stopa na ławce, przednia daleko przed sobą. Opuść biodra pionowo w dół i wstań na przedniej nodze.'],
+    rdl:['Dwugłowe uda, pośladki','Sztanga w dłoniach, kolana lekko ugięte. Wypchnij biodra w tył, sztanga sunie po udach do połowy piszczeli, i wróć.'],
+    hipthrust:['Pośladki','Plecy oparte o ławkę, sztanga na biodrach. Wypchnij biodra w górę do linii ciała, mocno spnij pośladki.'],
+    legext:['Czworogłowe','Siedzisz w maszynie, wałek na piszczelach. Prostuj nogi do końca, przytrzymaj, opuszczaj powoli.'],
+    legcurl:['Dwugłowe uda','Leżysz lub siedzisz w maszynie, wałek za kostkami. Uginaj kolana, przyciągając pięty do pośladków.'],
+    calves:['Łydki','Stoisz na krawędzi stopnia lub w maszynie. Opuść pięty nisko, potem wspinaj się wysoko na palce.'],
+    abductor:['Pośladek średni, biodra','Siedzisz w maszynie, poduszki po zewnętrznej stronie kolan. Rozsuwaj nogi na boki i wracaj powoli.'],
+    adductor:['Przywodziciele (wewnętrzne uda)','Siedzisz w maszynie, poduszki po wewnętrznej stronie ud. Zsuwaj nogi do środka i wracaj powoli.'],
+    cablekick:['Pośladki','Mankiet na kostce, wyciąg dolny, przodem do maszyny. Wypychaj nogę prosto w tył, nie wyginaj lędźwi.'],
+    cablecrunch:['Brzuch (prosty)','Klęczysz przed wyciągiem górnym, lina przy głowie. Zwijaj tułów w dół, łokcie do kolan. Biodra się nie ruszają.'],
+    woodchop:['Skośne brzucha, core','Bokiem do wyciągu, uchwyt oburącz. Prowadź ukośnie przez ciało z góry na dół (albo z dołu do góry), obracając tułów.'],
+    abwheel:['Brzuch, core','Na kolanach z kółkiem w dłoniach. Toczysz się do przodu, ile dasz radę z prostymi plecami, i wracasz siłą brzucha.']
+  };
+  gym.tests.forEach(t => { if(INFO[t.id]) t.info = INFO[t.id]; });
+})();
+
 CATS.forEach(c => c.tests.forEach(t => {
   TEST_BY_ID[t.id] = Object.assign(t, {cat: c.id});
   if(c.id==='gym') for(const [g, ids] of Object.entries(GYM_G)) if(ids.includes(t.id)) t.g = g;
@@ -720,6 +869,7 @@ function streakInfo(t){
   }
   return {streak: s + (curMet?1:0), curMet, best, golds};
 }
+function myWeek(){ const sw = S.startWeek || thisWeek(); let n = 1, w = sw; const cur = thisWeek(); while(w < cur){ w = addWeeks(w,1); n++; } return n; }
 function streakTier(n){ let i = -1; STREAK_W.forEach((w,k) => { if(n >= w) i = k; }); return i; }
 function streakTitle(t, n){ const i = streakTier(n); return i < 0 ? '' : catOf(t).streak[i]; }
 
@@ -794,6 +944,14 @@ function badgeDefs(){
     ct.bs.forEach(([v, name], i) => defs.push({id:`t:${ct.id}:${i}`, group:ct.cat, icon:CAT_BY_ID[ct.cat].icon, name, req:`Łącznie ${fmt(v)} ${ct.unit} (${ct.name})`, ok: sum >= v}));
     ct.b.forEach(([v, name], i) => defs.push({id:`r:${ct.id}:${i}`, group:ct.cat, icon:CAT_BY_ID[ct.cat].icon, name, req:`${ct.name} ${ct.dir==='down'?'≤':'≥'} ${fmt(v)} ${ct.unit}`, ok: best!==null && (ct.dir==='down' ? best <= v : best >= v)}));
   }
+  // każde ćwiczenie (także wpisane po swojemu): progres od startu i regularność
+  for(const t of S.tasks) for(const te of (t.tests||[])){
+    const x = testXP(te); if(!x.n) continue;
+    const c = CAT_BY_ID[t.cat] || OTHER, gid = t.cat || 'other';
+    const imp = x.first > 0 ? (te.dir==='down' ? (x.first - x.best)/x.first : (x.best - x.first)/x.first) : 0;
+    [[0.1,'Ruszyło'],[0.25,'Konkretny progres'],[0.5,'Przepaść od startu']].forEach(([v,nm],i) => defs.push({id:`p:${te.id}:${i}`, group:gid, icon:c.icon, name:`${nm}: ${te.name}`, req:`${te.name}: ${Math.round(v*100)}% lepiej niż pierwszy wynik`, ok: imp >= v}));
+    [[10,'Dycha wpisów'],[30,'Trzydziestka wpisów']].forEach(([v,nm],i) => defs.push({id:`n:${te.id}:${i}`, group:gid, icon:c.icon, name:`${nm}: ${te.name}`, req:`${v} wyników w teście ${te.name}`, ok: x.n >= v}));
+  }
   return defs;
 }
 function findTest(testId){ for(const t of S.tasks) for(const te of (t.tests||[])) if(te.id===testId) return te; return null; }
@@ -804,9 +962,18 @@ function newBadges(){
   return nu;
 }
 
+function testXP(te){
+  const es = S.entries.filter(e => e.testId===te.id).sort((a,b)=>a.ts-b.ts);
+  let prs = 0, best = null;
+  for(const e of es){ if(best===null) best = e.value; else if(better(te, e.value, best)){ prs++; best = e.value; } }
+  const xp = es.length*10 + prs*25;
+  let lvl = 1; while(xp >= 20*lvl*(lvl+1)) lvl++;
+  const lo = 20*(lvl-1)*lvl, hi = 20*lvl*(lvl+1);
+  return {xp, lvl, pct: (xp-lo)/(hi-lo), n: es.length, prs, first: es.length ? es[0].value : null, best};
+}
 function xpInfo(){
   const cur = thisWeek();
-  let xp = S.logs.length*10 + prCount()*25 + (S.badges ? S.badges.length*40 : 0);
+  let xp = S.logs.length*10 + S.entries.length*5 + prCount()*25 + (S.badges ? S.badges.length*40 : 0);
   for(const t of S.tasks) for(const w of weeksRange(t.startWeek, cur)){
     if(metMin(t,w)) xp += 30;
     if(isGold(t,w)) xp += 60;
@@ -839,7 +1006,7 @@ function header(){
   const range = mon.getMonth()===sun.getMonth() ? `${mon.getDate()}–${sun.getDate()} ${MON[sun.getMonth()]}` : `${mon.getDate()} ${MON[mon.getMonth()]} – ${sun.getDate()} ${MON[sun.getMonth()]}`;
   return `
   <div class="top">
-    <div class="wk"><b>Tydzień ${isoWeek(now)}</b><span>${range} · ${left===1?'ostatni dzień':'zostało '+left+' dni'}</span></div>
+    <div class="wk"><b>Twój tydzień ${myWeek()}</b><span>${range} · ${left===1?'ostatni dzień':'zostało '+left+' dni'}</span></div>
     <div class="lvl">
       <button class="lvbtn" id="openProfile" aria-label="Profil, poziom ${x.lvl}"><span class="lv">Poz. ${x.lvl}</span><span class="xpbar"><i style="width:${Math.round(x.pct*100)}%"></i></span></button>
       <button class="gear" id="openSettings" aria-label="Ustawienia"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3.4h-4l-.3 2.6a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.6 7.6 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.3 2.6h4l.3-2.6a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button>
@@ -904,11 +1071,21 @@ function progView(){
 }
 
 const expanded = new Set();
+const YT = q => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q + ' technika');
+const GI = q => 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(q + ' ćwiczenie');
+function howtoHTML(name, cid){
+  const ct = cid ? TEST_BY_ID[cid] : null, info = ct && ct.info;
+  const q = ct ? ct.name : name;
+  return `${info ? `<p><b>Pracują:</b> ${esc(info[0])}</p><p>${esc(info[1])}</p>` : '<p>Brak opisu dla tego ćwiczenia, ale możesz zobaczyć, jak wygląda:</p>'}
+    <div class="howlinks"><a href="${YT(q)}" target="_blank" rel="noopener">▶ Film na YouTube</a><a href="${GI(q)}" target="_blank" rel="noopener">🖼 Zdjęcia w Google</a></div>
+    <p class="hownote">Film i zdjęcia otwierają się w przeglądarce i potrzebują internetu.</p>`;
+}
+const howBtn = (name, cid) => `<button type="button" class="howbtn" data-how="1" data-name="${esc(name)}" data-cid="${cid||''}">Jak robić?</button>`;
 function testCard(t, te){
   const es = S.entries.filter(e => e.testId===te.id).sort((a,b)=>b.ts-a.ts);
   const unit = esc(te.unit||'');
   const tag = te.cid ? 'liczy się do odznak' : 'własny test';
-  if(!es.length) return `<div class="tcard"><div class="thead"><div class="nm">${esc(te.name)}<small>${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div><div class="big"><span>brak wyników</span></div></div></div>`;
+  if(!es.length) return `<div class="tcard"><div class="thead"><div class="nm">${esc(te.name)}<small>${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div><div class="big"><span>brak wyników</span></div></div><div class="trow2">${howBtn(te.name, te.cid)}</div><div class="howto" hidden></div></div>`;
   const last = es[0].value, first = es[es.length-1].value, best = bestOf(te);
   const diff = last - first, good = te.dir==='down' ? diff < 0 : diff > 0;
   const dcls = diff===0 ? 'flat' : good ? 'up' : 'down';
@@ -917,7 +1094,8 @@ function testCard(t, te){
     <div class="thead"><div class="nm">${esc(te.name)}<small>${es.length} ${es.length===1?'wynik':es.length<5?'wyniki':'wyników'} · ${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div>
       <div class="big num"><b>${fmt(last)}</b><span>${unit}</span><div class="delta ${dcls}">${diff>0?'+':''}${fmt(diff)} ${unit} od startu</div></div></div>
     ${es.length>1 ? `<canvas class="chart" data-chart="${te.id}"></canvas>` : ''}
-    <div class="pr">Rekord ${fmt(best)} ${unit}</div>
+    <div class="trow2"><span class="pr">Rekord ${fmt(best)} ${unit}</span>${(x => `<span class="tlvl num">Poz. ${x.lvl} ćwiczenia<i><b style="width:${Math.round(x.pct*100)}%"></b></i></span>`)(testXP(te))}${howBtn(te.name, te.cid)}</div>
+    <div class="howto" hidden></div>
     <div class="hist">${es.slice(0,showN).map(e => `<div class="hrow num"><span>${fmtDay(e.ts)}</span><b>${fmt(e.value)} ${unit}${e.value===best?' ★':''}</b><button class="x" data-delentry="${e.id}">Usuń</button></div>`).join('')}</div>
     ${es.length>4 ? `<button class="more" data-more="${te.id}">${expanded.has(te.id)?'Pokaż mniej':'Pokaż wszystkie ('+es.length+')'}</button>`:''}
   </div>`;
@@ -1024,9 +1202,10 @@ function updHint(row, catId){
   const name = $('.tn',row).value, unit = $('.tu',row).value, h = $('.thint',row);
   if(!name.trim()){ h.textContent = ''; h.className = 'thint'; return null; }
   const m = matchTest(name, unit, catId);
-  if(m && !m.unitMismatch){ h.textContent = `✓ ${m.test.name} · liczy się do odznak`; h.className = 'thint ok'; }
-  else if(m){ h.textContent = `Rozpoznano „${m.test.name}”, ale odznaki liczą się w ${m.test.unit}`; h.className = 'thint warn'; }
-  else { h.textContent = 'Własny test · wykres tak, odznak brak'; h.className = 'thint'; }
+  if(m && !m.unitMismatch){ h.innerHTML = `✓ ${esc(m.test.name)} · liczy się do odznak ${howBtn(m.test.name, m.test.id)}`; h.className = 'thint ok'; }
+  else if(m){ h.innerHTML = `Rozpoznano „${esc(m.test.name)}”, ale odznaki liczą się w ${esc(m.test.unit)} ${howBtn(m.test.name, m.test.id)}`; h.className = 'thint warn'; }
+  else { h.innerHTML = `Własny test · punkty i poziom tak, odznaki za postęp tak ${howBtn(name, '')}`; h.className = 'thint'; }
+  if(!$('.howto',row)) row.insertAdjacentHTML('beforeend','<div class="howto" hidden></div>'); else $('.howto',row).hidden = true;
   return m;
 }
 function bindTestRows(root, getCat, onChange){
@@ -1058,9 +1237,11 @@ function chipsHTML(catId, taken, limit, group){
   const c = CAT_BY_ID[catId]; if(!c || !c.tests.length) return '';
   if(c.groups){
     const g = c.groups.some(x => x.id===group) ? group : c.groups[0].id;
-    const tabs = c.groups.map(x => { const n = c.tests.filter(t => t.g===x.id && !taken.has(t.id)).length;
+    const inG = (t, x) => x.tag ? (t.tags||[]).includes(x.id) : t.g===x.id;
+    const tabs = c.groups.map(x => { const n = c.tests.filter(t => inG(t,x) && !taken.has(t.id)).length;
       return `<button type="button" class="gtab ${x.id===g?'on':''}" data-group="${x.id}">${esc(x.name)}<small>${n}</small></button>`; }).join('');
-    const free = c.tests.filter(t => t.g===g && !taken.has(t.id));
+    const gx = c.groups.find(x => x.id===g);
+    const free = c.tests.filter(t => inG(t,gx) && !taken.has(t.id));
     return `<div class="chiphead">${c.icon} Wybierz ${c.id==='gym'?'partię, potem stuknij ćwiczenie':'przedmiot, potem stuknij test'}, żeby dodać:</div>
       <div class="gtabs">${tabs}</div>
       <div class="chips">${free.length ? free.map(t => `<button type="button" class="chip" data-chip="${t.id}">${esc(c.id==='learn' ? (n => n[0].toUpperCase()+n.slice(1))(t.name.replace(/^[^:]+: /,'')) : t.name)}<small>${esc(t.unit)}</small></button>`).join('') : '<span class="chiphead">Wszystko z tej grupy już dodane.</span>'}</div>`;
@@ -1150,6 +1331,7 @@ function taskForm(t, presetType){
         Object.assign(t, {name, type, min, norm, cat, catManual});
         if(type==='progress' || (t.tests||[]).length) t.tests = tests;
       } else {
+        if(!S.startWeek) S.startWeek = thisWeek();
         S.tasks.push({id:uid(), name, type, min, norm, cat, catManual, tests: type==='progress'?tests:[], startWeek: thisWeek(), created: Date.now()});
       }
       save(); closeSheet(); render(); toast(isEdit?'Zapisano zmiany':'Dodano: '+name);
@@ -1266,6 +1448,7 @@ function logRowHTML(te){
   return `<div class="logt" data-tid="${te.id}">
     <div class="nm"><b>${esc(te.name)}${u?' · '+u:''}</b><small class="num">${last===null?'pierwszy wynik':'ostatnio '+fmt(last)+' · rekord '+fmt(best)}</small></div>
     <input class="inp num" inputmode="decimal" placeholder="${last===null?'0':fmt(last)}" aria-label="${esc(te.name)}">
+    <div class="logx">${howBtn(te.name, te.cid)}</div><div class="howto" hidden></div>
   </div>`;
 }
 
@@ -1367,14 +1550,14 @@ function settingsSheet(){
       <button class="btn danger" id="sReset">Zresetuj konto do zera</button>
       <button class="btn ghost" id="sClose">Zamknij</button>
     </div>
-    <p class="hint num" style="margin-top:14px">Wersja 4 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
+    <p class="hint num" style="margin-top:14px">Wersja 5 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
     $('#sClose',sh).onclick = closeSheet;
     $('#sName',sh).addEventListener('change', e => { S.name = e.target.value.trim(); save(); render(); toast(S.name ? 'Cześć, '+S.name+'!' : 'Usunięto nazwę'); });
     const rs = $('#sReset',sh); let rsStep = 0;
     rs.onclick = () => {
       if(rsStep===0){ rsStep = 1; rs.classList.add('sure'); rs.textContent = 'Na pewno? Zniknie wszystko. Najpierw zrób kopię'; return; }
       if(rsStep===1){ rsStep = 2; rs.textContent = 'Stuknij jeszcze raz, żeby wyzerować'; return; }
-      S = {v:2, tasks:[], logs:[], entries:[], badges:[], name: S.name};
+      S = {v:3, tasks:[], logs:[], entries:[], badges:[], name: S.name, startWeek: thisWeek()};
       save(); closeSheet(); tab = 'tasks'; render(); toast('Konto wyzerowane. Czysta karta');
     };
     const ins = $('#sInstall',sh); if(ins) ins.onclick = async () => { installEvt.prompt(); await installEvt.userChoice; installEvt = null; closeSheet(); };
@@ -1448,6 +1631,13 @@ function askPersist(){ if(persisted) return; persisted = true; try{ navigator.st
 
 /* ========= zdarzenia ========= */
 document.addEventListener('click', e => {
+  const hb = e.target.closest('[data-how]');
+  if(hb){
+    const box = $('.howto', hb.closest('.tcard, .logt, .trow')); if(!box) return;
+    if(box.hidden) box.innerHTML = howtoHTML(hb.dataset.name, hb.dataset.cid);
+    box.hidden = !box.hidden; hb.textContent = box.hidden ? 'Jak robić?' : 'Zwiń';
+    return;
+  }
   const go = e.target.closest('[data-go]');
   if(go){ const t = S.tasks.find(x => x.id===go.dataset.go); if(t) goTask(t); return; }
   const det = e.target.closest('[data-detail]');
@@ -1474,6 +1664,8 @@ addEventListener('resize', () => { if(tab==='prog') drawCharts(); });
 document.addEventListener('visibilitychange', () => { if(!document.hidden && !$('#scrim')) render(); });
 addEventListener('keydown', e => { if(e.key==='Escape') closeSheet(); });
 
+/* start: tydzień startowy = najstarsze zadanie */
+if(!S.startWeek){ S.startWeek = S.tasks.reduce((m,t) => t.startWeek < m ? t.startWeek : m, thisWeek()); save(); }
 /* start: odznaki zdobyte przed aktualizacją zapisujemy po cichu */
 if(!Array.isArray(S.badges)){
   const had = badgeDefs().filter(d => d.ok);
