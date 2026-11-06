@@ -254,6 +254,14 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 .badge.off{opacity:.5}
 .badge.off .bi{filter:grayscale(1)}
 .note{font-size:12.5px;color:var(--muted);line-height:1.45;margin:10px 2px 0}
+/* v4: partie i przedmioty */
+.gtabs{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 10px}
+.gtabs::-webkit-scrollbar{display:none}
+.gtab{flex:none;font-size:13px;font-weight:700;padding:8px 12px;border-radius:12px;background:var(--surface2);color:var(--muted);display:flex;gap:6px;align-items:center}
+.gtab small{font-size:11px;font-weight:600;opacity:.8}
+.gtab.on{background:var(--flame);color:#1B0D00}
+.newtest .gtab{background:var(--surface)}
+.newtest .gtab.on{background:var(--flame)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -276,8 +284,16 @@ const DONE_DEFAULT = ['Rozkręca się','Pół setki, kurde','Stówa','Ćwierć t
 const STREAK_W = [1, 2, 4, 8, 12, 26, 52];
 const PROF_T = [0, 5, 15, 30, 60, 100, 200];
 
+// testy dla przedmiotu: czas nauki + wynik matury/sprawdzianu + własne
+function SUBJ(g, name, stems, examNames, extra){
+  const ph = (pre, post) => stems.flatMap(st => [pre.map(p => p+' '+st), post.map(p => st+' '+p)].flat());
+  const time = T(g+'time', name+': czas nauki', 'h', 'up', ph(['czas nauki','czas','nauka','godziny','godzin'], ['czas','godziny','nauka']), [[2,'Dwie godzinki: '+name],[5,'Pięć godzin, kurde'],[10,'Dziesięć godzin na '+name.toLowerCase()]]);
+  const exam = T(g+'exam', name+': wynik matury / sprawdzianu', '%', 'up', ph(['matura','matura z','probna','probna z','sprawdzian','sprawdzian z','test z','kolokwium z','wynik','wynik z','egzamin z'], ['matura','wynik','sprawdzian','test','probna']), [[30,'Zdana, uff'],[50,'Połowa w kieszeni'],[70,examNames[0]],[85,examNames[1]],[100,examNames[2]]]);
+  return [time, exam, ...extra].map(t => (t.g = g, t));
+}
 const CATS = [
 {id:'gym', name:'Siłownia', icon:'🏋️', sport:true,
+ groups:[{id:'chest',name:'Klata',kw:['klat','chest','piers']},{id:'back',name:'Plecy',kw:['plec','back','grzbiet']},{id:'biceps',name:'Biceps',kw:['biceps','bicek','bicka','rece','ramiona']},{id:'triceps',name:'Triceps',kw:['triceps','tricek']},{id:'shoulders',name:'Barki',kw:['bark','shoulder']},{id:'legs',name:'Nogi',kw:['nog','legs','leg day','uda','posladk']}],
  kw:['silown','silka','silke','silce','silki','silow','gym','pakow','kulturyst','trening silowy','ciezar','sztang','hantl','fbw','push pull','klata','leg day','dzien nog','powerlift','trojboj','crossfit','fitness','trening'],
  prof:['Karnet na pokaz','Świeżak z siłki','Bywalec ławki','Byczek','Koksu z osiedla','Pudzian z bloku','Bestia, kurde, bestia'],
  done:['Dziesięć treningów','Pół setki na siłce','Stówa treningów, byczku','250 treningów, siłka ci płaci'],
@@ -294,7 +310,7 @@ const CATS = [
   T('pulldown','Ściąganie drążka wyciągu','kg','up',['sciagan','wyciag gorny','wyciagu gornego','lat pulldown','pulldown','drazek wyciagu','drazka do klatki'],[[50,'Skrzydła rosną'],[70,'Nietoperz z siłki'],[90,'Szeroki jak framuga']],['triceps','linki','linka']),
   T('wpullup','Podciąganie z obciążeniem','kg','up',['podciaganie z obciaz','podciaganie z ciezar','weighted pull'],[[10,'Plus dyszka'],[20,'Pas z talerzem'],[40,'Kaloryfer na plecach']]),
   T('wdips','Dipy z obciążeniem','kg','up',['dipy z obciaz','porecze z obciaz','poreczach z obciaz','weighted dip'],[[20,'Poręcze się uginają'],[40,'Triceps z kosmosu']]),
-  T('curl','Uginanie ramion ze sztangą','kg','up',['uginanie ramion','biceps','curl','bicek','bicka','uginanie sztangi','modlitewnik'],[[30,'Bicek w natarciu'],[40,'Pompa na bicka'],[50,'Ramiona jak bochenki']],['hantl','mlotk','nog','leg','hammer']),
+  T('curl','Uginanie ramion ze sztangą','kg','up',['uginanie ramion','biceps','curl','bicek','bicka','uginanie sztangi'],[[30,'Bicek w natarciu'],[40,'Pompa na bicka'],[50,'Ramiona jak bochenki']],['hantl','mlotk','nog','leg','hammer','modlitewnik','preacher']),
   T('dbcurl','Uginanie ramion z hantlami','kg','up',['biceps hantl','uginanie hantli','uginanie ramion z hantl','hantle biceps','hantlami','bicek hantl'],[[14,'Hantelki poszły w ruch'],[20,'Bicek jak piłka'],[26,'Rękaw za ciasny']],['mlotk','hammer']),
   T('hammer','Uginanie młotkowe','kg','up',['mlotk','hammer'],[[16,'Młotek Thora'],[24,'Przedramię jak kłoda']]),
   T('french','Wyciskanie francuskie','kg','up',['francusk','skull','lamanie'],[[30,'Bagietka zjedzona'],[45,'Triceps po francusku']]),
@@ -309,8 +325,13 @@ const CATS = [
   T('calves','Wspięcia na palce','kg','up',['wspiecia','wspiecie','lydk','calf','palce'],[[80,'Łydki z obory'],[150,'Łydki jak u kolarza']]),
   T('lateral','Wznosy hantli bokiem','kg','up',['wznosy','unoszenie bokiem','unoszenie hantli bokiem','lateral','odwodzenie','boczny'],[[10,'Bark w 3D'],[16,'Barki jak kokosy']],['nog']),
   T('dbpress','Wyciskanie hantli nad głowę','kg','up',['hantli nad glowe','hantle nad glowe','hantli siedzac','arnold','barki hantl'],[[20,'Barki się kręcą'],[30,'Okrągłe jak arbuzy']]),
-  T('flyes','Rozpiętki','kg','up',['rozpietk','fly','flyes','butterfly','motylek','krzyzowanie linek','brama'],[[20,'Rozpiętość jak orzeł']]),
-  T('shrugs','Szrugsy','kg','up',['szrug','shrug','kaptur'],[[60,'Kaptur na zimę'],[100,'Szyi brak']])
+  T('flyes','Rozpiętki','kg','up',['rozpietk','fly','flyes','butterfly','motylek','krzyzowanie linek','brama'],[[20,'Rozpiętość jak orzeł']],['odwrot','reverse','tyln']),
+  T('shrugs','Szrugsy','kg','up',['szrug','shrug','kaptur'],[[60,'Kaptur na zimę'],[100,'Szyi brak']]),
+  T('decline','Wyciskanie na skosie ujemnym','kg','up',['skos ujemn','skosie ujemnym','ujemn','decline'],[[70,'Dolna klata w natarciu'],[100,'Setka głową w dół']]),
+  T('cablerow','Wiosłowanie na wyciągu dolnym','kg','up',['wyciag dolny','wyciagu dolnym','wioslowanie siedzac','seated row','wioslowanie na wyciagu'],[[50,'Plecy na linkach'],[80,'Wioślarz z Dunajca']]),
+  T('preacher','Uginanie na modlitewniku','kg','up',['modlitewnik','preacher','scott'],[[25,'Modlitwa wysłuchana'],[40,'Bicek z ambony']]),
+  T('closegrip','Wyciskanie wąskim chwytem','kg','up',['waskim','wasko','waski chwyt','close grip'],[[60,'Wąsko, a mocno'],[90,'Triceps jak podkowa']]),
+  T('reardelt','Odwrotne rozpiętki / face pull','kg','up',['odwrotne rozpietki','reverse fly','face pull','facepull','tylny akton','tyl barku'],[[15,'Tył barku istnieje'],[30,'Barki 360 stopni']])
  ]},
 {id:'run', name:'Bieganie', icon:'🏃', sport:true,
  kw:['biega','bieg','biegow','run','running','jogg','trucht','maraton','parkrun','polmaraton'],
@@ -410,7 +431,8 @@ const CATS = [
   T('calm','Ocena spokoju (1–10)','pkt','up',['ocena','spokoj','samopoczuc','nastroj'],[])
  ]},
 {id:'learn', name:'Nauka', icon:'📚',
- kw:['nauk','ucze','uczy','uczen','matm','matem','fizyk','fizy','chemi','biolog','histori','geograf','egzamin','matur','kolokw','szkol','lekcj','zadania domowe','studi','sesj','wkuw','korepet'],
+ groups:[{id:'gen',name:'Ogólne',kw:[]},{id:'mat',name:'Matematyka',kw:['matm','matem']},{id:'pol',name:'Polski',kw:['polsk']},{id:'fiz',name:'Fizyka',kw:['fizy']},{id:'che',name:'Chemia',kw:['chemi']},{id:'bio',name:'Biologia',kw:['biolog','biola']},{id:'his',name:'Historia',kw:['histori','hista']},{id:'geo',name:'Geografia',kw:['geograf','gegra']},{id:'inf',name:'Informatyka',kw:['informat','infa']},{id:'wos',name:'WOS',kw:['wos','wiedza o spoleczenstwie']}],
+ kw:['polsk','jezyk polski','nauk','ucze','uczy','uczen','matm','matem','fizyk','fizy','chemi','biolog','histori','geograf','egzamin','matur','kolokw','szkol','lekcj','zadania domowe','studi','sesj','wkuw','korepet'],
  prof:['Ściąga w piórniku','Uczący się','Ogarnięty','Kujon','Prymus','Profesor z ławki','Einstein, cholera'],
  streak:['Zeszyt otwarty','Dwa tygodnie nauki','Miesiąc bez wymówek','Mózg na siłowni','Kwartał wkuwania','Pół roku w książkach','Rok, chodząca encyklopedia'],
  tests:[
@@ -419,7 +441,25 @@ const CATS = [
   T('lexam','Wynik próbnej matury / testu','%','up',['matur','probn','test','sprawdzian','egzamin','wynik','kolokw','procent'],[[50,'Zdane, uff'],[70,'Siódemka z przodu'],[90,'Kujon wszech czasów'],[100,'Sto procent, cholera!']]),
   T('lgrade','Ocena','ocena','up',['ocena','ocen','stopien'],[[5,'Piątka, mamo!'],[6,'Celujący bez ściągi']]),
   T('lcards','Fiszki / powtórki','szt.','up',['fiszk','powtork','anki','karty'],[[100,'Setka fiszek'],[500,'Pamięć słonia']]),
-  T('lnotes','Strony notatek','str.','up',['notatk','strony','strona'],[[10,'Zeszyt nie jest pusty']])
+  T('lnotes','Strony notatek','str.','up',['notatk','strony','strona'],[[10,'Zeszyt nie jest pusty']]),
+  ...SUBJ('mat','Matematyka',['matm','matem'],['Pitagoras by się uśmiechnął','Delta dodatnia','Matematyczny potwór'],[
+    T('mattasks','Matematyka: rozwiązane zadania','szt.','up',['zadania z matm','zadan z matm','zadania matm','matma zadania','zadania matematyczne'],[[10,'Dycha zadań z matmy'],[30,'Zbiór zadań drży'],[100,'Kalkulator zbędny']])]),
+  ...SUBJ('pol','Polski',['polsk'],['Mickiewicz kiwa głową','Interpretacja level boss','Wieszcz z osiedla'],[
+    T('readings','Polski: przeczytane lektury','szt.','up',['lektur','lektury z polsk'],[[1,'Lektura przeczytana, nie streszczenie'],[5,'Mól lekturowy']]),
+    T('essays','Polski: napisane wypracowania','szt.','up',['wypracowan','rozprawk','esej'],[[1,'Pierwsza rozprawka'],[10,'Pióro jak brzytwa']])]),
+  ...SUBJ('fiz','Fizyka',['fizy'],['Newton się nie myli','E = mc² ogarnięte','Einstein z bloku'],[
+    T('fiztasks','Fizyka: rozwiązane zadania','szt.','up',['zadania z fizy','zadan z fizy','fizyka zadania'],[[10,'Dycha z fizyki'],[50,'Grawitacja ogarnięta']])]),
+  ...SUBJ('che','Chemia',['chemi'],['Mol ogarnięty','Reakcja łańcuchowa','Walter White, ale legalnie'],[
+    T('chetasks','Chemia: rozwiązane zadania','szt.','up',['zadania z chemi','zadan z chemi','chemia zadania','reakcj'],[[10,'Dycha z chemii'],[50,'Układ okresowy w głowie']])]),
+  ...SUBJ('bio','Biologia',['biolog','biola'],['Mitochondrium to siłownia komórki','Genetyka ogarnięta','Darwin byłby dumny'],[
+    T('biochap','Biologia: powtórzone działy','szt.','up',['dzial','dzialy z biolog','biologia dzialy'],[[5,'Pięć działów w głowie'],[15,'Cała biola ogarnięta']])]),
+  ...SUBJ('his','Historia',['histori','hista'],['Grunwald zaliczony','Daty w małym palcu','Kronikarz z osiedla'],[
+    T('dates','Historia: zapamiętane daty','szt.','up',['dat','daty','data'],[[20,'Dwadzieścia dat'],[100,'Chodzący kalendarz']])]),
+  ...SUBJ('geo','Geografia',['geograf','gegra'],['Mapa w głowie','GPS niepotrzebny','Kolumb z bloku'],[
+    T('maps','Geografia: wynik quizu z map','%','up',['map','mapy','quiz'],[[80,'Mapa ogarnięta'],[100,'Atlas chodzący']])]),
+  ...SUBJ('inf','Informatyka',['informat','infa'],['Hello World zdane','Algorytm ogarnięty','Haker z pracowni'],[
+    T('inftasks','Informatyka: zadania z programowania','szt.','up',['zadania z infor','zadania z infy','zadania programist'],[[10,'Dycha zadań z infy'],[50,'Kompilator cię lubi']])]),
+  ...SUBJ('wos','WOS',['wos'],['Konstytucja ogarnięta','Sejm w małym palcu','Polityk, ale ogarnięty'],[])
  ]},
 {id:'lang', name:'Języki', icon:'🗣️',
  kw:['angiel','angol','niemiec','hiszpan','francus','wlosk','rosyjsk','japon','korea','jezyk','duolingo','english','slowk','fiszk','ielts','toefl','fce','cae'],
@@ -544,7 +584,19 @@ const OTHER = {id:'other', name:'Inne', icon:'⭐', kw:[], tests:[],
  streak:['Zaczęło się','Dwa z rzędu, nieźle','Miesiąc bez wymówek','Nawyk się klei','Kwartał jak skała','Pół roku, kurde, szacun','Rok. Legenda.']};
 const CAT_BY_ID = Object.fromEntries([...CATS, OTHER].map(c => [c.id, c]));
 const TEST_BY_ID = {};
-CATS.forEach(c => c.tests.forEach(t => { TEST_BY_ID[t.id] = Object.assign(t, {cat: c.id}); }));
+const GYM_G = {chest:['bench','incline','decline','dbbench','flyes'], back:['deadlift','row','dbrow','pulldown','cablerow','wpullup','shrugs'], biceps:['curl','dbcurl','hammer','preacher'], triceps:['french','pushdown','closegrip','wdips'], shoulders:['ohp','dbpress','lateral','reardelt'], legs:['squat','frontsquat','legpress','bulgarian','rdl','hipthrust','legext','legcurl','calves']};
+CATS.forEach(c => c.tests.forEach(t => {
+  TEST_BY_ID[t.id] = Object.assign(t, {cat: c.id});
+  if(c.id==='gym') for(const [g, ids] of Object.entries(GYM_G)) if(ids.includes(t.id)) t.g = g;
+  if(c.id==='learn' && !t.g) t.g = 'gen';
+}));
+// która grupa pasuje do nazwy zadania (np. „Matma” → Matematyka, „Klata” → Klata)
+function detectGroup(catId, name){
+  const c = CAT_BY_ID[catId]; if(!c || !c.groups) return null;
+  let best = null, bs = 0;
+  for(const g of c.groups){ const sc = g.kw.length ? scoreList(name, g.kw) : 0; if(sc > bs){ bs = sc; best = g.id; } }
+  return best;
+}
 
 /* ========= rozpoznawanie słów (odporne na wielkość liter, ogonki i literówki) ========= */
 function norm(s){ return String(s||'').toLowerCase().replace(/ł/g,'l').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim(); }
@@ -556,7 +608,11 @@ function lev(a, b){
 }
 function kwScore(text, tokens, kw){
   kw = norm(kw); if(!kw) return 0;
-  if(kw.includes(' ')) return (' '+text+' ').includes(' '+kw) ? kw.length+1 : 0;
+  if(kw.includes(' ')){
+    const kt = kw.split(' ');
+    for(let i=0; i+kt.length<=tokens.length; i++) if(kt.every((k,j) => k.length<=2 ? tokens[i+j]===k : tokens[i+j].startsWith(k))) return kw.length+1;
+    return 0;
+  }
   let best = 0;
   for(const t of tokens){
     if(kw.length <= 3){ if(t===kw) best = Math.max(best, kw.length+1); continue; }
@@ -998,8 +1054,17 @@ function readTests(root, catId){
   }).filter(x => x.name);
 }
 /* chipsy z popularnymi testami kategorii */
-function chipsHTML(catId, taken, limit){
+function chipsHTML(catId, taken, limit, group){
   const c = CAT_BY_ID[catId]; if(!c || !c.tests.length) return '';
+  if(c.groups){
+    const g = c.groups.some(x => x.id===group) ? group : c.groups[0].id;
+    const tabs = c.groups.map(x => { const n = c.tests.filter(t => t.g===x.id && !taken.has(t.id)).length;
+      return `<button type="button" class="gtab ${x.id===g?'on':''}" data-group="${x.id}">${esc(x.name)}<small>${n}</small></button>`; }).join('');
+    const free = c.tests.filter(t => t.g===g && !taken.has(t.id));
+    return `<div class="chiphead">${c.icon} Wybierz ${c.id==='gym'?'partię, potem stuknij ćwiczenie':'przedmiot, potem stuknij test'}, żeby dodać:</div>
+      <div class="gtabs">${tabs}</div>
+      <div class="chips">${free.length ? free.map(t => `<button type="button" class="chip" data-chip="${t.id}">${esc(c.id==='learn' ? (n => n[0].toUpperCase()+n.slice(1))(t.name.replace(/^[^:]+: /,'')) : t.name)}<small>${esc(t.unit)}</small></button>`).join('') : '<span class="chiphead">Wszystko z tej grupy już dodane.</span>'}</div>`;
+  }
   const free = c.tests.filter(t => !taken.has(t.id));
   if(!free.length) return '';
   const shown = limit ? free.slice(0, limit) : free;
@@ -1044,7 +1109,7 @@ function taskForm(t, presetType){
       ${isEdit?'<button class="btn danger" id="fDel">Usuń zadanie</button>':''}
       <button class="btn ghost" id="fCancel">Anuluj</button>
     </div>`, sh => {
-    let type = d.type, min = d.min, norm = d.norm, typeTouched = isEdit, chipsAll = false;
+    let type = d.type, min = d.min, norm = d.norm, typeTouched = isEdit, chipsAll = false, chipGroup = null, groupTouched = false;
     const rows = $('#testRows',sh);
     const curCat = () => { const v = $('#fCat',sh).value; return v!=='auto' ? v : (detectCat($('#fName',sh).value) || 'other'); };
     const setType = v => { type = v; sh.querySelectorAll('.type').forEach(x => x.classList.toggle('on', x.dataset.type===v)); $('#testsBox',sh).hidden = v!=='progress'; };
@@ -1053,7 +1118,8 @@ function taskForm(t, presetType){
       $('#catLabel',sh).innerHTML = auto && $('#fName',sh).value.trim() ? (cid==='other' ? 'Nie rozpoznano kategorii' : `Rozpoznano: <b>${c.icon} ${esc(c.name)}</b>`) : '';
       if(!typeTouched && c.sport && c.tests.length) setType('progress');
       const taken = new Set([...rows.querySelectorAll('.trow')].map(r => { const m = updHint(r, cid); return m && !m.unitMismatch ? m.test.id : null; }).filter(Boolean));
-      $('#chipBox',sh).innerHTML = chipsHTML(cid, taken, chipsAll ? 0 : 10);
+      if(!groupTouched) chipGroup = detectGroup(cid, $('#fName',sh).value);
+      $('#chipBox',sh).innerHTML = chipsHTML(cid, taken, chipsAll ? 0 : 10, chipGroup);
     };
     $('#fName',sh).addEventListener('input', refresh);
     $('#fCat',sh).addEventListener('change', refresh);
@@ -1067,6 +1133,7 @@ function taskForm(t, presetType){
     bindTestRows(rows, curCat, refresh);
     $('#chipBox',sh).addEventListener('click', e => {
       if(e.target.closest('[data-chipmore]')){ chipsAll = true; refresh(); return; }
+      const gt = e.target.closest('[data-group]'); if(gt){ chipGroup = gt.dataset.group; groupTouched = true; refresh(); return; }
       const ch = e.target.closest('[data-chip]'); if(!ch) return;
       const ct = TEST_BY_ID[ch.dataset.chip];
       rows.insertAdjacentHTML('beforeend', testRowHTML({name:ct.name, unit:ct.unit, dir:ct.dir}, true));
@@ -1140,7 +1207,8 @@ function resultSheet(t, withLog){
       <button class="btn ghost" id="rCancel">Anuluj</button>
     </div>`, sh => {
     const nt = $('#newTest',sh);
-    const drawChips = () => { $('#rChips',sh).innerHTML = chipsHTML(t.cat, takenIds(), 0); };
+    let rGroup = detectGroup(t.cat, t.name);
+    const drawChips = () => { $('#rChips',sh).innerHTML = chipsHTML(t.cat, takenIds(), 0, rGroup); };
     const addTestObj = te => {
       t.tests.push(te); save();
       $('#logRows',sh).insertAdjacentHTML('beforeend', logRowHTML(te));
@@ -1151,6 +1219,7 @@ function resultSheet(t, withLog){
     drawChips();
     bindTestRows(nt, () => t.cat);
     $('#rChips',sh).addEventListener('click', e => {
+      const gt = e.target.closest('[data-group]'); if(gt){ rGroup = gt.dataset.group; drawChips(); return; }
       const ch = e.target.closest('[data-chip]'); if(!ch) return;
       const ct = TEST_BY_ID[ch.dataset.chip];
       addTestObj({id:uid(), name:ct.name, unit:ct.unit, dir:ct.dir, cid:ct.id}); buzz(10);
@@ -1298,7 +1367,7 @@ function settingsSheet(){
       <button class="btn danger" id="sReset">Zresetuj konto do zera</button>
       <button class="btn ghost" id="sClose">Zamknij</button>
     </div>
-    <p class="hint num" style="margin-top:14px">Wersja 3 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
+    <p class="hint num" style="margin-top:14px">Wersja 4 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
     $('#sClose',sh).onclick = closeSheet;
     $('#sName',sh).addEventListener('change', e => { S.name = e.target.value.trim(); save(); render(); toast(S.name ? 'Cześć, '+S.name+'!' : 'Usunięto nazwę'); });
     const rs = $('#sReset',sh); let rsStep = 0;
