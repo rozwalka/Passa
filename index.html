@@ -269,7 +269,10 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 <script>
 /* ========= katalog: kategorie, testy, tytuły ========= */
 // T(id, nazwa, jednostka, kierunek, słowa kluczowe, progi odznak [[wartość, nazwa]], słowa wykluczające)
-const T = (id, name, unit, dir, kw, b, neg) => ({id, name, unit, dir, kw, b: b||[], neg: neg||[]});
+// opcjonalnie bs = progi za SUMĘ wszystkich wpisów (np. łączne kilometry)
+const T = (id, name, unit, dir, kw, b, neg, bs) => ({id, name, unit, dir, kw, b: b||[], neg: neg||[], bs: bs||[]});
+const DONE_T = [10, 50, 100, 250];
+const DONE_DEFAULT = ['Rozkręca się','Pół setki, kurde','Stówa','Ćwierć tysiąca'];
 const STREAK_W = [1, 2, 4, 8, 12, 26, 52];
 const PROF_T = [0, 5, 15, 30, 60, 100, 200];
 
@@ -277,6 +280,7 @@ const CATS = [
 {id:'gym', name:'Siłownia', icon:'🏋️', sport:true,
  kw:['silown','silka','silke','silce','silki','silow','gym','pakow','kulturyst','trening silowy','ciezar','sztang','hantl','fbw','push pull','klata','leg day','dzien nog','powerlift','trojboj','crossfit','fitness','trening'],
  prof:['Karnet na pokaz','Świeżak z siłki','Bywalec ławki','Byczek','Koksu z osiedla','Pudzian z bloku','Bestia, kurde, bestia'],
+ done:['Dziesięć treningów','Pół setki na siłce','Stówa treningów, byczku','250 treningów, siłka ci płaci'],
  streak:['Pierwszy raz bez wymówek','Karnet się zwraca','Mistrz ławki','Byczek z rozpiski','Leg day nie pominięty','Pół roku żelaza','Rok na żelazie, bez spiny'],
  tests:[
   T('bench','Wyciskanie na ławce płaskiej','kg','up',['lawka plaska','lawce plaskiej','klata plaska','klatka plaska','plaska lawka','bench','wyciskanie lezac','wyciskanie na lawce','klata','lawka','bp'],[[60,'Pół setki z hakiem'],[80,'Ławka zaliczona'],[100,'Setka na klacie'],[120,'Klata jak szafa'],[140,'Wyciskacz z piekła']],['skos','incline','hantl','wask','ujemn']),
@@ -311,13 +315,15 @@ const CATS = [
 {id:'run', name:'Bieganie', icon:'🏃', sport:true,
  kw:['biega','bieg','biegow','run','running','jogg','trucht','maraton','parkrun','polmaraton'],
  prof:['Biega do autobusu','Truchtacz','Parkrunowiec','Biegacz z przekonania','Maratończyk w budowie','Kenijczyk z Pragi','Forrest Gump, cholera'],
+ done:['Dziesięć wyjść na trening','Pół setki biegów','Sto biegów, kolana żyją','250 biegów, Forrest dzwonił'],
  streak:['Buty założone','Dwa tygodnie bez zadyszki','Miesiąc w biegu','Kolana jeszcze żyją','Kwartał na asfalcie','Pół roku, dalej biegnie','Run Forrest, run!'],
  tests:[
   T('r5k','Bieg 5 km','min','down',['5 km','5km','piatka','5k','parkrun'],[[35,'Piątka pękła'],[30,'Poniżej 30, kurde'],[25,'Piątka w 25'],[22,'Struś Pędziwiatr'],[20,'Kenijczyk z Pragi']]),
   T('r10k','Bieg 10 km','min','down',['10 km','10km','dycha','dyszka','10k'],[[65,'Dycha ukończona'],[55,'Dycha w 55'],[50,'Dycha z zapasem'],[45,'Dycha jak z bicza'],[40,'Elita z Biedronki']]),
   T('rhalf','Półmaraton','min','down',['polmaraton','pol maraton','21 km','half'],[[150,'Pół szaleństwa'],[120,'Połówka w 2 godziny'],[105,'Połówka z ogniem'],[90,'Półbóg']]),
   T('rfull','Maraton','min','down',['maraton','42 km','marathon'],[[300,'Przeżył maraton'],[240,'Sub 4, cholera'],[210,'Sub 3:30'],[180,'Sub 3, ty potworze']],['pol','half','ultra']),
-  T('rlong','Najdłuższy bieg','km','up',['najdluzsz','dlugie wybieganie','long run','dystans biegu','dystans'],[[10,'Dziesiątka w nogach'],[21.1,'Dystans połówki'],[30,'Ściana na 30.'],[42.2,'Królewski dystans']]),
+  T('rlong','Najdłuższy bieg','km','up',['najdluzsz','dlugie wybieganie','long run'],[[10,'Dziesiątka w nogach'],[21.1,'Dystans połówki'],[30,'Ściana na 30.'],[42.2,'Królewski dystans']]),
+  T('rdist','Dystans biegu','km','up',['dystans biegu','dystans','przebiegniete','km biegu','kilometry'],[[5,'Piątka w nogach'],[10,'Dycha za jednym zamachem']],[],[[50,'Pierwsze 50 km'],[100,'Stówa przebiegnięta'],[250,'Ćwierć tysiąca km'],[500,'Pół tysiąca km'],[1000,'Tysiąc kilometrów, cholera']]),
   T('rweek','Kilometry w tygodniu','km','up',['kilometry w tyg','km w tyg','tygodniow','kilometraz'],[[20,'Dwudziestka tygodniowo'],[40,'Czterdziecha'],[60,'Maszyna do kilometrów'],[100,'Kenia na wakacjach']]),
   T('rpace','Tempo średnie','min/km','down',['tempo','pace','min km'],[[6,'Szóstka z przodu'],[5,'Piątka z przodu'],[4.5,'Szybki jak ZUS po składki']]),
   T('r1k','Bieg 1 km','min','down',['1 km','1km','kilometr'],[[5,'Kilometr bez zadyszki'],[4,'Kilometr w 4'],[3.5,'Rakieta']]),
@@ -327,9 +333,11 @@ const CATS = [
 {id:'bike', name:'Rower', icon:'🚴', sport:true,
  kw:['rower','kolar','bike','cycl','mtb','szosa','spinning','gravel'],
  prof:['Rower w piwnicy','Niedzielny rowerzysta','Pan z licznikiem','Kolarz z Lidla','Peleton z osiedla','Szosowy wyjadacz','Tour de Pologne, wymiatacz'],
+ done:['Dziesięć przejażdżek','Pół setki tras','Sto wyjazdów, licznik dymi','250 tras, rower prosi o urlop'],
  streak:['Łańcuch nasmarowany','Dwa tygodnie w siodle','Miesiąc pedałowania','Tyłek już nie boli','Kwartał na dwóch kółkach','Pół roku z wiatrem','Rok w siodle, dupa ze stali'],
  tests:[
-  T('blong','Najdłuższa trasa','km','up',['najdluzsz','trasa','dystans'],[[50,'Pięćdziesiątka w siodle'],[100,'Setka na rowerze'],[200,'Dwusetka, dupa boli'],[300,'Tyłek z żelaza']]),
+  T('bdist','Dystans przejażdżki','km','up',['dystans','przejazd','przejechane','kilometry'],[],[],[[100,'Pierwsza setka'],[500,'Pół tysiąca w siodle'],[1000,'Tysiąc kilometrów'],[5000,'Pięć tysięcy, dupa z kamienia']]),
+  T('blong','Najdłuższa trasa','km','up',['najdluzsz','trasa'],[[50,'Pięćdziesiątka w siodle'],[100,'Setka na rowerze'],[200,'Dwusetka, dupa boli'],[300,'Tyłek z żelaza']]),
   T('bweek','Kilometry w tygodniu','km','up',['tygod','kilometraz'],[[100,'Stówka tygodniowo'],[200,'Peleton się boi']]),
   T('bspeed','Średnia prędkość','km/h','up',['srednia','predkosc','km h','tempo'],[[25,'Dwudziestka piątka'],[30,'Trzydziecha na liczniku'],[35,'Tour de Wieś']]),
   T('belev','Przewyższenie','m','up',['przewyzsz','podjazd','elevation','metry w gore'],[[500,'Pół kilometra w górę'],[1000,'Kozica na rowerze'],[2000,'Alpy z Mazowsza']]),
@@ -339,13 +347,14 @@ const CATS = [
 {id:'swim', name:'Pływanie', icon:'🏊', sport:true,
  kw:['plyw','basen','swim','kraul','plywalni'],
  prof:['Kółko ratunkowe','Żabka z dziadkiem','Bywalec basenu','Kraulowiec','Rekin z pływalni','Phelps z miejskiego','Aquaman, kurde'],
+ done:['Dycha w chlorze','Pół setki basenów','Sto razy w wodzie','250 basenów, skrzela rosną'],
  streak:['Czepek założony','Chlor we włosach','Miesiąc w wodzie','Skóra jak rodzynek','Kwartał na torze','Pół roku z płetwami','Rok w wodzie, prawie ryba'],
  tests:[
   T('s50','50 m kraulem','s','down',['50 m','50m'],[[50,'Nie utonął'],[40,'Rybka'],[32,'Rekin z basenu']]),
   T('s100','100 m kraulem','min','down',['100 m','100m','setka'],[[2.5,'Setka w wodzie'],[2,'Setka w 2 minuty'],[1.6,'Phelps z pływalni miejskiej']]),
   T('s400','400 m','min','down',['400 m','400m','400'],[[10,'Czterysta bez łapania liny'],[8,'Delfin']]),
   T('s1k','1 km pływania','min','down',['1 km','1km','1000 m','kilometr'],[[30,'Kilometr w wodzie'],[22,'Torpeda']]),
-  T('sdist','Dystans na treningu','m','up',['dystans','metry','ile metrow'],[[1000,'Kilometr z kafelkami'],[2000,'Dwa kilosy chloru'],[3000,'Skóra jak u ryby']]),
+  T('sdist','Dystans na treningu','m','up',['dystans','metry','ile metrow'],[[1000,'Kilometr z kafelkami'],[2000,'Dwa kilosy chloru'],[3000,'Skóra jak u ryby']],[],[[10000,'Dziesięć kilosów w wodzie'],[42195,'Maraton pływacki'],[100000,'Sto kilometrów, płetwy rosną']]),
   T('slen','Długości basenu bez przerwy','dł.','up',['dlugosci','bez przerwy','basenow'],[[10,'Dziesiątka bez zatrzymania'],[40,'Kilometr non stop']])
  ]},
 {id:'cali', name:'Kalistenika', icon:'🤸', sport:true,
@@ -458,7 +467,7 @@ const CATS = [
  streak:['Pierwszy spacer','Dwa tygodnie kroków','Miesiąc w ruchu','Krokomierz się grzeje','Kwartał piechotą','Pół roku na nogach','Rok, buty do wymiany'],
  tests:[
   T('steps','Kroki dziennie','kroki','up',['krok','steps'],[[8000,'Osiem tysięcy kroków'],[10000,'Dziesięć tysięcy, wymiata'],[20000,'Buty zdarte']]),
-  T('wdist','Dystans spaceru','km','up',['dystans','km','spacer'],[[5,'Piątka spacerem'],[15,'Pielgrzym'],[30,'Do Częstochowy bliżej']]),
+  T('wdist','Dystans spaceru','km','up',['dystans','km','spacer'],[[5,'Piątka spacerem'],[15,'Pielgrzym'],[30,'Do Częstochowy bliżej']],[],[[100,'Sto km na nogach'],[500,'Pół tysiąca km spacerem']]),
   T('wtime','Czas spaceru','min','up',['czas','minut'],[[60,'Godzina na świeżym']])
  ]},
 {id:'climb', name:'Wspinaczka i góry', icon:'🧗', sport:true,
@@ -507,6 +516,19 @@ const CATS = [
  tests:[
   T('rooms','Posprzątane pomieszczenia','szt.','up',['pomieszczen','pokoj','sprzat'],[[5,'Odkurzacz to przyjaciel'],[20,'Mieszkanie jak z katalogu']]),
   T('cleantime','Czas sprzątania','min','up',['czas','minut'],[[60,'Godzina porządków']])
+ ]},
+{id:'diet', name:'Zdrowe jedzenie', icon:'🥗',
+ kw:['diet','zdrowe jedz','zdrowo','jedzen','warzyw','owoc','woda','wody','wode','nawodn','slodycz','fast food','fastfood','posilk','salat','zielon','sniadan'],
+ prof:['Kebab na śniadanie','Sałata raz w roku','Ogarnia talerz','Warzywny','Zdrowy jak rydz','Brokuł z osiedla','Trener z Instagrama by pochwalił'],
+ done:['Dziesięć zdrowych dni','Pół setki na zdrowo','Stówa, talerz dziękuje','250 razy, wątroba wysłała kwiaty'],
+ streak:['Pierwsza sałatka','Dwa tygodnie bez budy','Miesiąc na zielono','Brzuch dziękuje','Kwartał na zdrowo','Pół roku, kebab tęskni','Rok, organizm bije brawo'],
+ tests:[
+  T('veg','Porcje warzyw i owoców','porcje','up',['warzyw','owoc','porcj'],[[5,'Pięć porcji jak w reklamie'],[8,'Królik doświadczony']]),
+  T('water','Wypita woda','l','up',['woda','wody','wode','nawodn','litr'],[[2,'Dwa litry, nawodniony'],[3,'Wielbłąd na odwrót']]),
+  T('nofast','Dni bez fast foodu w tygodniu','dni','up',['fast','fastfood','kebab','buda','mcdonald'],[[5,'Kebab w odwrocie'],[7,'Cały tydzień bez budy']]),
+  T('nosweet','Dni bez słodyczy w tygodniu','dni','up',['slodycz','cukier','slodkie'],[[5,'Cukier przegrywa'],[7,'Tydzień bez słodkiego, szacun']]),
+  T('breakfast','Dni ze śniadaniem w tygodniu','dni','up',['sniadan'],[[7,'Śniadanie mistrzów codziennie']]),
+  T('homefood','Domowe posiłki w tygodniu','szt.','up',['domow','obiad','posilk','gotowan'],[[7,'Mama byłaby dumna'],[14,'Restauracja „U mnie”']])
  ]},
 {id:'cook', name:'Gotowanie', icon:'🍳',
  kw:['gotow','kuchn','przepis','cook','piecz','obiad','meal prep'],
@@ -702,6 +724,8 @@ function badgeDefs(){
   for(const catId of usedCats()){
     const c = CAT_BY_ID[catId] || OTHER;
     const bestStreak = Math.max(0, ...st.filter(x => (x.t.cat||'other')===catId).map(x => x.s.best));
+    const n = catCompletions(catId), dn = c.done || DONE_DEFAULT;
+    DONE_T.forEach((th,i) => defs.push({id:`d:${catId}:${th}`, group:catId, icon:c.icon, name: c.done ? dn[i] : `${dn[i]}: ${c.name}`, req:`${th} zaliczeń w kategorii ${c.name}`, ok: n >= th}));
     [[4,2],[12,4],[26,5],[52,6]].forEach(([w,i]) => defs.push({id:`s:${catId}:${w}`, group:catId, icon:c.icon, name:c.streak[i], req:`Passa ${w} tyg. w kategorii ${c.name}`, ok: bestStreak >= w}));
   }
   const seen = new Set();
@@ -710,6 +734,8 @@ function badgeDefs(){
     const ct = TEST_BY_ID[te.cid]; if(!ct) continue;
     const vals = S.entries.filter(e => { const tt = findTest(e.testId); return tt && tt.cid===te.cid; }).map(e => e.value);
     const best = vals.length ? (ct.dir==='down' ? Math.min(...vals) : Math.max(...vals)) : null;
+    const sum = vals.reduce((a,v) => a+v, 0);
+    ct.bs.forEach(([v, name], i) => defs.push({id:`t:${ct.id}:${i}`, group:ct.cat, icon:CAT_BY_ID[ct.cat].icon, name, req:`Łącznie ${fmt(v)} ${ct.unit} (${ct.name})`, ok: sum >= v}));
     ct.b.forEach(([v, name], i) => defs.push({id:`r:${ct.id}:${i}`, group:ct.cat, icon:CAT_BY_ID[ct.cat].icon, name, req:`${ct.name} ${ct.dir==='down'?'≤':'≥'} ${fmt(v)} ${ct.unit}`, ok: best!==null && (ct.dir==='down' ? best <= v : best >= v)}));
   }
   return defs;
@@ -851,7 +877,7 @@ function profileView(){
   return `
   <div class="backbar"><button id="backTasks">← Zadania</button></div>
   <div class="lvcard">
-    <div class="lvnum"><small>Poziom</small><b class="num">${x.lvl}</b></div>
+    <div class="lvnum"><small>${S.name ? esc(S.name)+' · poziom' : 'Poziom'}</small><b class="num">${x.lvl}</b></div>
     <div><span class="xpbar"><i style="width:${Math.round(x.pct*100)}%"></i></span><span class="num">${x.xp} XP · ${x.toNext} XP do poziomu ${x.lvl+1}</span></div>
   </div>
   <h2>Profesje</h2>
@@ -1263,15 +1289,25 @@ function settingsSheet(){
   openSheet(`
     <h4>Ustawienia</h4>
     <p class="sub">Dane są zapisane tylko w tym telefonie. Rób czasem kopię zapasową.</p>
+    <div class="field"><label for="sName">Twoja nazwa</label><input id="sName" class="inp" maxlength="24" placeholder="np. Wiktor" value="${esc(S.name||'')}"></div>
     <div class="btns" style="margin-top:0">
       ${installEvt && !standalone ? '<button class="btn pri" id="sInstall">Zainstaluj jako apkę</button>' : ''}
       <button class="btn" id="sExport">Zapisz kopię zapasową</button>
       <button class="btn" id="sImport">Wczytaj kopię z pliku</button>
       <input type="file" id="sFile" accept="application/json,.json" hidden>
+      <button class="btn danger" id="sReset">Zresetuj konto do zera</button>
       <button class="btn ghost" id="sClose">Zamknij</button>
     </div>
-    <p class="hint num" style="margin-top:14px">Wersja 2 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
+    <p class="hint num" style="margin-top:14px">Wersja 3 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
     $('#sClose',sh).onclick = closeSheet;
+    $('#sName',sh).addEventListener('change', e => { S.name = e.target.value.trim(); save(); render(); toast(S.name ? 'Cześć, '+S.name+'!' : 'Usunięto nazwę'); });
+    const rs = $('#sReset',sh); let rsStep = 0;
+    rs.onclick = () => {
+      if(rsStep===0){ rsStep = 1; rs.classList.add('sure'); rs.textContent = 'Na pewno? Zniknie wszystko. Najpierw zrób kopię'; return; }
+      if(rsStep===1){ rsStep = 2; rs.textContent = 'Stuknij jeszcze raz, żeby wyzerować'; return; }
+      S = {v:2, tasks:[], logs:[], entries:[], badges:[], name: S.name};
+      save(); closeSheet(); tab = 'tasks'; render(); toast('Konto wyzerowane. Czysta karta');
+    };
     const ins = $('#sInstall',sh); if(ins) ins.onclick = async () => { installEvt.prompt(); await installEvt.userChoice; installEvt = null; closeSheet(); };
     $('#sExport',sh).onclick = () => {
       const blob = new Blob([JSON.stringify(S,null,1)], {type:'application/json'});
