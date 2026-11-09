@@ -340,6 +340,129 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 .wins .wreps{width:56px}
 .wex .howto{grid-column:1/-1;margin:0}
 @media (max-width:360px){.wex{grid-template-columns:1fr}.prow{grid-template-columns:auto 1fr auto}.prow .cth{display:none}}
+.tname{flex-wrap:wrap;row-gap:4px}
+.tnum,.tname .tag{white-space:nowrap}
+.aibtns .btn.ghost{height:42px}
+.chip .chimg{display:block;width:120px;aspect-ratio:8/3;border-radius:6px;margin-bottom:6px;background:#fff}
+/* v7: serie, zamiana, pomijanie */
+.sets{grid-column:1/-1;display:flex;flex-direction:column;gap:6px}
+.setrow{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.setrow .sn{width:24px;height:24px;border-radius:7px;background:var(--surface);display:grid;place-items:center;font-weight:800;font-size:12px;color:var(--fg);flex:none}
+.setrow .inp{width:78px;padding:9px 8px;text-align:right;font-size:16px;font-weight:700;background:var(--surface)}
+.setrow .srp{width:60px}
+.addset{grid-column:1/-1;justify-self:start;font-size:13px;font-weight:700;color:var(--flame2);padding:4px 2px}
+.wtools{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.wtool{font-size:12.5px;font-weight:700;padding:6px 10px;border-radius:9px;background:var(--surface);color:var(--fg)}
+.wex.skipped{opacity:.55}
+.wex.skipped .wthumb{filter:grayscale(1)}
+.skipnote{grid-column:1/-1;font-size:13px;color:var(--muted);font-weight:600}
+.swapnote{color:var(--flame2)!important}
+.linkbtn{font-size:12px;font-weight:700;color:var(--fg);text-decoration:underline;padding:0}
+.keep{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.keep input{width:18px;height:18px;accent-color:var(--flame)}
+.altbox{grid-column:1/-1;background:var(--surface);border-radius:12px;padding:10px}
+.altbox .lab{margin-bottom:8px}
+.alts{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+.alts .pick{background:var(--surface2)}
+/* v8: wykresy */
+.cfilters{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0}
+.cfilters + .cfilters{margin-top:8px}
+.cf{font-size:13px;font-weight:700;padding:8px 12px;border-radius:10px;background:var(--surface);color:var(--muted)}
+.cf.on{background:var(--fg);color:var(--bg)}
+.cnote{font-size:12px;color:var(--muted);margin:8px 2px 0;line-height:1.4}
+.chartwrap{position:relative;margin-top:10px}
+.chartwrap .chart{margin-top:0;height:190px;touch-action:pan-y;cursor:crosshair;border-radius:8px}
+.chartwrap .chart:focus-visible{outline:2px solid var(--flame2);outline-offset:4px}
+.ctip{position:absolute;z-index:2;pointer-events:none;background:var(--fg);color:var(--bg);border-radius:10px;padding:7px 10px;display:flex;flex-direction:column;gap:1px;font-size:11.5px;line-height:1.3;box-shadow:0 6px 20px rgba(0,0,0,.35);white-space:nowrap;max-width:100%}
+.ctip b{font-size:15px}
+.ctip span{opacity:.75}
+.csum{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted);margin-top:6px}
+.csum b{color:var(--fg)}
+.csum b.up{color:var(--ok)} .csum b.down{color:var(--bad)}
+.csum .gold{color:var(--gold);font-weight:700}
+/* v9: AI */
+.nav .in{gap:6px}
+.tab{gap:6px;font-size:14px;min-width:0}
+.tnum{font-size:12px;font-weight:800;color:var(--muted);background:var(--surface2);padding:2px 6px;border-radius:6px}
+.aitop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:26px 0 10px}
+.aitop h2{margin:0}
+.aisetup{background:linear-gradient(150deg,rgba(134,162,255,.14),transparent 70%),var(--surface);border-radius:var(--r);padding:16px;margin-bottom:12px;line-height:1.45}
+.aisetup b{font-size:16px}
+.aisetup p{color:var(--muted);font-size:13.5px;margin:6px 0 12px}
+.aicompose{background:var(--surface);border-radius:var(--r);padding:12px}
+.aicompose textarea{resize:vertical;min-height:84px;line-height:1.45}
+.aibar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 4px}
+.aimuted{font-size:12px;color:var(--muted)}
+.btn.sm{height:42px;font-size:14px;padding:0 16px;border-radius:12px}
+.ainums{margin-top:8px}
+.ainums .chip b{color:var(--flame2)}
+.aihist{display:flex;flex-direction:column;gap:16px;margin-top:18px}
+.aientry{display:flex;flex-direction:column;gap:8px}
+.aimsg{align-self:flex-end;max-width:88%;background:var(--surface2);border-radius:16px 16px 4px 16px;padding:10px 12px}
+.aimsg p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.aimsg small{display:block;text-align:right;color:var(--muted);font-size:11px;margin-top:4px}
+.aistat{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.aistat.err{color:var(--bad)}
+.dots{display:inline-flex;gap:3px}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--chart);animation:dot 1.2s infinite}
+.dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.aiact{background:var(--surface);border-radius:16px;padding:12px 14px;border:1.5px solid var(--line)}
+.aiact.is-done{border-color:rgba(61,220,151,.4)}
+.aiact.ans p{margin:0;line-height:1.5}
+.aihead{font-weight:800;font-size:14.5px;margin-bottom:6px}
+.aiact .cth{width:64px;aspect-ratio:8/3}
+.aiex{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.aiex li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:13.5px}
+.aiex li > span:first-child:not(.cth){grid-column:1/3}
+.aiex li span small{display:block;color:var(--flame2);font-size:11.5px}
+.aiex li b{font-size:13px;white-space:nowrap}
+.aiex li.miss,.aiex li.skip{color:var(--muted)}
+.aiex li em{font-style:normal;font-size:12px}
+.aiwarn{margin-top:8px;font-size:12.5px;color:var(--flame2);line-height:1.4}
+.aibtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.aidone{margin-top:8px;font-size:13px;font-weight:700;color:var(--ok)}
+.aidone.off{color:var(--muted)}
+.aimeta{font-size:11px;color:var(--muted);text-align:right}
+.aiprompt{white-space:pre-wrap;font-size:11.5px;line-height:1.45;background:var(--surface2);border-radius:12px;padding:12px;max-height:50vh;overflow:auto;color:var(--muted)}
+@media (max-width:380px){.tab svg{display:none}}
+.chip .chimg{display:block;width:120px;aspect-ratio:8/3;border-radius:6px;margin-bottom:6px;background:#fff}
+/* v7: serie, zamiana, pomijanie */
+.sets{grid-column:1/-1;display:flex;flex-direction:column;gap:6px}
+.setrow{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.setrow .sn{width:24px;height:24px;border-radius:7px;background:var(--surface);display:grid;place-items:center;font-weight:800;font-size:12px;color:var(--fg);flex:none}
+.setrow .inp{width:78px;padding:9px 8px;text-align:right;font-size:16px;font-weight:700;background:var(--surface)}
+.setrow .srp{width:60px}
+.addset{grid-column:1/-1;justify-self:start;font-size:13px;font-weight:700;color:var(--flame2);padding:4px 2px}
+.wtools{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.wtool{font-size:12.5px;font-weight:700;padding:6px 10px;border-radius:9px;background:var(--surface);color:var(--fg)}
+.wex.skipped{opacity:.55}
+.wex.skipped .wthumb{filter:grayscale(1)}
+.skipnote{grid-column:1/-1;font-size:13px;color:var(--muted);font-weight:600}
+.swapnote{color:var(--flame2)!important}
+.linkbtn{font-size:12px;font-weight:700;color:var(--fg);text-decoration:underline;padding:0}
+.keep{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.keep input{width:18px;height:18px;accent-color:var(--flame)}
+.altbox{grid-column:1/-1;background:var(--surface);border-radius:12px;padding:10px}
+.altbox .lab{margin-bottom:8px}
+.alts{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+.alts .pick{background:var(--surface2)}
+/* v8: wykresy */
+.cfilters{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0}
+.cfilters + .cfilters{margin-top:8px}
+.cf{font-size:13px;font-weight:700;padding:8px 12px;border-radius:10px;background:var(--surface);color:var(--muted)}
+.cf.on{background:var(--fg);color:var(--bg)}
+.cnote{font-size:12px;color:var(--muted);margin:8px 2px 0;line-height:1.4}
+.chartwrap{position:relative;margin-top:10px}
+.chartwrap .chart{margin-top:0;height:190px;touch-action:pan-y;cursor:crosshair;border-radius:8px}
+.chartwrap .chart:focus-visible{outline:2px solid var(--flame2);outline-offset:4px}
+.ctip{position:absolute;z-index:2;pointer-events:none;background:var(--fg);color:var(--bg);border-radius:10px;padding:7px 10px;display:flex;flex-direction:column;gap:1px;font-size:11.5px;line-height:1.3;box-shadow:0 6px 20px rgba(0,0,0,.35);white-space:nowrap;max-width:100%}
+.ctip b{font-size:15px}
+.ctip span{opacity:.75}
+.csum{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted);margin-top:6px}
+.csum b{color:var(--fg)}
+.csum b.up{color:var(--ok)} .csum b.down{color:var(--bad)}
+.csum .gold{color:var(--gold);font-weight:700}
 .chip .chimg{display:block;width:120px;aspect-ratio:8/3;border-radius:6px;margin-bottom:6px;background:#fff}
 /* v7: serie, zamiana, pomijanie */
 .sets{grid-column:1/-1;display:flex;flex-direction:column;gap:6px}
@@ -371,6 +494,7 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
   <button class="tab on" id="tabTasks" aria-label="Zadania"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Zadania</button>
   <button class="fab" id="fab" aria-label="Dodaj zadanie"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
   <button class="tab" id="tabProg" aria-label="Progres"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg>Progres</button>
+  <button class="tab" id="tabAI" aria-label="AI"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg>AI</button>
 </div></nav>
 <canvas id="fx"></canvas>
 
@@ -1088,9 +1212,11 @@ const PLUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12
 const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
 function render(){
+  ensureNums();
   $('#tabTasks').classList.toggle('on', tab==='tasks');
   $('#tabProg').classList.toggle('on', tab==='prog');
-  $('#app').innerHTML = header() + (tab==='tasks' ? tasksView() : tab==='prog' ? progView() : profileView());
+  $('#tabAI').classList.toggle('on', tab==='ai');
+  $('#app').innerHTML = header() + (tab==='tasks' ? tasksView() : tab==='prog' ? progView() : tab==='ai' ? aiView() : profileView());
   if(tab==='prog') drawCharts();
 }
 
@@ -1111,7 +1237,7 @@ function header(){
     </div>
   </div>
   <div class="days">${DAYS.map((d,i)=>`<div class="day ${i<ti?'past':''} ${i===ti?'today':''}"><i></i>${d}</div>`).join('')}</div>
-  ${S.tasks.length && tab!=='profile' ? `<div class="sum">
+  ${S.tasks.length && (tab==='tasks' || tab==='prog') ? `<div class="sum">
     <div class="stat"><small>Minimum w tym tyg.</small><b class="num">${metCount}<em>/ ${S.tasks.length}</em></b></div>
     <div class="stat"><small>Złote</small><b class="num" style="color:${gold?'var(--gold)':'inherit'}">${gold}</b></div>
     <div class="stat"><small>Idealne tyg. z rzędu</small><b class="num" style="color:${perf?'var(--flame)':'inherit'}">${perf}</b></div>
@@ -1144,7 +1270,7 @@ function taskCard(t){
   const title = streakTitle(t, st.streak);
   return `<div class="card ${gold?'gold':met?'met':''} ${risk?'risk':''}" data-id="${t.id}">
     <button class="main" data-detail="${t.id}" aria-label="Szczegóły: ${esc(t.name)}">
-      <span class="tname"><span class="cico" aria-hidden="true">${catOf(t).icon}</span>${esc(t.name)} <span class="tag ${t.type!=='check'?'p':''}">${t.type==='workout'?'trening · '+(t.tests||[]).filter(x => !x.alt).length+' ćw.':t.type==='progress'?'01 + progres':'01'}</span></span>
+      <span class="tname"><span class="tnum num">#${t.num}</span><span class="cico" aria-hidden="true">${catOf(t).icon}</span>${esc(t.name)} <span class="tag ${t.type!=='check'?'p':''}">${t.type==='workout'?'trening · '+(t.tests||[]).filter(x => !x.alt).length+' ćw.':t.type==='progress'?'01 + progres':'01'}</span></span>
       ${title ? `<span class="stitle">${esc(title)}</span>` : ''}
       <span class="pips" aria-label="${c} z ${t.norm}">${pips}</span>
       <span class="status num">${status}</span>
@@ -1162,7 +1288,13 @@ function progView(){
   if(!pts.length) return `<h2>Progres</h2><div class="empty"><b>Brak zadań z progresem</b>
     Dodaj zadanie typu „01 + progres”, np. Siłownia z testem „Wyciskanie na ławce płaskiej”. Po każdym zaliczeniu wpiszesz wynik, a tu zrobi się wykres.
     <div class="example"><button class="btn pri" id="emptyAddP">Utwórz trening albo zadanie</button></div></div>`;
-  return pts.map(t => `<div class="ptask">
+  const hasKg = pts.some(t => (t.tests||[]).some(te => normUnit(te.unit)==='kg'));
+  const R = [['4w','4 tyg.'],['3m','3 mies.'],['1y','Rok'],['all','Wszystko']];
+  const M = [['top','Ciężar'],['1rm','Szac. 1RM'],['vol','Objętość']];
+  const filt = `<div class="cfilters" role="group" aria-label="Zakres wykresów">${R.map(([k,l]) => `<button type="button" class="cf ${chartRange===k?'on':''}" data-range="${k}">${l}</button>`).join('')}</div>
+    ${hasKg ? `<div class="cfilters" role="group" aria-label="Co pokazać na wykresach siłowni">${M.map(([k,l]) => `<button type="button" class="cf ${chartMetric===k?'on':''}" data-metric="${k}">${l}</button>`).join('')}</div>
+    <p class="cnote">${chartMetric==='1rm' ? 'Szacowany maks na 1 powtórzenie (wzór Epleya) z najlepszej serii. Dotyczy ćwiczeń w kg.' : chartMetric==='vol' ? 'Objętość = suma ciężar × powtórzenia ze wszystkich serii w danym dniu. Dotyczy ćwiczeń w kg.' : 'Najcięższa seria z każdego treningu.'}</p>` : ''}`;
+  return filt + pts.map(t => `<div class="ptask">
     <h3><span>${catOf(t).icon} ${esc(t.name)}</span><button class="small-btn" data-addres="${t.id}">Dodaj wynik</button></h3>
     ${(t.tests||[]).length ? t.tests.filter(te => !te.alt || S.entries.some(e => e.testId===te.id)).map(te => testCard(t,te)).join('') : `<div class="empty">Brak testów. Dodaj je przyciskiem „Dodaj wynik”.</div>`}
   </div>`).join('');
@@ -1181,7 +1313,7 @@ function testCard(t, te){
   return `<div class="tcard">
     <div class="thead"><div class="nm">${esc(te.name)}<small>${es.length} ${es.length===1?'wynik':es.length<5?'wyniki':'wyników'} · ${te.dir==='down'?'mniej = lepiej':'więcej = lepiej'} · ${tag}</small></div>
       <div class="big num"><b>${fmt(last)}</b><span>${unit}</span><div class="delta ${dcls}">${diff>0?'+':''}${fmt(diff)} ${unit} od startu</div></div></div>
-    ${es.length>1 ? `<canvas class="chart" data-chart="${te.id}"></canvas>` : ''}
+    ${es.length>1 ? `<div class="chartwrap"><canvas class="chart" data-chart="${te.id}" tabindex="0" aria-label="Wykres: ${esc(te.name)}. Strzałki przesuwają po wynikach."></canvas><div class="ctip" hidden></div><div class="csum num"></div></div>` : ''}
     <div class="trow2"><span class="pr">Rekord ${fmt(best)} ${unit}</span>${(x => `<span class="tlvl num">Poz. ${x.lvl} ćwiczenia<i><b style="width:${Math.round(x.pct*100)}%"></b></i></span>`)(testXP(te))}${eyeBtn(te.name, te.cid, t.cat)}</div>
     <div class="howto" hidden></div>
     <div class="hist">${es.slice(0,showN).map(e => `<div class="hrow num"><span>${fmtDay(e.ts)}</span><b>${e.sets && e.sets.length>1 ? setsTxt(e)+' '+unit : fmt(e.value)+' '+unit+(e.reps?' × '+e.reps:'')}${e.value===best?' ★':''}</b><button class="x" data-delentry="${e.id}">Usuń</button></div>`).join('')}</div>
@@ -1217,48 +1349,134 @@ function profileView(){
 }
 
 /* ========= wykres ========= */
-function drawCharts(){
-  const cs = getComputedStyle(document.documentElement);
-  const col = n => cs.getPropertyValue(n).trim();
-  document.querySelectorAll('canvas[data-chart]').forEach(cv => {
-    const te = findTest(cv.dataset.chart); if(!te) return;
-    const es = S.entries.filter(e => e.testId===te.id).sort((a,b)=>a.ts-b.ts);
-    const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
-    cv.width = W*dpr; cv.height = H*dpr;
-    const g = cv.getContext('2d'); g.scale(dpr,dpr);
-    const L = 40, R = 12, T = 12, B = 24;
-    let lo = Math.min(...es.map(e=>e.value)), hi = Math.max(...es.map(e=>e.value));
-    if(lo===hi){ lo -= 1; hi += 1; }
-    const step = niceStep((hi-lo)/3);
-    lo = Math.floor(lo/step)*step; hi = Math.ceil(hi/step)*step;
-    const t0 = es[0].ts, t1 = es[es.length-1].ts, span = Math.max(1, t1-t0);
-    const X = ts => L + (W-L-R) * (ts-t0)/span;
-    const Y = v => T + (H-T-B) * (1 - (v-lo)/(hi-lo));
-    g.font = '11px system-ui, Roboto, sans-serif'; g.textBaseline = 'middle';
-    for(let v=lo; v<=hi+step/2; v+=step){
-      const y = Math.round(Y(v))+.5;
-      g.strokeStyle = col('--line'); g.lineWidth = 1; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke();
-      g.fillStyle = col('--muted'); g.textAlign = 'right'; g.fillText(fmt(v), L-8, y);
-    }
-    g.textBaseline = 'alphabetic';
-    const xs = es.length>2 ? [es[0], es[Math.floor((es.length-1)/2)], es[es.length-1]] : [es[0], es[es.length-1]];
-    xs.forEach((e,i) => { g.textAlign = i===0?'left':i===xs.length-1?'right':'center'; g.fillStyle = col('--muted'); g.fillText(dd(e.ts), i===0?L:i===xs.length-1?W-R:X(e.ts), H-6); });
-    const grad = g.createLinearGradient(0,T,0,H-B);
-    grad.addColorStop(0, hexA(col('--chart'), .28)); grad.addColorStop(1, hexA(col('--chart'), 0));
-    g.beginPath(); g.moveTo(X(es[0].ts), H-B);
-    es.forEach(e => g.lineTo(X(e.ts), Y(e.value)));
-    g.lineTo(X(t1), H-B); g.closePath(); g.fillStyle = grad; g.fill();
-    g.beginPath(); es.forEach((e,i) => i ? g.lineTo(X(e.ts),Y(e.value)) : g.moveTo(X(e.ts),Y(e.value)));
-    g.strokeStyle = col('--chart'); g.lineWidth = 2.5; g.lineJoin = 'round'; g.stroke();
-    const best = bestOf(te);
-    es.forEach((e,i) => {
-      const last = i===es.length-1, isB = e.value===best;
-      g.beginPath(); g.arc(X(e.ts), Y(e.value), last?5.5:3.2, 0, Math.PI*2);
-      g.fillStyle = isB ? col('--gold') : last ? col('--fg') : col('--chart'); g.fill();
-      if(last){ g.lineWidth = 2; g.strokeStyle = col('--surface'); g.stroke(); }
-    });
-  });
+let chartRange = 'all', chartMetric = 'top';
+const RANGE_DAYS = {'4w':28, '3m':92, '1y':365, all:0};
+function metricOf(te, e){
+  if(normUnit(te.unit)!=='kg' || chartMetric==='top') return e.value;
+  const sets = e.sets && e.sets.length ? e.sets : [[e.value, e.reps||1]];
+  if(chartMetric==='1rm') return Math.max(...sets.map(([w,r]) => r && r>1 ? w*(1+r/30) : w));
+  return sets.reduce((a,[w,r]) => a + w*(r||1), 0);
 }
+function chartPoints(te){
+  const days = RANGE_DAYS[chartRange], from = days ? Date.now() - days*864e5 : 0;
+  return S.entries.filter(e => e.testId===te.id && e.ts >= from).sort((a,b)=>a.ts-b.ts).map(e => ({e, v: metricOf(te, e)}));
+}
+function drawCharts(){ document.querySelectorAll('canvas[data-chart]').forEach(cv => drawChart(cv, cv._hover ?? -1)); }
+function drawChart(cv, hover){
+  const te = findTest(cv.dataset.chart); if(!te) return;
+  const cs = getComputedStyle(document.documentElement), col = n => cs.getPropertyValue(n).trim();
+  const pts = chartPoints(te);
+  const kgM = normUnit(te.unit)==='kg' && chartMetric!=='top';
+  const unit = te.unit || '';
+  const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = W*dpr; cv.height = H*dpr;
+  const g = cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0);
+  g.font = '11px system-ui, Roboto, sans-serif';
+  const wrap = cv.parentElement, sum = $('.csum', wrap);
+  if(pts.length < 2){
+    g.fillStyle = col('--muted'); g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText(pts.length ? 'Jeden wynik w tym okresie. Wybierz dłuższy zakres.' : 'Brak wyników w tym okresie.', W/2, H/2);
+    cv._pts = []; if(sum) sum.textContent = ''; return;
+  }
+  const vals = pts.map(p => p.v);
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  const pad = (hi - lo) * 0.12 || Math.max(1, Math.abs(hi)*0.05);
+  lo -= pad; hi += pad;
+  const step = niceStep((hi-lo)/3);
+  lo = Math.floor(lo/step)*step; hi = Math.ceil(hi/step)*step;
+  const L = 44, R = 14, T = 22, B = 24;
+  const t0 = pts[0].e.ts, t1 = pts[pts.length-1].e.ts, span = Math.max(1, t1-t0);
+  const X = ts => L + (W-L-R) * (ts-t0)/span, Y = v => T + (H-T-B) * (1 - (v-lo)/(hi-lo));
+  // siatka: cienka, ciągła, cicha
+  g.textBaseline = 'middle';
+  for(let v=lo; v<=hi+step/2; v+=step){
+    const y = Math.round(Y(v))+.5;
+    g.strokeStyle = col('--line'); g.lineWidth = 1; g.beginPath(); g.moveTo(L,y); g.lineTo(W-R,y); g.stroke();
+    g.fillStyle = col('--muted'); g.textAlign = 'right'; g.fillText(fmt(v), L-8, y);
+  }
+  g.textBaseline = 'alphabetic';
+  const xs = pts.length>2 ? [0, Math.floor((pts.length-1)/2), pts.length-1] : [0, pts.length-1];
+  xs.forEach((k,i) => { g.textAlign = i===0?'left':i===xs.length-1?'right':'center'; g.fillStyle = col('--muted'); g.fillText(dd(pts[k].e.ts), i===0?L:i===xs.length-1?W-R:X(pts[k].e.ts), H-6); });
+  // wypełnienie i linia 2px
+  const grad = g.createLinearGradient(0,T,0,H-B);
+  grad.addColorStop(0, hexA(col('--chart'), .24)); grad.addColorStop(1, hexA(col('--chart'), 0));
+  g.beginPath(); g.moveTo(X(t0), H-B); pts.forEach(p => g.lineTo(X(p.e.ts), Y(p.v))); g.lineTo(X(t1), H-B); g.closePath(); g.fillStyle = grad; g.fill();
+  g.beginPath(); pts.forEach((p,i) => i ? g.lineTo(X(p.e.ts),Y(p.v)) : g.moveTo(X(p.e.ts),Y(p.v)));
+  g.strokeStyle = col('--chart'); g.lineWidth = 2; g.lineJoin = 'round'; g.lineCap = 'round'; g.stroke();
+  // rekordy (złote) i punkty; przy gęstych danych tylko rekordy i koniec
+  const bestV = te.dir==='down' ? Math.min(...vals) : Math.max(...vals);
+  let run = null; const prIdx = new Set();
+  pts.forEach((p,i) => { if(run===null || better(te, p.v, run)){ if(run!==null) prIdx.add(i); run = p.v; } });
+  const dense = pts.length > 24;
+  const dot = (x, y, r, fill) => { g.beginPath(); g.arc(x, y, r+2, 0, Math.PI*2); g.fillStyle = col('--surface'); g.fill(); g.beginPath(); g.arc(x, y, r, 0, Math.PI*2); g.fillStyle = fill; g.fill(); };
+  pts.forEach((p,i) => {
+    const last = i===pts.length-1, pr = prIdx.has(i);
+    if(dense && !pr && !last) return;
+    dot(X(p.e.ts), Y(p.v), last ? 5 : 4, pr ? col('--gold') : last ? col('--fg') : col('--chart'));
+  });
+  // etykiety bezpośrednie: ostatni wynik i najlepszy (jeśli inny)
+  const lab = (i, txt, colr) => {
+    const x = X(pts[i].e.ts), y = Y(pts[i].v);
+    g.font = '700 11.5px system-ui, Roboto, sans-serif'; const w = g.measureText(txt).width;
+    let lx = Math.min(Math.max(x - w/2, L), W - R - w), ly = y - 10;
+    if(ly < 12) ly = y + 20;
+    g.fillStyle = colr; g.textAlign = 'left'; g.fillText(txt, lx, ly);
+    g.font = '11px system-ui, Roboto, sans-serif';
+  };
+  const lastI = pts.length-1, bestI = vals.lastIndexOf(bestV);
+  if(hover < 0){
+    lab(lastI, fmt(pts[lastI].v) + (unit ? ' '+unit : ''), col('--fg'));
+    if(bestI !== lastI && Math.abs(X(pts[bestI].e.ts) - X(pts[lastI].e.ts)) > 60) lab(bestI, 'rekord '+fmt(bestV), col('--gold'));
+  }
+  // podsumowanie zakresu
+  if(sum){
+    const d = pts[lastI].v - pts[0].v, good = te.dir==='down' ? d < 0 : d > 0;
+    const nm = kgM ? (chartMetric==='1rm' ? 'Szac. 1RM' : 'Objętość') : '';
+    sum.innerHTML = `${nm ? `<span>${nm}</span>` : ''}<span>W tym okresie: <b class="${d===0?'':good?'up':'down'}">${d>0?'+':''}${fmt(d)} ${esc(unit)}</b></span><span>${pts.length} wyników</span>${prIdx.size ? `<span class="gold">${prIdx.size} ${prIdx.size===1?'rekord':prIdx.size<5?'rekordy':'rekordów'}</span>` : ''}`;
+  }
+  // celownik
+  cv._pts = pts.map(p => ({x: X(p.e.ts), y: Y(p.v), p}));
+  if(hover >= 0 && cv._pts[hover]){
+    const h = cv._pts[hover];
+    g.strokeStyle = col('--muted'); g.lineWidth = 1; g.beginPath(); g.moveTo(Math.round(h.x)+.5, T-6); g.lineTo(Math.round(h.x)+.5, H-B); g.stroke();
+    dot(h.x, h.y, 6, prIdx.has(hover) ? col('--gold') : col('--chart'));
+  }
+}
+function chartTip(cv, idx){
+  const tip = $('.ctip', cv.parentElement); if(!tip) return;
+  cv._hover = idx; drawChart(cv, idx);
+  if(idx < 0 || !cv._pts || !cv._pts[idx]){ tip.hidden = true; return; }
+  const te = findTest(cv.dataset.chart), h = cv._pts[idx], e = h.p.e, unit = te.unit || '';
+  tip.textContent = '';
+  const v = document.createElement('b'); v.textContent = fmt(h.p.v) + (unit ? ' '+unit : ''); tip.appendChild(v);
+  const d = document.createElement('span'); const dt = new Date(e.ts); d.textContent = DAYS[(dt.getDay()+6)%7] + ' ' + fmtDay(e.ts); tip.appendChild(d);
+  if(e.sets && e.sets.length){ const st = document.createElement('span'); st.textContent = 'Serie: ' + setsTxt(e); tip.appendChild(st); }
+  else if(e.reps){ const st = document.createElement('span'); st.textContent = fmt(e.value) + ' × ' + e.reps; tip.appendChild(st); }
+  tip.hidden = false;
+  const w = tip.offsetWidth, W = cv.clientWidth;
+  tip.style.left = Math.min(Math.max(h.x - w/2, 0), W - w) + 'px';
+  tip.style.top = Math.max(h.y - tip.offsetHeight - 14, -8) + 'px';
+}
+function nearestIdx(cv, clientX){
+  const r = cv.getBoundingClientRect(), x = clientX - r.left; let best = -1, bd = 1e9;
+  (cv._pts||[]).forEach((p,i) => { const d = Math.abs(p.x - x); if(d < bd){ bd = d; best = i; } });
+  return best;
+}
+document.addEventListener('pointermove', e => { const cv = e.target.closest && e.target.closest('canvas[data-chart]'); if(cv) chartTip(cv, nearestIdx(cv, e.clientX)); });
+document.addEventListener('pointerdown', e => {
+  const cv = e.target.closest && e.target.closest('canvas[data-chart]');
+  document.querySelectorAll('canvas[data-chart]').forEach(c => { if(c!==cv && c._hover >= 0) chartTip(c, -1); });
+  if(cv) chartTip(cv, nearestIdx(cv, e.clientX));
+});
+document.addEventListener('pointerleave', e => { if(e.target.matches && e.target.matches('canvas[data-chart]') && e.pointerType==='mouse') chartTip(e.target, -1); }, true);
+document.addEventListener('keydown', e => {
+  const cv = document.activeElement; if(!cv || !cv.matches || !cv.matches('canvas[data-chart]')) return;
+  const n = (cv._pts||[]).length; if(!n) return;
+  if(e.key==='ArrowRight' || e.key==='ArrowLeft'){ e.preventDefault(); const cur = cv._hover >= 0 ? cv._hover : n-1; chartTip(cv, Math.max(0, Math.min(n-1, cur + (e.key==='ArrowRight'?1:-1)))); }
+  if(e.key==='Escape') chartTip(cv, -1);
+});
+document.addEventListener('focusin', e => { if(e.target.matches && e.target.matches('canvas[data-chart]') && !(e.target._hover >= 0)) chartTip(e.target, (e.target._pts||[]).length-1); });
+document.addEventListener('focusout', e => { if(e.target.matches && e.target.matches('canvas[data-chart]')) chartTip(e.target, -1); });
 function niceStep(x){ if(x<=0) return 1; const p = Math.pow(10, Math.floor(Math.log10(x))), f = x/p; return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p; }
 function hexA(hex, a){ const h = hex.replace('#',''); const n = parseInt(h.length===3?h.split('').map(c=>c+c).join(''):h,16); return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`; }
 
@@ -1650,7 +1868,7 @@ function settingsSheet(){
       <button class="btn danger" id="sReset">Zresetuj konto do zera</button>
       <button class="btn ghost" id="sClose">Zamknij</button>
     </div>
-    <p class="hint num" style="margin-top:14px">Wersja 6 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
+    <p class="hint num" style="margin-top:14px">Wersja 10 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
     $('#sClose',sh).onclick = closeSheet;
     $('#sName',sh).addEventListener('change', e => { S.name = e.target.value.trim(); save(); render(); toast(S.name ? 'Cześć, '+S.name+'!' : 'Usunięto nazwę'); });
     const rs = $('#sReset',sh); let rsStep = 0;
@@ -1901,7 +2119,7 @@ const setsTxt = e => e.sets && e.sets.length ? e.sets.map(([w,r]) => fmt(w)+(r?'
 const WORKOUT_BONUS = 40;
 function altGroupOf(cid){ const ct = cid && TEST_BY_ID[cid]; return ct && ct.cat==='gym' ? ct.g : null; }
 
-function workoutSheet(t){
+function workoutSheet(t, pre){
   const plan = (t.tests||[]).filter(x => !x.alt);
   const rows = plan.map(te => ({plan: te, cur: te, skip: false, swapOpen: false, keep: false}));
   const testFor = (r, cid) => {
@@ -1911,8 +2129,8 @@ function workoutSheet(t){
     const ct = TEST_BY_ID[cid];
     return {id: uid(), name: ct.name, unit: ct.unit, dir: ct.dir, cid, alt: true, sets: r.plan.sets, reps: r.plan.reps, _new: true};
   };
-  const setRowsHTML = (te) => {
-    const le = lastEntry(te), n = Math.max(1, te.sets || 3);
+  const setRowsHTML = (te, nn) => {
+    const le = lastEntry(te), n = Math.max(1, nn || te.sets || 3);
     const prevSets = le ? (le.sets && le.sets.length ? le.sets : [[le.value, le.reps]]) : [];
     let h = '';
     for(let k=0; k<n; k++){
@@ -1921,6 +2139,9 @@ function workoutSheet(t){
     }
     return h;
   };
+  if(pre) pre.forEach((p, i) => { if(!p || !rows[i]) return; const r = rows[i];
+    if(p.te && p.te !== r.plan){ r.cur = p.te; if(p.te._new && !t.tests.includes(p.te)) {} }
+    if(p.skip) r.skip = true; if(p.sets && p.sets.length) r.n = Math.max(p.sets.length, r.cur.sets || 1); });
   const cardHTML = (r, i) => {
     const te = r.cur, le = lastEntry(te), best = bestOf(te), g = altGroupOf(r.plan.cid) || altGroupOf(te.cid);
     const swapped = te !== r.plan;
@@ -1942,7 +2163,7 @@ function workoutSheet(t){
         <div class="wtools"><button type="button" class="wtool" data-swap="1">${r.swapOpen?'Zamknij':'⇄ Zamień'}</button><button type="button" class="wtool" data-skip="1">${r.skip?'↺ Przywróć':'Pomiń'}</button></div>
       </div>
       <div class="howto" hidden></div>
-      ${r.skip ? '<div class="skipnote">Pominięte · mniej XP za ten trening</div>' : `<div class="sets">${setRowsHTML(te)}</div><button type="button" class="addset" data-addset="1">+ seria</button>`}
+      ${r.skip ? '<div class="skipnote">Pominięte · mniej XP za ten trening</div>' : `<div class="sets">${setRowsHTML(te, r.n)}</div><button type="button" class="addset" data-addset="1">+ seria</button>`}
       ${alts}
     </div>`;
   };
@@ -1964,6 +2185,8 @@ function workoutSheet(t){
       const nw = list.querySelector(`.wex[data-i="${i}"]`);
       if(rows[i]._keepVals) nw.querySelectorAll('.setrow').forEach((sr,k) => { if(vals[k]){ $('.swg',sr).value = vals[k][0]; $('.srp',sr).value = vals[k][1]; } });
     };
+    if(pre) pre.forEach((p, i) => { if(!p || !p.sets) return; const card = list.querySelector(`.wex[data-i="${i}"]`); if(!card) return;
+      card.querySelectorAll('.setrow').forEach((sr, k) => { const v = p.sets[k]; if(!v) return; $('.swg',sr).value = fmt(v[0]).replace(',', ','); $('.swg',sr).dataset.touched = '1'; if(v[1]) $('.srp',sr).value = v[1]; }); });
     list.addEventListener('click', e => {
       const card = e.target.closest('.wex'); if(!card) return;
       const i = +card.dataset.i, r = rows[i];
@@ -2028,8 +2251,384 @@ function workoutSheet(t){
   });
 }
 
+/* ========= v9: AI przez Ollamę na Macu ========= */
+// numery zadań #1, #2… (nie wracają po usunięciu)
+function ensureNums(){
+  let n = S.nextNum || 1, changed = false;
+  S.tasks.forEach(t => { if(t.num) n = Math.max(n, t.num + 1); });
+  S.tasks.forEach(t => { if(!t.num){ t.num = n++; changed = true; } });
+  if(S.nextNum !== n){ S.nextNum = n; changed = true; }
+  if(changed) save();
+}
+function aiCfg(){
+  if(!S.ai) S.ai = {url:'', model:'gemma4:12b', rules:'', history:[]};
+  if(!Array.isArray(S.ai.history)) S.ai.history = [];
+  return S.ai;
+}
+let aiDraft = '', aiBusy = false, aiTimer = 0, aiCtrl = null;
+
+/* --- co model ma zwrócić (Ollama wymusza ten format) --- */
+const AI_SCHEMA = {type:'object', properties:{akcje:{type:'array', items:{type:'object', properties:{
+  typ:{type:'string', enum:['zalicz','dodaj_zadanie','dodaj_cwiczenie','odpowiedz']},
+  nr:{type:'integer'}, nazwa:{type:'string'}, min:{type:'integer'}, norma:{type:'integer'},
+  serie:{type:'integer'}, powt:{type:'string'}, tekst:{type:'string'},
+  cwiczenia:{type:'array', items:{type:'object', properties:{
+    nazwa:{type:'string'}, zamiast:{type:'string'}, pominiete:{type:'boolean'},
+    serie:{type:'array', items:{type:'object', properties:{kg:{type:'number'}, powt:{type:'integer'}}, required:['kg','powt']}}
+  }, required:['nazwa']}},
+  wyniki:{type:'array', items:{type:'object', properties:{test:{type:'string'}, wartosc:{type:'number'}}, required:['test','wartosc']}}
+}, required:['typ']}}}, required:['akcje']};
+
+const DAYS_FULL = ['poniedziałek','wtorek','środa','czwartek','piątek','sobota','niedziela'];
+function aiTasksText(){
+  return S.tasks.map(t => {
+    const kind = t.type==='workout' ? 'trening' : t.type==='progress' ? 'zadanie z wynikami' : 'zadanie (tylko zalicz)';
+    let line = `#${t.num} ${t.name} (${kind}, minimum ${t.min}× w tygodniu, w tym tygodniu zrobione ${count(t, thisWeek())}×)`;
+    const ts = (t.tests||[]).filter(x => !x.alt);
+    if(t.type==='workout') line += '\n' + ts.map((te,i) => { const b = bestOf(te), le = lastEntry(te);
+      return `   ${i+1}. ${te.name}: plan ${te.sets||3}x${te.reps||'10'}${le ? `, ostatnio ${fmt(le.value)} ${te.unit||'kg'}` : ''}${b!==null ? `, rekord ${fmt(b)}` : ''}`; }).join('\n');
+    else if(ts.length) line += '\n   testy: ' + ts.map(te => { const b = bestOf(te); return `${te.name} (${te.unit||''}${b!==null ? ', rekord '+fmt(b) : ''})`; }).join('; ');
+    return line;
+  }).join('\n') || '(brak zadań)';
+}
+function aiSystemPrompt(){
+  const d = new Date();
+  return `Jesteś asystentem w aplikacji Passa (nawyki i treningi na siłowni). Zamieniasz wiadomość użytkownika na listę akcji. Odpowiadasz wyłącznie JSON-em.
+Dzisiaj: ${DAYS_FULL[(d.getDay()+6)%7]}, ${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}.
+
+ZADANIA I TRENINGI UŻYTKOWNIKA:
+${aiTasksText()}
+
+AKCJE (pole "typ"):
+- "zalicz": użytkownik coś zrobił. Podaj "nr" zadania.
+  Dla treningu wypełnij "cwiczenia": tylko te ćwiczenia, o których pisze. Nazwy ćwiczeń z planu przepisuj dokładnie.
+  Każde ćwiczenie ma "serie": lista {"kg": ciężar, "powt": powtórzenia}, jedna pozycja na serię.
+  Jeśli zrobił inne ćwiczenie zamiast planowego: "nazwa" = to, co zrobił, "zamiast" = nazwa z planu.
+  Jeśli pominął ćwiczenie: "nazwa" = nazwa z planu, "pominiete": true.
+  Dla zadania z wynikami wpisz "wyniki": [{"test": nazwa testu, "wartosc": liczba}].
+- "dodaj_zadanie": nowy nawyk lub zadanie. "nazwa", "min" = ile razy w tygodniu minimum (codziennie = 7), "norma" = ile razy to ideał.
+- "dodaj_cwiczenie": dopisz ćwiczenie do planu treningu "nr". "nazwa", "serie" (liczba), "powt".
+- "odpowiedz": pytanie albo nie ma nic do zapisania. "tekst" = krótka odpowiedź po polsku na podstawie danych powyżej.
+
+ZASADY:
+- "80 3x8" albo "3x8 na 80" = 3 serie po 8 powtórzeń z 80 kg, czyli serie [{"kg":80,"powt":8},{"kg":80,"powt":8},{"kg":80,"powt":8}].
+- "80x8, 80x8, 82,5x6" = trzy serie o różnym ciężarze. Przecinek w liczbie to część dziesiętna: 82,5 = 82.5.
+- Jeśli nie podano liczby serii lub powtórzeń, weź je z planu.
+- "#3" to numer zadania. Jeśli nie ma numeru, dopasuj zadanie po nazwie.
+- Jedna wiadomość może dawać kilka akcji. Nie wymyślaj ćwiczeń ani wyników, których nie ma w wiadomości.
+${aiCfg().rules.trim() ? '\nZASADY UŻYTKOWNIKA:\n' + aiCfg().rules.trim() + '\n' : ''}
+PRZYKŁAD
+Wiadomość: "#7 ławka 80 3x8, wyciąg zajęty więc pompki na poręczach 3x12 z 0, brzuch odpuściłem. I dodaj zadanie: witaminy codziennie"
+JSON: {"akcje":[{"typ":"zalicz","nr":7,"cwiczenia":[{"nazwa":"Wyciskanie na ławce płaskiej","serie":[{"kg":80,"powt":8},{"kg":80,"powt":8},{"kg":80,"powt":8}]},{"nazwa":"Dipy na poręczach","zamiast":"Prostowanie ramion na wyciągu","serie":[{"kg":0,"powt":12},{"kg":0,"powt":12},{"kg":0,"powt":12}]},{"nazwa":"Allahy (spięcia na wyciągu)","pominiete":true}]},{"typ":"dodaj_zadanie","nazwa":"Witaminy","min":7,"norma":7}]}`;
+}
+
+/* --- połączenie z Ollamą (strumień, żeby widać było postęp) --- */
+const aiBase = () => aiCfg().url.trim().replace(/\/+$/, '');
+async function aiChat(text, onChunk, signal){
+  const cfg = aiCfg();
+  const body = {model: cfg.model, stream: true, think: false, keep_alive: '30m', format: AI_SCHEMA, options: {temperature: 0},
+    messages: [{role:'system', content: aiSystemPrompt()}, {role:'user', content: text}]};
+  let res = await fetch(aiBase() + '/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body), signal});
+  if(!res.ok){
+    const err = await res.text();
+    if(/think/i.test(err)){ delete body.think; res = await fetch(aiBase() + '/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body), signal}); }
+    else throw new Error(`Ollama: ${res.status} ${err.slice(0,160)}`);
+    if(!res.ok) throw new Error(`Ollama: ${res.status} ${(await res.text()).slice(0,160)}`);
+  }
+  const reader = res.body.getReader(), dec = new TextDecoder();
+  let buf = '', out = '';
+  for(;;){
+    const {done, value} = await reader.read(); if(done) break;
+    buf += dec.decode(value, {stream:true});
+    let nl;
+    while((nl = buf.indexOf('\n')) >= 0){
+      const line = buf.slice(0, nl).trim(); buf = buf.slice(nl+1);
+      if(!line) continue;
+      const j = JSON.parse(line);
+      if(j.error) throw new Error('Ollama: ' + j.error);
+      if(j.message && j.message.content){ out += j.message.content; onChunk && onChunk(out); }
+    }
+  }
+  if(buf.trim()){ const j = JSON.parse(buf); if(j.message && j.message.content) out += j.message.content; }
+  return out;
+}
+
+/* --- dopasowanie nazw --- */
+function nameScore(a, b){
+  const ta = norm(a).split(' ').filter(x => x.length > 2), tb = norm(b).split(' ').filter(x => x.length > 2);
+  if(!ta.length || !tb.length) return 0;
+  let s = 0; for(const x of ta) if(tb.some(y => y.slice(0,5)===x.slice(0,5))) s++;
+  return s / Math.min(ta.length, tb.length);
+}
+function findTaskFor(a){
+  if(a.nr){ const t = S.tasks.find(x => x.num===a.nr); if(t) return t; }
+  if(a.nazwa){ let best = null, bs = 0; for(const t of S.tasks){ const s = nameScore(a.nazwa, t.name); if(s > bs){ bs = s; best = t; } } if(bs >= 0.5) return best; }
+  return null;
+}
+function matchPlan(t, name){
+  const plan = (t.tests||[]).filter(x => !x.alt);
+  const exact = plan.find(p => norm(p.name)===norm(name)); if(exact) return exact;
+  const m = matchTest(name, 'kg', t.cat || 'gym');
+  if(m && !m.unitMismatch){ const p = plan.find(x => x.cid===m.test.id); if(p) return p; }
+  let best = null, bs = 0; for(const p of plan){ const s = nameScore(name, p.name); if(s > bs){ bs = s; best = p; } }
+  return bs >= 0.5 ? best : null;
+}
+function altTestFor(t, name, planTe){
+  const m = matchTest(name, 'kg', 'gym');
+  const cid = m && !m.unitMismatch ? m.test.id : null;
+  const found = (t.tests||[]).find(x => (cid && x.cid===cid) || norm(x.name)===norm(name));
+  if(found) return found;
+  return cid ? {id:uid(), name: TEST_BY_ID[cid].name, unit: TEST_BY_ID[cid].unit, dir: TEST_BY_ID[cid].dir, cid, alt:true, sets: planTe.sets, reps: planTe.reps, _new:true}
+             : {id:uid(), name: name.trim(), unit:'kg', dir:'up', alt:true, sets: planTe.sets, reps: planTe.reps, _new:true};
+}
+const toSets = arr => (arr||[]).filter(x => x && isFinite(x.kg)).map(x => [Math.round(x.kg*100)/100, x.powt ? Math.round(x.powt) : null]);
+
+/* --- z odpowiedzi modelu robimy konkretne zmiany (jeszcze bez zapisu) --- */
+function aiResolve(json){
+  const acts = Array.isArray(json && json.akcje) ? json.akcje : [];
+  return acts.map(a => {
+    const r = {typ: a.typ, ok: true, warn: [], raw: a};
+    if(a.typ==='odpowiedz'){ r.text = a.tekst || ''; r.ok = false; return r; }
+    if(a.typ==='dodaj_zadanie'){
+      if(!a.nazwa){ r.ok = false; r.warn.push('Brak nazwy zadania.'); return r; }
+      r.name = a.nazwa.trim().slice(0,40); r.min = Math.max(1, Math.min(14, a.min || 1)); r.norm = Math.max(r.min, Math.min(14, a.norma || r.min));
+      return r;
+    }
+    const t = findTaskFor(a); r.task = t;
+    if(!t){ r.ok = false; r.warn.push(`Nie znalazłem zadania ${a.nr ? '#'+a.nr : '„'+(a.nazwa||'')+'”'}.`); return r; }
+    if(a.typ==='dodaj_cwiczenie'){
+      if(t.type!=='workout'){ r.ok = false; r.warn.push(`#${t.num} to nie trening.`); return r; }
+      const m = matchTest(a.nazwa||'', 'kg', 'gym');
+      r.ex = {name: m && !m.unitMismatch ? m.test.name : (a.nazwa||'').trim(), cid: m && !m.unitMismatch ? m.test.id : '', sets: Math.max(1, Math.min(10, a.serie || 3)), reps: String(a.powt || '10')};
+      if(!r.ex.name){ r.ok = false; r.warn.push('Brak nazwy ćwiczenia.'); }
+      return r;
+    }
+    // zalicz
+    if(t.type==='workout'){
+      const plan = t.tests.filter(x => !x.alt);
+      r.items = plan.map(p => null);
+      for(const c of (a.cwiczenia||[])){
+        const target = c.zamiast ? matchPlan(t, c.zamiast) : matchPlan(t, c.nazwa);
+        if(!target){
+          const free = r.items.findIndex((x, i) => !x && matchTest(c.nazwa,'kg','gym') && TEST_BY_ID[matchTest(c.nazwa,'kg','gym').test.id].g === (plan[i].cid && TEST_BY_ID[plan[i].cid] ? TEST_BY_ID[plan[i].cid].g : null));
+          if(free >= 0){ r.items[free] = {plan: plan[free], te: altTestFor(t, c.nazwa, plan[free]), sets: toSets(c.serie), skip: !!c.pominiete, guess: true}; r.warn.push(`„${c.nazwa}” przypisałem zamiast „${plan[free].name}”.`); }
+          else r.warn.push(`Nie dopasowałem „${c.nazwa}” do planu.`);
+          continue;
+        }
+        const i = plan.indexOf(target);
+        const swapped = c.zamiast && norm(c.nazwa)!==norm(target.name) && matchPlan(t, c.nazwa)!==target;
+        r.items[i] = {plan: target, te: swapped ? altTestFor(t, c.nazwa, target) : target, sets: toSets(c.serie), skip: !!c.pominiete};
+        if(!r.items[i].skip && !r.items[i].sets.length) r.warn.push(`Brak serii dla „${c.nazwa}”.`);
+      }
+      if(!r.items.some(x => x && !x.skip && x.sets.length)) r.warn.push('Żadne ćwiczenie nie ma wpisanych serii. Trening zaliczy się bez wyników.');
+    } else if(t.type==='progress'){
+      r.results = (a.wyniki||[]).filter(w => isFinite(w.wartosc)).map(w => {
+        const ts = t.tests||[];
+        let te = ts.find(x => norm(x.name)===norm(w.test));
+        if(!te){ const m = matchTest(w.test, '', t.cat); if(m) te = ts.find(x => x.cid===m.test.id); }
+        if(!te){ let bs = 0; for(const x of ts){ const s = nameScore(w.test, x.name); if(s > bs){ bs = s; te = x; } } if(bs < 0.5) te = null; }
+        return {name: w.test, te, value: w.wartosc};
+      });
+    }
+    return r;
+  });
+}
+
+/* --- zapis zatwierdzonych akcji --- */
+function aiApply(r){
+  if(r.typ==='dodaj_zadanie'){
+    const cat = detectCat(r.name) || 'other';
+    if(!S.startWeek) S.startWeek = thisWeek();
+    S.tasks.push({id:uid(), name:r.name, type:'check', min:r.min, norm:r.norm, cat, catManual:false, tests:[], startWeek:thisWeek(), created:Date.now()});
+    ensureNums(); save(); toast('Dodano zadanie: '+r.name); celebrateBadges(); return;
+  }
+  const t = r.task;
+  if(r.typ==='dodaj_cwiczenie'){
+    const te = {id:uid(), name:r.ex.name, unit:'kg', dir:'up', sets:r.ex.sets, reps:r.ex.reps};
+    if(r.ex.cid){ te.cid = r.ex.cid; te.unit = TEST_BY_ID[te.cid].unit; te.dir = TEST_BY_ID[te.cid].dir; }
+    const plan = t.tests.filter(x => !x.alt), last = plan[plan.length-1];
+    t.tests.splice(last ? t.tests.indexOf(last)+1 : t.tests.length, 0, te);
+    save(); toast(`Dodano do #${t.num}: ${te.name}`); return;
+  }
+  const before = snapshot(t), now = new Date(), log = addLog(t), prs = [];
+  const put = (te, sets) => {
+    const top = sets.reduce((a,b) => better(te, b[0], a[0]) ? b : a, sets[0]);
+    const prev = bestOf(te);
+    if(prev!==null && better(te, top[0], prev)) prs.push(`${te.name} ${fmt(top[0])} ${te.unit||'kg'}`);
+    const e = {id:uid(), taskId:t.id, testId:te.id, value:top[0], ts:now.getTime(), day:ymd(now), week:mondayKey(now), logId:log.id};
+    if(sets.length > 1 || sets[0][1]){ e.sets = sets; if(top[1]) e.reps = top[1]; }
+    S.entries.push(e);
+  };
+  let msg;
+  if(t.type==='workout'){
+    const plan = t.tests.filter(x => !x.alt), items = r.items || [];
+    const done = items.filter(x => x && !x.skip && x.sets.length);
+    done.forEach(x => { if(x.te._new){ delete x.te._new; t.tests.push(x.te); } put(x.te, x.sets); });
+    log.done = done.length; log.total = plan.length;
+    msg = `Trening #${t.num}: ${log.done}/${log.total} ćw. · +${Math.round(WORKOUT_BONUS*log.done/Math.max(1,log.total))} XP premii`;
+  } else if(t.type==='progress'){
+    (r.results||[]).forEach(w => {
+      let te = w.te;
+      if(!te){ te = {id:uid(), name:w.name, unit:'', dir:'up'}; linkTest(te, t.cat); t.tests = t.tests || []; t.tests.push(te); }
+      put(te, [[w.value, null]]);
+    });
+  }
+  afterChange(t, before, prs, log, false, msg);
+}
+
+/* --- kolejka: jedna wiadomość naraz, reszta czeka --- */
+function aiFixStale(){ aiCfg().history.forEach(h => { if(h.status==='mysli') h.status = 'czeka'; }); }
+async function aiProcess(){
+  if(aiBusy || !aiCfg().url.trim()) return;
+  const h = aiCfg().history.find(x => x.status==='czeka'); if(!h) return;
+  aiBusy = true; h.status = 'mysli'; h.started = Date.now(); h.chars = 0; save(); aiRefresh();
+  aiCtrl = new AbortController();
+  clearInterval(aiTimer); aiTimer = setInterval(() => aiProgress(h), 1000);
+  try{
+    const out = await aiChat(h.text, txt => { h.chars = txt.length; aiProgress(h); }, aiCtrl.signal);
+    let json; try{ json = JSON.parse(out); }catch(e){ throw new Error('Model zwrócił coś, czego nie umiem odczytać. Spróbuj napisać prościej.'); }
+    h.json = json; h.status = 'gotowe'; h.secs = Math.round((Date.now()-h.started)/1000); h.done = [];
+    buzz([20,40,20]);
+  }catch(e){
+    if(e.name==='AbortError'){ h.status = 'anulowane'; }
+    else if(e instanceof TypeError || !navigator.onLine){ h.status = 'czeka'; h.err = 'Brak połączenia z Makiem. Wyślę, jak wróci połączenie.'; }
+    else { h.status = 'blad'; h.err = e.message; }
+  }
+  clearInterval(aiTimer); aiBusy = false; aiCtrl = null; save(); aiRefresh();
+  if(aiCfg().history.some(x => x.status==='czeka' && !x.err)) aiProcess();
+}
+function aiSend(){
+  const text = aiDraft.trim(); if(!text) return;
+  aiCfg().history.unshift({id:uid(), ts:Date.now(), text, status:'czeka'});
+  aiCfg().history = aiCfg().history.slice(0, 40);
+  aiDraft = ''; save(); aiRefresh(); aiProcess();
+}
+function aiRetryQueued(){ aiCfg().history.forEach(h => { if(h.status==='czeka') delete h.err; }); aiProcess(); }
+addEventListener('online', aiRetryQueued);
+
+/* --- widok --- */
+function aiProgress(h){
+  const el = document.querySelector(`[data-aiprog="${h.id}"]`); if(!el) return;
+  const s = Math.round((Date.now() - h.started)/1000);
+  el.textContent = h.chars ? `Pisze odpowiedź… ${s} s · ${h.chars} znaków` : `Myśli… ${s} s${s > 20 ? ' (pierwsze uruchomienie modelu trwa dłużej)' : ''}`;
+}
+function aiRefresh(){ if(tab==='ai'){ const ta = $('#aiText'), had = ta && document.activeElement===ta; render(); if(had){ const n = $('#aiText'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); } } }
+function setsShort(sets){ if(!sets.length) return 'bez serii'; const same = sets.every(s => s[0]===sets[0][0] && s[1]===sets[0][1]); return same && sets.length > 1 ? `${sets.length}× ${fmt(sets[0][0])}${sets[0][1]?'×'+sets[0][1]:''}` : sets.map(s => fmt(s[0])+(s[1]?'×'+s[1]:'')).join(' · '); }
+function aiActionHTML(h, r, k){
+  const applied = (h.done||[]).includes(k), dropped = (h.drop||[]).includes(k), moved = (h.moved||[]).includes(k);
+  const warn = r.warn.length ? `<div class="aiwarn">${r.warn.map(esc).join('<br>')}</div>` : '';
+  let head = '', body = '';
+  if(r.typ==='odpowiedz') return `<div class="aiact ans"><p>${esc(r.text || 'Nie mam nic do zapisania.')}</p></div>`;
+  if(r.typ==='dodaj_zadanie'){ head = `➕ Nowe zadanie`; body = r.ok ? `<b>${esc(r.name)}</b> · min ${r.min}× · norma ${r.norm}× w tygodniu` : ''; }
+  else if(!r.task){ head = '⚠️ Nie rozpoznano'; }
+  else if(r.typ==='dodaj_cwiczenie'){ head = `➕ Do planu #${r.task.num} ${esc(r.task.name)}`; body = `${thumb(r.ex.cid)}<b>${esc(r.ex.name)}</b> · ${r.ex.sets} × ${esc(r.ex.reps)}`; }
+  else {
+    head = `✓ Zalicz #${r.task.num} ${esc(r.task.name)}`;
+    if(r.task.type==='workout') body = `<ul class="aiex">${r.task.tests.filter(x => !x.alt).map((p, i) => { const it = r.items[i];
+        if(!it) return `<li class="miss"><span>${esc(p.name)}</span><em>nie wspomniano</em></li>`;
+        if(it.skip) return `<li class="skip"><span>${esc(p.name)}</span><em>pominięte</em></li>`;
+        return `<li>${thumb(it.te.cid)}<span>${esc(it.te.name)}${it.te!==p ? `<small>zamiast: ${esc(p.name)}</small>` : ''}</span><b class="num">${esc(setsShort(it.sets))} ${esc(it.te.unit||'kg')}</b></li>`; }).join('')}</ul>`;
+    else if(r.task.type==='progress') body = (r.results||[]).length ? `<ul class="aiex">${r.results.map(w => `<li><span>${esc(w.te ? w.te.name : w.name)}${w.te ? '' : '<small>nowy test</small>'}</span><b class="num">${fmt(w.value)} ${esc(w.te ? w.te.unit||'' : '')}</b></li>`).join('')}</ul>` : '<p class="aimuted">Bez wyników, samo zaliczenie.</p>';
+  }
+  const btns = applied ? '<div class="aidone">✓ Zapisane</div>' : dropped ? '<div class="aidone off">Odrzucone</div>' : moved ? '<div class="aidone off">Przeniesione do trybu treningu</div>' : r.ok ? `<div class="aibtns">
+      <button type="button" class="btn pri sm" data-aiok="${h.id}:${k}">Zatwierdź</button>
+      ${r.typ==='zalicz' && r.task && r.task.type==='workout' ? `<button type="button" class="btn sm" data-aiedit="${h.id}:${k}">Popraw w treningu</button>` : ''}
+      <button type="button" class="btn ghost sm" data-aidrop="${h.id}:${k}">Odrzuć</button></div>` : '';
+  return `<div class="aiact ${applied?'is-done':''}"><div class="aihead">${head}</div>${body}${warn}${btns}</div>`;
+}
+const aiResolved = new Map();
+function resolvedFor(h){ if(!aiResolved.has(h.id)) aiResolved.set(h.id, aiResolve(h.json)); return aiResolved.get(h.id); }
+function aiEntryHTML(h){
+  let out = '';
+  if(h.status==='czeka') out = `<div class="aistat">${h.err ? esc(h.err) : 'W kolejce…'}${h.err ? ' <button type="button" class="linkbtn" data-airetry="1">Spróbuj teraz</button>' : ''}</div>`;
+  else if(h.status==='mysli') out = `<div class="aistat think"><span class="dots"><i></i><i></i><i></i></span><span data-aiprog="${h.id}">Myśli…</span> <button type="button" class="linkbtn" data-aistop="1">Przerwij</button></div>`;
+  else if(h.status==='blad') out = `<div class="aistat err">${esc(h.err||'Błąd')} <button type="button" class="linkbtn" data-airedo="${h.id}">Spróbuj ponownie</button></div>`;
+  else if(h.status==='anulowane') out = `<div class="aistat">Przerwane. <button type="button" class="linkbtn" data-airedo="${h.id}">Wyślij ponownie</button></div>`;
+  else if(h.status==='gotowe'){
+    const rs = resolvedFor(h);
+    out = rs.length ? rs.map((r,k) => aiActionHTML(h, r, k)).join('') : '<div class="aiact ans"><p>Model nic nie wyłapał. Spróbuj napisać to inaczej albo dodaj numer zadania, np. #3.</p></div>';
+    if(h.secs) out += `<div class="aimeta num">Odpowiedź w ${h.secs} s</div>`;
+  }
+  return `<div class="aientry"><div class="aimsg"><p>${esc(h.text)}</p><small>${fmtDay(h.ts)}, ${pad(new Date(h.ts).getHours())}:${pad(new Date(h.ts).getMinutes())}</small></div>${out}</div>`;
+}
+function aiView(){
+  const cfg = aiCfg();
+  const nums = S.tasks.map(t => `<button type="button" class="chip" data-ainum="${t.num}"><b>#${t.num}</b> ${esc(t.name)}</button>`).join('');
+  const examples = ['#1 zrobione', 'dodaj zadanie: witaminy codziennie', 'ile mam rekord na ławce?'];
+  const setup = !cfg.url.trim() ? `<div class="aisetup"><b>Połącz z Ollamą na Macu</b>
+      <p>AI działa na Twoim Macu, a nie w chmurze. Wpisz adres Maca i nazwę modelu w ustawieniach AI. Dokładne kroki dostaniesz ode mnie w rozmowie.</p>
+      <button type="button" class="btn pri sm" data-aisettings="1">Ustawienia AI</button></div>` : '';
+  return `<div class="aitop"><h2>AI</h2><button type="button" class="small-btn" data-aisettings="1">⚙ ${cfg.url.trim() ? esc(cfg.model) : 'Ustawienia'}</button></div>
+    ${setup}
+    <div class="aicompose">
+      <textarea id="aiText" class="inp" rows="3" placeholder="Np. #3 ławka 80 3x8, ściąganie zajęte, więc wiosło na wyciągu 55 3x10, brzuch pominąłem">${esc(aiDraft)}</textarea>
+      <div class="aibar"><span class="aimuted">Numer zadania wpisz jako #3</span><button type="button" class="btn pri sm" id="aiSend">Wyślij</button></div>
+      ${nums ? `<div class="chips ainums">${nums}</div>` : ''}
+      ${cfg.history.length ? '' : `<div class="chips">${examples.map(x => `<button type="button" class="chip" data-aiex="${esc(x)}">${esc(x)}</button>`).join('')}</div>`}
+    </div>
+    <div class="aihist">${cfg.history.map(aiEntryHTML).join('')}</div>
+    ${cfg.history.length ? '<button type="button" class="more" data-aiclear="1">Wyczyść historię AI</button>' : ''}`;
+}
+function aiSettingsSheet(){
+  const cfg = aiCfg();
+  openSheet(`
+    <h4>Ustawienia AI</h4>
+    <p class="sub">Apka wysyła Twoją wiadomość i listę zadań do Ollamy na Macu. Nic nie idzie do chmury.</p>
+    <div class="field"><label for="aiUrl">Adres Maca</label><input id="aiUrl" class="inp" inputmode="url" placeholder="https://mac-mini.twoja-siec.ts.net" value="${esc(cfg.url)}"></div>
+    <div class="field"><label for="aiModel">Model</label><input id="aiModel" class="inp" placeholder="gemma4:12b" value="${esc(cfg.model)}"></div>
+    <div class="chips" id="aiModels"></div>
+    <button type="button" class="btn" id="aiTest">Sprawdź połączenie</button>
+    <p class="hint" id="aiTestRes" style="margin-top:10px"></p>
+    <div class="field"><label for="aiRules">Twoje zasady dla AI</label><textarea id="aiRules" class="inp" rows="4" placeholder="Np. jak piszę „klata”, chodzi o wyciskanie na ławce płaskiej. Jak nie piszę ciężaru, to masa ciała (0 kg).">${esc(cfg.rules)}</textarea></div>
+    <button type="button" class="more" id="aiShowPrompt">Pokaż pełny prompt</button>
+    <pre class="aiprompt" id="aiPrompt" hidden></pre>
+    <div class="btns"><button class="btn pri" id="aiSave">Zapisz</button><button class="btn ghost" id="aiClose">Anuluj</button></div>`, sh => {
+    const val = () => ({url: $('#aiUrl',sh).value.trim(), model: $('#aiModel',sh).value.trim() || 'gemma4:12b', rules: $('#aiRules',sh).value});
+    $('#aiTest',sh).onclick = async () => {
+      const res = $('#aiTestRes',sh), v = val();
+      if(!/^https?:\/\//.test(v.url)){ res.textContent = 'Adres musi zaczynać się od https://'; return; }
+      res.textContent = 'Łączę…';
+      try{
+        const r = await fetch(v.url.replace(/\/+$/,'') + '/api/tags');
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        const j = await r.json(), names = (j.models||[]).map(m => m.name);
+        res.textContent = names.length ? `Działa. Modele na Macu: ${names.length}. Stuknij, żeby wybrać.` : 'Działa, ale na Macu nie ma modeli. Pobierz model w Terminalu: ollama pull gemma4:12b';
+        $('#aiModels',sh).innerHTML = names.map(n => `<button type="button" class="chip" data-model="${esc(n)}">${esc(n)}</button>`).join('');
+        if(names.length && !names.includes(v.model)) res.textContent += ` Uwaga: modelu „${v.model}” nie ma na liście.`;
+      }catch(e){
+        res.textContent = location.protocol==='https:' && v.url.startsWith('http:') ? 'Ta apka działa na https, więc adres Maca też musi być https (np. przez Tailscale).' : `Nie udało się połączyć (${e.message}). Sprawdź, czy Mac jest włączony, Ollama działa, a Tailscale jest połączony.`;
+      }
+    };
+    $('#aiModels',sh).addEventListener('click', e => { const b = e.target.closest('[data-model]'); if(b) $('#aiModel',sh).value = b.dataset.model; });
+    $('#aiShowPrompt',sh).onclick = () => { const p = $('#aiPrompt',sh); Object.assign(aiCfg(), {rules: val().rules}); p.textContent = aiSystemPrompt(); p.hidden = !p.hidden; };
+    $('#aiClose',sh).onclick = closeSheet;
+    $('#aiSave',sh).onclick = () => { Object.assign(aiCfg(), val()); save(); closeSheet(); render(); toast('Zapisano ustawienia AI'); aiRetryQueued(); };
+  });
+}
+function aiFindAct(key){ const [id, k] = key.split(':'); const h = aiCfg().history.find(x => x.id===id); return h ? {h, k:+k, r: resolvedFor(h)[+k]} : null; }
+function aiClick(e){
+  const g = s => e.target.closest(s);
+  let b;
+  if(g('#aiSend')){ aiDraft = ($('#aiText')||{}).value || aiDraft; aiSend(); return true; }
+  if((b = g('[data-ainum]'))){ const ta = $('#aiText'); aiDraft = (ta.value.trim() ? ta.value.trimEnd() + ' ' : '') + '#' + b.dataset.ainum + ' '; ta.value = aiDraft; ta.focus(); return true; }
+  if((b = g('[data-aiex]'))){ aiDraft = b.dataset.aiex; const ta = $('#aiText'); ta.value = aiDraft; ta.focus(); return true; }
+  if(g('[data-aisettings]')){ aiSettingsSheet(); return true; }
+  if(g('[data-aistop]')){ if(aiCtrl) aiCtrl.abort(); return true; }
+  if(g('[data-airetry]')){ aiRetryQueued(); return true; }
+  if((b = g('[data-airedo]'))){ const h = aiCfg().history.find(x => x.id===b.dataset.airedo); if(h){ h.status = 'czeka'; delete h.err; save(); aiRefresh(); aiProcess(); } return true; }
+  if(g('[data-aiclear]')){ aiCfg().history = aiCfg().history.filter(x => x.status==='mysli'); aiResolved.clear(); save(); render(); return true; }
+  if((b = g('[data-aiok]'))){ const a = aiFindAct(b.dataset.aiok); if(a && !(a.h.done||[]).includes(a.k)){ (a.h.done = a.h.done||[]).push(a.k); aiApply(a.r); save(); aiResolved.delete(a.h.id); aiRefresh(); } return true; }
+  if((b = g('[data-aidrop]'))){ const a = aiFindAct(b.dataset.aidrop); if(a){ (a.h.drop = a.h.drop||[]).push(a.k); save(); aiRefresh(); } return true; }
+  if((b = g('[data-aiedit]'))){ const a = aiFindAct(b.dataset.aiedit); if(a){ (a.h.moved = a.h.moved||[]).push(a.k); save(); aiRefresh(); workoutSheet(a.r.task, a.r.items); } return true; }
+  return false;
+}
+document.addEventListener('input', e => { if(e.target.id==='aiText') aiDraft = e.target.value; });
+
 /* ========= zdarzenia ========= */
 document.addEventListener('click', e => {
+  if(tab==='ai' && aiClick(e)) return;
+  const rg = e.target.closest('[data-range]'); if(rg){ chartRange = rg.dataset.range; render(); return; }
+  const mt = e.target.closest('[data-metric]'); if(mt){ chartMetric = mt.dataset.metric; render(); return; }
   const hb = e.target.closest('[data-how]');
   if(hb){
     const box = $('.howto', hb.closest('.tcard, .logt, .trow, .wex')); if(!box) return;
@@ -2059,6 +2658,7 @@ document.addEventListener('click', e => {
 $('#fab').onclick = () => addChooser();
 $('#tabTasks').onclick = () => { tab = 'tasks'; render(); scrollTo(0,0); };
 $('#tabProg').onclick = () => { tab = 'prog'; render(); scrollTo(0,0); };
+$('#tabAI').onclick = () => { tab = 'ai'; render(); scrollTo(0,0); aiRetryQueued(); };
 addEventListener('resize', () => { if(tab==='prog') drawCharts(); });
 document.addEventListener('visibilitychange', () => { if(!document.hidden && !$('#scrim')) render(); });
 addEventListener('keydown', e => { if(e.key==='Escape') closeSheet(); });
@@ -2071,8 +2671,21 @@ if(!Array.isArray(S.badges)){
   S.badges = had.map(d => d.id); save();
   if(had.length) setTimeout(() => toast(`Nowość: profesje i odznaki. Masz już ${had.length}. Stuknij „Poz.” u góry`), 800);
 }
+aiCfg(); aiFixStale();
 render();
-if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+aiProcess();
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  const hadCtrl = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'}).then(reg => {
+    document.addEventListener('visibilitychange', () => { if(!document.hidden) reg.update().catch(()=>{}); });
+  }).catch(()=>{});
+  // nowa wersja przejęła apkę: przeładuj, jeśli nic nie jest otwarte, inaczej zapytaj
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if(!hadCtrl) return;
+    if(!$('#scrim') && !(tab==='ai' && aiDraft.trim())) location.reload();
+    else toast('Jest nowa wersja Passy', 'Odśwież', () => location.reload());
+  });
+}
 </script>
 </body>
 </html>
