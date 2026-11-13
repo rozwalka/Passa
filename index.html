@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#0E0F14">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Patrick+Hand&family=JetBrains+Mono&display=swap&subset=latin-ext">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Passa</title>
@@ -343,6 +345,96 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 .tname{flex-wrap:wrap;row-gap:4px}
 .tnum,.tname .tag{white-space:nowrap}
 .aibtns .btn.ghost{height:42px}
+/* v11: konto */
+.acctrow{width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;background:var(--surface2);border-radius:16px;padding:12px 14px;margin:6px 0 12px}
+.acctico{width:40px;height:40px;border-radius:12px;background:var(--surface);display:grid;place-items:center;font-size:20px}
+.acctmain{min-width:0;display:flex;flex-direction:column;gap:2px}
+.acctmain b{font-size:15px;overflow-wrap:anywhere}
+.acctmain small{font-size:12px;color:var(--muted)}
+.acctgo{font-size:22px;color:var(--muted)}
+.acctcard{background:var(--surface2);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.acctcard span{font-size:12px;color:var(--muted)}
+.acctcard b{font-size:14px;overflow-wrap:anywhere}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--surface2);border-radius:14px;padding:4px;margin-bottom:16px}
+.segb{height:42px;border-radius:11px;font-weight:700;color:var(--muted)}
+.segb.on{background:var(--surface);color:var(--fg)}
+.srvbox{margin:-4px 0 12px;font-size:13px;color:var(--muted)}
+.srvbox summary{cursor:pointer;padding:4px 0}
+.btn:disabled{opacity:.6}
+.gear{position:relative}
+.gear.synced::after,.gear.syncerr::after{content:"";position:absolute;right:1px;top:1px;width:9px;height:9px;border-radius:50%;border:2px solid var(--surface)}
+.gear.synced::after{background:var(--ok)}
+.gear.syncerr::after{background:var(--flame)}
+/* v11: nawigacja na 5 pozycji */
+.nav .in{gap:4px;height:68px}
+.tab{flex-direction:column;gap:3px;height:56px;border-radius:14px;font-size:11.5px;font-weight:700;letter-spacing:.01em}
+.tab svg{width:21px;height:21px}
+.fab{width:52px;height:52px;border-radius:17px}
+@media (max-width:380px){.tab svg{display:block}.tab{font-size:10.5px}}
+body.wide .wrap{max-width:920px}
+/* notatki: lista */
+.nsearch{margin-bottom:14px}
+.nbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.nbcard{position:relative;text-align:left;background:var(--surface);border-radius:8px 16px 16px 8px;padding:16px 14px 14px 26px;min-height:150px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;overflow:hidden}
+.nbcard::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,color-mix(in srgb,var(--nbc) 28%,transparent),transparent 70%)}
+.nbspine{position:absolute;left:0;top:0;bottom:0;width:12px;background:var(--nbc)}
+.nbcard b{position:relative;font-size:17px;line-height:1.2;overflow-wrap:anywhere}
+.nbcard small{position:relative;font-size:12px;color:var(--muted)}
+.nlist{display:flex;flex-direction:column;gap:8px}
+.nrow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;background:var(--surface);border-radius:14px;padding:12px 14px}
+.nrowdot{width:10px;height:36px;border-radius:5px;background:var(--nbc)}
+.nrowmain{min-width:0;display:flex;flex-direction:column;gap:3px}
+.nrowmain b{font-size:15px;overflow-wrap:anywhere}
+.nrowmain small{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nrowmeta{font-size:11.5px;color:var(--muted);text-align:right;line-height:1.4}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
+.sw{width:36px;height:36px;border-radius:50%;border:3px solid transparent}
+.sw.on{border-color:var(--fg)}
+.seg4{grid-template-columns:repeat(4,1fr)}
+/* notatki: edytor */
+.ned{margin-top:4px}
+.nedbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);margin:0 -4px;padding:8px 4px 8px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--line)}
+body.wide::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:16}
+.nedtop{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}
+.nedback{width:40px;height:40px;border-radius:12px;background:var(--surface2);font-size:20px}
+.ntitle{min-width:0;background:none;border:0;outline:none;font-size:21px;font-weight:800;letter-spacing:-.01em;color:var(--fg);padding:6px 2px}
+.ntitle::placeholder{color:var(--muted)}
+.ntools,.nsub{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ntools{justify-content:space-between}
+.tgroup{display:flex;gap:2px;background:var(--surface);border-radius:12px;padding:3px}
+.tbtn{width:40px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--muted)}
+.tbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tbtn.on{background:var(--surface2);color:var(--fg)}
+.tbtn.txt{font-size:15px;font-weight:700;width:36px}
+.tbtn.wid i{display:block;border-radius:50%;background:currentColor}
+.tdot{width:28px;height:28px;border-radius:50%;margin:4px;border:2px solid transparent;box-shadow:0 0 0 1px var(--line)}
+.tdot.on{border-color:var(--bg);box-shadow:0 0 0 2px var(--fg)}
+.tsel{background:var(--surface);border:0;border-radius:12px;height:42px;padding:0 12px;color:var(--fg)}
+.pentog{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-left:auto}
+.pentog input{width:18px;height:18px;accent-color:var(--flame)}
+.nmuted{font-size:13px;color:var(--muted)}
+.nhint{font-size:12px;color:var(--muted);margin:10px 2px 12px}
+.npages{display:flex;flex-direction:column;gap:18px;--lh:4.6cqw;--top:8cqw}
+.npage{position:relative;aspect-ratio:210/297;width:100%;max-width:100%;background:#FBFAF6;border-radius:4px;box-shadow:0 2px 0 rgba(0,0,0,.25),0 14px 34px -14px rgba(0,0,0,.55);container-type:inline-size;overflow:hidden;color:#1D1F27}
+.npage.paper-lines{background-image:linear-gradient(to right,transparent 9cqw,rgba(214,47,63,.4) 9cqw,rgba(214,47,63,.4) calc(9cqw + 1px),transparent calc(9cqw + 1px)),repeating-linear-gradient(to bottom,transparent 0,transparent calc(4.6cqw - 1px),rgba(36,87,214,.22) calc(4.6cqw - 1px),rgba(36,87,214,.22) 4.6cqw);background-position:0 0,0 8cqw}
+.npage.paper-grid{background-image:repeating-linear-gradient(to bottom,transparent 0,transparent calc(4.6cqw - 1px),rgba(36,87,214,.16) calc(4.6cqw - 1px),rgba(36,87,214,.16) 4.6cqw),repeating-linear-gradient(to right,transparent 0,transparent calc(4.6cqw - 1px),rgba(36,87,214,.16) calc(4.6cqw - 1px),rgba(36,87,214,.16) 4.6cqw);background-position:0 8cqw,0 0}
+.npage.paper-dots{background-image:radial-gradient(circle at 1px 1px,rgba(29,31,39,.28) 1px,transparent 1.4px);background-size:4.6cqw 4.6cqw;background-position:0 calc(8cqw - 1px)}
+.ntext{position:absolute;inset:0;padding:8cqw 6cqw 7cqw 11cqw;font-family:var(--nfont);font-size:calc(var(--nfs) * 1cqw);line-height:4.6cqw;overflow-y:auto;outline:none;color:#1D1F27;caret-color:#2457D6;overflow-wrap:anywhere;z-index:1}
+.ntext div,.ntext p{margin:0}
+.ntext h2{margin:0;font-size:1.45em;line-height:9.2cqw;font-weight:700}
+.ntext h3{margin:0;font-size:1.2em;line-height:4.6cqw}
+.ntext ul,.ntext ol{margin:0;padding-left:1.3em}
+.ntext:empty::before{content:"Pisz tutaj…";color:rgba(29,31,39,.32)}
+.ntext[contenteditable="false"]:empty::before{content:""}
+.ncanvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.ncanvas.off{pointer-events:none}
+.pnumb{position:absolute;right:4cqw;bottom:2.5cqw;font-size:max(10px,2cqw);color:rgba(29,31,39,.4);z-index:3;pointer-events:none}
+.pdel{position:absolute;right:2cqw;top:2cqw;z-index:3;min-width:30px;height:30px;border-radius:9px;background:rgba(29,31,39,.06);color:rgba(29,31,39,.45);font-size:13px;padding:0 8px}
+.pdel.sure{background:var(--bad);color:#fff}
+.npage.full::after{content:"Strona pełna, pisz dalej na następnej";position:absolute;left:11cqw;bottom:2.4cqw;font-size:max(10px,1.9cqw);color:#D62F3F;z-index:3}
+.addpage{width:100%;margin-top:18px}
+.nbtitle{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;overflow-wrap:anywhere;border-left:6px solid var(--nbc);padding-left:12px;min-width:0}
+.example .btn:not(.pri){color:var(--fg)}
 .chip .chimg{display:block;width:120px;aspect-ratio:8/3;border-radius:6px;margin-bottom:6px;background:#fff}
 /* v7: serie, zamiana, pomijanie */
 .sets{grid-column:1/-1;display:flex;flex-direction:column;gap:6px}
@@ -491,10 +583,11 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted
 <body>
 <div class="wrap" id="app"></div>
 <nav class="nav"><div class="in">
-  <button class="tab on" id="tabTasks" aria-label="Zadania"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Zadania</button>
-  <button class="fab" id="fab" aria-label="Dodaj zadanie"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
-  <button class="tab" id="tabProg" aria-label="Progres"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg>Progres</button>
-  <button class="tab" id="tabAI" aria-label="AI"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg>AI</button>
+  <button class="tab on" id="tabTasks" aria-label="Zadania"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>Zadania</span></button>
+  <button class="tab" id="tabProg" aria-label="Progres"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg><span>Progres</span></button>
+  <button class="fab" id="fab" aria-label="Dodaj"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button class="tab" id="tabAI" aria-label="AI"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg><span>AI</span></button>
+  <button class="tab" id="tabNotes" aria-label="Notatki"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h5"/></svg><span>Notatki</span></button>
 </div></nav>
 <canvas id="fx"></canvas>
 
@@ -1025,11 +1118,280 @@ function load(){
   return {v:2, tasks:[], logs:[], entries:[]};
 }
 function save(){
+  trackDeletes(); S.mt = Date.now();
   try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ toast('Nie udało się zapisać. Zrób kopię zapasową w ustawieniach.'); }
+  syncAfterSave();
 }
 const uid = () => Math.random().toString(36).slice(2,9) + Date.now().toString(36).slice(-5);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $ = (s, el=document) => el.querySelector(s);
+/* ========= v11: konto i synchronizacja z serwerem na Macu ========= */
+var DEFAULT_SERVER = 'https://mac-mini-rozwalka.tail9f6d92.ts.net';
+var ACCT_KEY = 'passa.acct';
+var ACCT = (function(){ try{ return JSON.parse(localStorage.getItem(ACCT_KEY)) || {}; }catch(e){ return {}; } })();
+var _known = null, _applying = false, _syncTimer = 0, _syncing = false, _syncAgain = false;
+var syncInfo = {state: '', at: 0, err: ''};
+
+function saveAcct(){ try{ localStorage.setItem(ACCT_KEY, JSON.stringify(ACCT)); }catch(e){} }
+function acctOn(){ return !!(ACCT.token && ACCT.server); }
+function srv(){ return String(ACCT.server || DEFAULT_SERVER).trim().replace(/\/+$/, ''); }
+
+/* usunięcia zapamiętujemy, żeby nie wróciły z innego urządzenia */
+function idsOf(st){ const s = new Set(); for(const k of ['tasks','logs','entries','notebooks','notes']) for(const x of (st[k]||[])) if(x && x.id) s.add(x.id); return s; }
+function trackDeletes(){
+  const ids = idsOf(S);
+  if(_known && !_applying){
+    const now = Date.now(), add = [];
+    for(const id of _known) if(!ids.has(id)) add.push([id, now]);
+    if(add.length) S.del = (S.del || []).concat(add);
+  }
+  _known = ids;
+}
+
+/* co idzie na serwer: wszystko poza historią AI (ta zostaje w urządzeniu) */
+function syncPayload(st){ const o = Object.assign({}, st); if(o.ai){ o.ai = Object.assign({}, o.ai); delete o.ai.history; } return o; }
+function canonHash(st){
+  const p = syncPayload(st || {}); p.mt = 0;
+  const keys = Object.keys(p).sort(), o = {}; keys.forEach(k => { if(p[k] !== undefined) o[k] = p[k]; });
+  const s = JSON.stringify(o); let h = 5381;
+  for(let i = 0; i < s.length; i++) h = (Math.imul(h, 33) ^ s.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36) + ':' + s.length;
+}
+
+/* scalanie: nowsza strona wygrywa przy edycji, rekordy z obu stron się sumują, usunięte znikają */
+function mergeStates(local, remote){
+  if(!remote || typeof remote !== 'object') return local;
+  let L = local, R = remote;
+  const ra = L.resetAt || 0, rb = R.resetAt || 0;
+  if(ra !== rb){
+    const cut = Math.max(ra, rb);
+    const trim = st => Object.assign({}, st, {tasks:(st.tasks||[]).filter(t => (t.created||0) > cut), logs:(st.logs||[]).filter(l => (l.ts||0) > cut),
+      entries:(st.entries||[]).filter(e => (e.ts||0) > cut), notebooks:(st.notebooks||[]).filter(x => (x.mt||0) > cut), notes:(st.notes||[]).filter(x => (x.mt||0) > cut), badges:[], del:[]});
+    if(ra > rb) R = trim(R); else L = trim(L);
+  }
+  const del = new Map();
+  for(const d of [...(L.del||[]), ...(R.del||[])]) if(Array.isArray(d)) del.set(d[0], Math.max(del.get(d[0]) || 0, d[1] || 0));
+  const lNew = (L.mt || 0) >= (R.mt || 0), N = lNew ? L : R, O = lNew ? R : L;
+  const uni = key => { const seen = new Set(), out = [];
+    for(const x of [...(N[key]||[]), ...(O[key]||[])]){ if(!x || !x.id || seen.has(x.id) || del.has(x.id)) continue; seen.add(x.id); out.push(x); }
+    return out; };
+  const out = Object.assign({}, O, N);
+  out.tasks = uni('tasks').sort((a,b) => (a.created||0) - (b.created||0) || (a.num||0) - (b.num||0) || (a.id < b.id ? -1 : 1));
+  out.logs = uni('logs').sort((a,b) => (a.ts||0) - (b.ts||0) || (a.id < b.id ? -1 : 1));
+  out.entries = uni('entries').sort((a,b) => (a.ts||0) - (b.ts||0) || (a.id < b.id ? -1 : 1));
+  // notatki i zeszyty: wygrywa nowsza wersja danego tematu (pole mt)
+  const byMt = key => { const m = new Map();
+    for(const x of [...(L[key]||[]), ...(R[key]||[])]){ if(!x || !x.id || del.has(x.id)) continue; const c = m.get(x.id); if(!c || (x.mt||0) > (c.mt||0)) m.set(x.id, x); }
+    return [...m.values()].sort((a,b) => (a.created||0) - (b.created||0) || (a.id < b.id ? -1 : 1)); };
+  out.notebooks = byMt('notebooks'); out.notes = byMt('notes');
+  out.badges = [...new Set([...(N.badges||[]), ...(O.badges||[])])].sort();
+  const sw = [L.startWeek, R.startWeek].filter(Boolean).sort()[0]; if(sw) out.startWeek = sw;
+  out.nextNum = Math.max(L.nextNum || 1, R.nextNum || 1);
+  const cutoff = Date.now() - 180*864e5;
+  out.del = [...del.entries()].filter(d => d[1] > cutoff).sort((a,b) => a[0] < b[0] ? -1 : 1);
+  out.mt = Math.max(L.mt || 0, R.mt || 0);
+  if(Math.max(ra, rb)) out.resetAt = Math.max(ra, rb); else delete out.resetAt;
+  out.ai = Object.assign({}, O.ai || {}, N.ai || {}, {history: (local.ai && local.ai.history) || []});
+  return out;
+}
+
+function applyState(m){
+  _applying = true;
+  S = m;
+  ['tasks','logs','entries','badges','notebooks','notes'].forEach(k => { if(!Array.isArray(S[k])) S[k] = []; });
+  _known = idsOf(S);
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+  _applying = false;
+  ensureNums();
+  if(tab === 'ai') aiRefresh(); else if(!notesEditing()) render();
+}
+
+async function api(method, path, body, base){
+  const headers = {'Content-Type': 'application/json'};
+  if(ACCT.token && !base) headers.Authorization = 'Bearer ' + ACCT.token;
+  const r = await fetch((base || srv()) + path, {method, headers, body: body ? JSON.stringify(body) : undefined, cache: 'no-store'});
+  let j = null; try{ j = await r.json(); }catch(e){}
+  if(r.status === 401 && ACCT.token && !base){
+    ACCT.token = ''; saveAcct(); syncInfo = {state:'out', at:0, err:''};
+    toast('Sesja wygasła. Zaloguj się ponownie', 'Zaloguj', accountSheet);
+  }
+  return {status: r.status, ok: r.ok, j: j || {}};
+}
+
+function setSync(state, err){ syncInfo = {state, at: state==='ok' ? Date.now() : syncInfo.at, err: err || ''}; const el = $('#acctStatus'); if(el) el.textContent = syncText(); updateSyncDot(); }
+function syncText(){
+  if(!acctOn()) return 'Niezalogowany';
+  if(syncInfo.state === 'sync') return 'Synchronizuję…';
+  if(syncInfo.state === 'err') return syncInfo.err;
+  if(syncInfo.at){ const d = new Date(syncInfo.at); return `Zsynchronizowano ${pad(d.getHours())}:${pad(d.getMinutes())}`; }
+  return 'Czeka na synchronizację';
+}
+function updateSyncDot(){ const g = $('#openSettings'); if(!g) return; g.classList.toggle('syncerr', acctOn() && syncInfo.state === 'err'); g.classList.toggle('synced', acctOn() && syncInfo.state === 'ok'); }
+
+async function syncNow(manual){
+  if(!acctOn()) return false;
+  if(_syncing){ _syncAgain = true; return false; }
+  if(($('#scrim') || notesEditing()) && !manual){ syncSoon(4000); return false; }
+  _syncing = true; setSync('sync');
+  let ok = false;
+  try{
+    const full = ACCT.rev == null || !ACCT.hash;
+    const g = await api('GET', '/api/sync' + (full ? '' : '?since=' + ACCT.rev));
+    if(!g.ok) throw new Error(g.j.error || ('Serwer: ' + g.status));
+    let rev = g.j.rev, remote = g.j.same ? null : g.j.data, serverHash = g.j.same ? ACCT.hash : (remote ? canonHash(remote) : '');
+    for(let i = 0; i < 4; i++){
+      if(remote){ applyState(mergeStates(S, remote)); remote = null; }
+      const h = canonHash(S);
+      if(h === serverHash){ ACCT.rev = rev; ACCT.hash = h; ok = true; break; }
+      const p = await api('PUT', '/api/sync', {baseRev: rev, data: syncPayload(S)});
+      if(p.ok){ ACCT.rev = p.j.rev; ACCT.hash = h; ok = true; break; }
+      if(p.status === 409){ rev = p.j.rev; remote = p.j.data; serverHash = remote ? canonHash(remote) : ''; continue; }
+      throw new Error(p.j.error || ('Serwer: ' + p.status));
+    }
+    saveAcct();
+    setSync(ok ? 'ok' : 'err', ok ? '' : 'Nie udało się zsynchronizować. Spróbuję później.');
+  }catch(e){
+    setSync('err', e instanceof TypeError ? 'Brak połączenia z serwerem. Zmiany wyślą się później.' : e.message);
+  }
+  _syncing = false;
+  if(_syncAgain){ _syncAgain = false; syncSoon(500); }
+  return ok;
+}
+function syncSoon(ms){
+  if(!acctOn()) return;
+  clearTimeout(_syncTimer);
+  _syncTimer = setTimeout(() => syncNow(false), ms == null ? 1500 : ms);
+}
+function syncAfterSave(){ if(acctOn() && !_applying && canonHash(S) !== ACCT.hash) syncSoon(); }
+
+/* --- ekran konta --- */
+function accountSheet(){
+  if(acctOn()) return accountInfoSheet();
+  let mode = 'login';
+  openSheet(`
+    <h4>Konto Passa</h4>
+    <p class="sub">Zaloguj się, żeby mieć te same zadania, treningi i wyniki na każdym urządzeniu. Dane trzyma Twój Mac.</p>
+    <div class="seg" role="tablist">
+      <button type="button" class="segb on" data-mode="login" role="tab">Zaloguj się</button>
+      <button type="button" class="segb" data-mode="register" role="tab">Załóż konto</button>
+    </div>
+    <form id="accForm" autocomplete="on" novalidate>
+      <div class="field"><label for="accLogin">Login</label><input id="accLogin" name="username" class="inp" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="32" value="${esc(ACCT.login||'')}"></div>
+      <div class="field"><label for="accPass">Hasło</label><input id="accPass" name="password" type="password" class="inp" autocomplete="current-password" maxlength="200"></div>
+      <div id="regOnly" hidden>
+        <div class="field"><label for="accPass2">Powtórz hasło</label><input id="accPass2" type="password" class="inp" autocomplete="new-password" maxlength="200"></div>
+        <div class="field"><label for="accInvite">Kod zaproszenia</label><input id="accInvite" class="inp" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="PASSA-XXXX-XXXX" maxlength="20"></div>
+        <p class="hint">Kod wyświetla serwer na Macu. Bez kodu nikt obcy nie założy konta.</p>
+      </div>
+      <details class="srvbox"><summary>Adres serwera</summary>
+        <div class="field" style="margin-top:8px"><input id="accServer" class="inp" inputmode="url" autocomplete="off" value="${esc(srv())}"></div>
+      </details>
+      ${S.tasks.length ? '<p class="hint">Dane z tego urządzenia połączą się z kontem, nic nie zniknie.</p>' : ''}
+      <div class="err" id="accErr" hidden></div>
+      <div class="btns"><button type="submit" class="btn pri" id="accGo">Zaloguj się</button><button type="button" class="btn ghost" id="accClose">Anuluj</button></div>
+    </form>`, sh => {
+    const setMode = m => {
+      mode = m;
+      sh.querySelectorAll('.segb').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+      $('#regOnly',sh).hidden = m !== 'register';
+      $('#accPass',sh).setAttribute('autocomplete', m === 'register' ? 'new-password' : 'current-password');
+      $('#accGo',sh).textContent = m === 'register' ? 'Załóż konto' : 'Zaloguj się';
+      $('#accErr',sh).hidden = true;
+    };
+    sh.querySelectorAll('.segb').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+    $('#accClose',sh).onclick = closeSheet;
+    $('#accForm',sh).addEventListener('submit', async e => {
+      e.preventDefault();
+      const err = m => { const el = $('#accErr',sh); el.textContent = m; el.hidden = false; };
+      const login = $('#accLogin',sh).value.trim().toLowerCase(), pass = $('#accPass',sh).value;
+      const server = $('#accServer',sh).value.trim().replace(/\/+$/, '');
+      if(!/^https:\/\//.test(server) && !/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(server)) return err('Adres serwera musi zaczynać się od https://');
+      if(!login || !pass) return err('Wpisz login i hasło.');
+      if(mode === 'register'){
+        if(!/^[a-z0-9._-]{3,32}$/.test(login)) return err('Login: 3–32 znaki, małe litery, cyfry, kropka, myślnik albo podkreślnik.');
+        if(pass.length < 8) return err('Hasło musi mieć co najmniej 8 znaków.');
+        if(pass !== $('#accPass2',sh).value) return err('Hasła się różnią.');
+        if(!$('#accInvite',sh).value.trim()) return err('Wpisz kod zaproszenia.');
+      }
+      const btn = $('#accGo',sh); btn.disabled = true; btn.textContent = 'Łączę…';
+      try{
+        const body = {login, password: pass, device: navigator.userAgent.slice(0, 120)};
+        if(mode === 'register') body.invite = $('#accInvite',sh).value.trim();
+        const r = await api('POST', mode === 'register' ? '/api/register' : '/api/login', body, server);
+        if(!r.ok) throw new Error(r.j.error || ('Serwer: ' + r.status));
+        ACCT = {server, login: r.j.login, token: r.j.token}; saveAcct();
+        closeSheet(); toast(mode === 'register' ? 'Konto założone. Synchronizuję…' : 'Zalogowano. Synchronizuję…');
+        const ok = await syncNow(true);
+        toast(ok ? 'Zsynchronizowano. Dane są na Twoim Macu' : syncInfo.err || 'Zalogowano, synchronizacja później');
+        if(ok){ buzz([20,40,20]); render(); }
+      }catch(ex){
+        err(ex instanceof TypeError ? 'Nie mogę połączyć się z serwerem. Sprawdź adres i czy Mac jest włączony.' : ex.message);
+        btn.disabled = false; btn.textContent = mode === 'register' ? 'Załóż konto' : 'Zaloguj się';
+      }
+    });
+    setTimeout(() => $(ACCT.login ? '#accPass' : '#accLogin', sh).focus(), 250);
+  });
+}
+function accountInfoSheet(){
+  openSheet(`
+    <h4>Konto: ${esc(ACCT.login)}</h4>
+    <p class="sub" id="acctStatus">${esc(syncText())}</p>
+    <div class="acctcard"><span>Serwer</span><b>${esc(srv().replace(/^https:\/\//, ''))}</b></div>
+    <div class="btns" style="margin-top:12px">
+      <button class="btn pri" id="acSync">Synchronizuj teraz</button>
+      <button class="btn" id="acPwOpen">Zmień hasło</button>
+    </div>
+    <form id="acPwForm" hidden style="margin-top:14px">
+      <input type="text" autocomplete="username" value="${esc(ACCT.login)}" hidden>
+      <div class="field"><label for="acOld">Obecne hasło</label><input id="acOld" type="password" class="inp" autocomplete="current-password"></div>
+      <div class="field"><label for="acNew">Nowe hasło</label><input id="acNew" type="password" class="inp" autocomplete="new-password"></div>
+      <div class="err" id="acErr" hidden></div>
+      <button type="submit" class="btn" id="acPwGo">Zapisz nowe hasło</button>
+    </form>
+    <div class="btns">
+      <button class="btn ghost" id="acOut">Wyloguj</button>
+      <button class="btn danger" id="acWipe">Wyloguj i usuń dane z tego urządzenia</button>
+      <button class="btn ghost" id="acClose">Zamknij</button>
+    </div>
+    <p class="hint">Na cudzym komputerze wybierz „Wyloguj i usuń dane”. Twoje dane zostaną na Macu.</p>`, sh => {
+    $('#acClose',sh).onclick = closeSheet;
+    $('#acSync',sh).onclick = async () => { const ok = await syncNow(true); toast(ok ? 'Zsynchronizowano' : syncInfo.err || 'Nie udało się'); };
+    $('#acPwOpen',sh).onclick = () => { const f = $('#acPwForm',sh); f.hidden = !f.hidden; if(!f.hidden) $('#acOld',sh).focus(); };
+    $('#acPwForm',sh).addEventListener('submit', async e => {
+      e.preventDefault();
+      const err = m => { const el = $('#acErr',sh); el.textContent = m; el.hidden = false; };
+      const nw = $('#acNew',sh).value;
+      if(nw.length < 8) return err('Nowe hasło musi mieć co najmniej 8 znaków.');
+      try{
+        const r = await api('POST', '/api/password', {Old: $('#acOld',sh).value, New: nw});
+        if(!r.ok) throw new Error(r.j.error || ('Serwer: ' + r.status));
+        toast('Hasło zmienione. Inne urządzenia trzeba zalogować ponownie'); closeSheet();
+      }catch(ex){ err(ex instanceof TypeError ? 'Brak połączenia z serwerem.' : ex.message); }
+    });
+    const out = async wipe => {
+      if(!wipe) await syncNow(true);
+      try{ await api('POST', '/api/logout'); }catch(e){}
+      ACCT = {server: ACCT.server, login: ACCT.login}; saveAcct(); syncInfo = {state:'', at:0, err:''};
+      if(wipe){
+        try{ localStorage.removeItem(KEY); localStorage.removeItem(ACCT_KEY); }catch(e){}
+        location.reload(); return;
+      }
+      closeSheet(); render(); toast('Wylogowano. Dane zostały też w tym urządzeniu');
+    };
+    $('#acOut',sh).onclick = () => out(false);
+    const w = $('#acWipe',sh);
+    w.onclick = () => {
+      if(!w.classList.contains('sure')){ w.classList.add('sure'); w.textContent = 'Na pewno? Stuknij jeszcze raz'; return; }
+      out(true);
+    };
+  });
+}
+
+/* kiedy synchronizować */
+document.addEventListener('visibilitychange', () => { if(!document.hidden) syncSoon(300); });
+addEventListener('online', () => syncSoon(300));
+setInterval(() => { if(!document.hidden) syncNow(false); }, 60000);
+
 
 /* łączy test z katalogiem (dla odznak) */
 function linkTest(te, catId){
@@ -1216,8 +1578,14 @@ function render(){
   $('#tabTasks').classList.toggle('on', tab==='tasks');
   $('#tabProg').classList.toggle('on', tab==='prog');
   $('#tabAI').classList.toggle('on', tab==='ai');
-  $('#app').innerHTML = header() + (tab==='tasks' ? tasksView() : tab==='prog' ? progView() : tab==='ai' ? aiView() : profileView());
+  $('#tabNotes').classList.toggle('on', tab==='notes');
+  const editing = tab==='notes' && NS.note && noteById(NS.note);
+  document.body.classList.toggle('wide', !!editing);
+  if(ED.obs && !editing){ ED.obs.disconnect(); ED.obs = null; }
+  $('#app').innerHTML = (editing ? '' : header()) + (tab==='tasks' ? tasksView() : tab==='prog' ? progView() : tab==='ai' ? aiView() : tab==='notes' ? notesView() : profileView());
+  if(editing) mountEditor();
   if(tab==='prog') drawCharts();
+  updateSyncDot();
 }
 
 function header(){
@@ -1247,7 +1615,7 @@ function header(){
 function tasksView(){
   if(!S.tasks.length) return `<h2>Zadania</h2><div class="empty"><b>Dodaj pierwsze zadanie</b>
     Ustawiasz, ile razy w tygodniu minimum i ile to norma. Minimum trzyma passę, norma daje złoty tydzień. Wpisz np. „Siłownia”, „Bieganie” albo „Matma”, a apka podsunie gotowe ćwiczenia i odznaki.
-    <div class="example"><button class="btn pri" id="emptyAdd">Dodaj zadanie albo trening</button></div></div>`;
+    <div class="example"><button class="btn pri" id="emptyAdd">Dodaj zadanie albo trening</button>${acctOn() ? '' : '<button class="btn" id="emptyLogin">Mam konto, zaloguj się</button>'}</div></div>`;
   return `<h2>Zadania</h2><div class="list">${S.tasks.map(taskCard).join('')}</div>`;
 }
 
@@ -1858,7 +2226,8 @@ function settingsSheet(){
   const standalone = matchMedia('(display-mode: standalone)').matches;
   openSheet(`
     <h4>Ustawienia</h4>
-    <p class="sub">Dane są zapisane tylko w tym telefonie. Rób czasem kopię zapasową.</p>
+    <button type="button" class="acctrow" id="sAcct"><span class="acctico">${acctOn() ? '☁️' : '👤'}</span><span class="acctmain"><b>${acctOn() ? 'Konto: ' + esc(ACCT.login) : 'Zaloguj się albo załóż konto'}</b><small>${acctOn() ? esc(syncText()) : 'Te same dane na każdym urządzeniu, zapisane na Twoim Macu'}</small></span><span class="acctgo">›</span></button>
+    <p class="sub">${acctOn() ? 'Dane są w telefonie i na Twoim Macu.' : 'Dane są zapisane tylko w tym urządzeniu. Rób czasem kopię zapasową.'}</p>
     <div class="field"><label for="sName">Twoja nazwa</label><input id="sName" class="inp" maxlength="24" placeholder="np. Wiktor" value="${esc(S.name||'')}"></div>
     <div class="btns" style="margin-top:0">
       ${installEvt && !standalone ? '<button class="btn pri" id="sInstall">Zainstaluj jako apkę</button>' : ''}
@@ -1868,14 +2237,15 @@ function settingsSheet(){
       <button class="btn danger" id="sReset">Zresetuj konto do zera</button>
       <button class="btn ghost" id="sClose">Zamknij</button>
     </div>
-    <p class="hint num" style="margin-top:14px">Wersja 10 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
+    <p class="hint num" style="margin-top:14px">Wersja 11 · ${S.tasks.length} zadań · ${S.logs.length} zaliczeń · ${S.entries.length} wyników · ${xpInfo().xp} XP</p>`, sh => {
     $('#sClose',sh).onclick = closeSheet;
+    $('#sAcct',sh).onclick = accountSheet;
     $('#sName',sh).addEventListener('change', e => { S.name = e.target.value.trim(); save(); render(); toast(S.name ? 'Cześć, '+S.name+'!' : 'Usunięto nazwę'); });
     const rs = $('#sReset',sh); let rsStep = 0;
     rs.onclick = () => {
       if(rsStep===0){ rsStep = 1; rs.classList.add('sure'); rs.textContent = 'Na pewno? Zniknie wszystko. Najpierw zrób kopię'; return; }
-      if(rsStep===1){ rsStep = 2; rs.textContent = 'Stuknij jeszcze raz, żeby wyzerować'; return; }
-      S = {v:3, tasks:[], logs:[], entries:[], badges:[], name: S.name, startWeek: thisWeek()};
+      if(rsStep===1){ rsStep = 2; rs.textContent = acctOn() ? 'Wyzeruje też dane na Macu i innych urządzeniach. Stuknij jeszcze raz' : 'Stuknij jeszcze raz, żeby wyzerować'; return; }
+      S = {v:3, tasks:[], logs:[], entries:[], badges:[], name: S.name, startWeek: thisWeek(), ai: S.ai, resetAt: Date.now(), del: S.del};
       save(); closeSheet(); tab = 'tasks'; render(); toast('Konto wyzerowane. Czysta karta');
     };
     const ins = $('#sInstall',sh); if(ins) ins.onclick = async () => { installEvt.prompt(); await installEvt.userChoice; installEvt = null; closeSheet(); };
@@ -1891,7 +2261,8 @@ function settingsSheet(){
       try{
         const d = JSON.parse(await f.text());
         if(!d || !Array.isArray(d.tasks) || !Array.isArray(d.logs) || !Array.isArray(d.entries)) throw 0;
-        S = d; migrate(); if(!Array.isArray(S.badges)) S.badges = badgeDefs().filter(x=>x.ok).map(x=>x.id);
+        const keepAi = S.ai;
+        S = d; S.resetAt = Date.now(); if(!S.ai) S.ai = keepAi; migrate(); if(!Array.isArray(S.badges)) S.badges = badgeDefs().filter(x=>x.ok).map(x=>x.id);
         save(); closeSheet(); render(); toast('Wczytano kopię');
       }catch(err){ toast('To nie jest plik kopii z Passy'); }
     };
@@ -2255,6 +2626,7 @@ function workoutSheet(t, pre){
 // numery zadań #1, #2… (nie wracają po usunięciu)
 function ensureNums(){
   let n = S.nextNum || 1, changed = false;
+  const seen = new Set(); S.tasks.forEach(t => { if(t.num && seen.has(t.num)){ t.num = 0; } if(t.num) seen.add(t.num); });
   S.tasks.forEach(t => { if(t.num) n = Math.max(n, t.num + 1); });
   S.tasks.forEach(t => { if(!t.num){ t.num = n++; changed = true; } });
   if(S.nextNum !== n){ S.nextNum = n; changed = true; }
@@ -2324,16 +2696,28 @@ JSON: {"akcje":[{"typ":"zalicz","nr":7,"cwiczenia":[{"nazwa":"Wyciskanie na ław
 
 /* --- połączenie z Ollamą (strumień, żeby widać było postęp) --- */
 const aiBase = () => aiCfg().url.trim().replace(/\/+$/, '');
+const aiReady = () => acctOn() || !!aiCfg().url.trim();
+// przez konto: serwer Passy na Macu (za loginem); bez konta: Ollama bezpośrednio
+function aiEndpoint(path){
+  if(acctOn()) return {url: srv() + '/api/ai/' + path, headers: {Authorization: 'Bearer ' + ACCT.token}};
+  return {url: aiBase() + '/api/' + path, headers: {}};
+}
+async function aiErr(res){
+  const t = await res.text(); let m = t;
+  try{ const j = JSON.parse(t); m = j.error || t; }catch(e){}
+  if(res.status === 401){ if(acctOn()){ ACCT.token = ''; saveAcct(); } return 'Sesja wygasła. Zaloguj się ponownie w ustawieniach.'; }
+  return (acctOn() ? '' : 'Ollama: ') + String(m).slice(0, 200);
+}
 async function aiChat(text, onChunk, signal){
-  const cfg = aiCfg();
+  const cfg = aiCfg(), ep = aiEndpoint('chat');
   const body = {model: cfg.model, stream: true, think: false, keep_alive: '30m', format: AI_SCHEMA, options: {temperature: 0},
     messages: [{role:'system', content: aiSystemPrompt()}, {role:'user', content: text}]};
-  let res = await fetch(aiBase() + '/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body), signal});
+  const go = () => fetch(ep.url, {method:'POST', headers: Object.assign({'Content-Type':'application/json'}, ep.headers), body: JSON.stringify(body), signal});
+  let res = await go();
   if(!res.ok){
-    const err = await res.text();
-    if(/think/i.test(err)){ delete body.think; res = await fetch(aiBase() + '/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body), signal}); }
-    else throw new Error(`Ollama: ${res.status} ${err.slice(0,160)}`);
-    if(!res.ok) throw new Error(`Ollama: ${res.status} ${(await res.text()).slice(0,160)}`);
+    const err = await aiErr(res);
+    if(/think/i.test(err)){ delete body.think; res = await go(); if(!res.ok) throw new Error(await aiErr(res)); }
+    else throw new Error(err);
   }
   const reader = res.body.getReader(), dec = new TextDecoder();
   let buf = '', out = '';
@@ -2479,7 +2863,7 @@ function aiApply(r){
 /* --- kolejka: jedna wiadomość naraz, reszta czeka --- */
 function aiFixStale(){ aiCfg().history.forEach(h => { if(h.status==='mysli') h.status = 'czeka'; }); }
 async function aiProcess(){
-  if(aiBusy || !aiCfg().url.trim()) return;
+  if(aiBusy || !aiReady()) return;
   const h = aiCfg().history.find(x => x.status==='czeka'); if(!h) return;
   aiBusy = true; h.status = 'mysli'; h.started = Date.now(); h.chars = 0; save(); aiRefresh();
   aiCtrl = new AbortController();
@@ -2491,7 +2875,7 @@ async function aiProcess(){
     buzz([20,40,20]);
   }catch(e){
     if(e.name==='AbortError'){ h.status = 'anulowane'; }
-    else if(e instanceof TypeError || !navigator.onLine){ h.status = 'czeka'; h.err = 'Brak połączenia z Makiem. Wyślę, jak wróci połączenie.'; }
+    else if(e instanceof TypeError || !navigator.onLine){ h.status = 'czeka'; h.err = acctOn() ? 'Brak połączenia z serwerem na Macu. Wyślę, jak wróci połączenie.' : 'Brak połączenia z Makiem. Wyślę, jak wróci połączenie.'; }
     else { h.status = 'blad'; h.err = e.message; }
   }
   clearInterval(aiTimer); aiBusy = false; aiCtrl = null; save(); aiRefresh();
@@ -2555,10 +2939,10 @@ function aiView(){
   const cfg = aiCfg();
   const nums = S.tasks.map(t => `<button type="button" class="chip" data-ainum="${t.num}"><b>#${t.num}</b> ${esc(t.name)}</button>`).join('');
   const examples = ['#1 zrobione', 'dodaj zadanie: witaminy codziennie', 'ile mam rekord na ławce?'];
-  const setup = !cfg.url.trim() ? `<div class="aisetup"><b>Połącz z Ollamą na Macu</b>
-      <p>AI działa na Twoim Macu, a nie w chmurze. Wpisz adres Maca i nazwę modelu w ustawieniach AI. Dokładne kroki dostaniesz ode mnie w rozmowie.</p>
-      <button type="button" class="btn pri sm" data-aisettings="1">Ustawienia AI</button></div>` : '';
-  return `<div class="aitop"><h2>AI</h2><button type="button" class="small-btn" data-aisettings="1">⚙ ${cfg.url.trim() ? esc(cfg.model) : 'Ustawienia'}</button></div>
+  const setup = !aiReady() ? `<div class="aisetup"><b>Zaloguj się, żeby używać AI</b>
+      <p>AI działa na Twoim Macu, a nie w chmurze. Po zalogowaniu na konto Passa działa z każdego urządzenia.</p>
+      <button type="button" class="btn pri sm" data-aiacct="1">Zaloguj się</button></div>` : '';
+  return `<div class="aitop"><h2>AI</h2><button type="button" class="small-btn" data-aisettings="1">⚙ ${aiReady() ? esc(cfg.model) : 'Ustawienia'}</button></div>
     ${setup}
     <div class="aicompose">
       <textarea id="aiText" class="inp" rows="3" placeholder="Np. #3 ławka 80 3x8, ściąganie zajęte, więc wiosło na wyciągu 55 3x10, brzuch pominąłem">${esc(aiDraft)}</textarea>
@@ -2574,7 +2958,7 @@ function aiSettingsSheet(){
   openSheet(`
     <h4>Ustawienia AI</h4>
     <p class="sub">Apka wysyła Twoją wiadomość i listę zadań do Ollamy na Macu. Nic nie idzie do chmury.</p>
-    <div class="field"><label for="aiUrl">Adres Maca</label><input id="aiUrl" class="inp" inputmode="url" placeholder="https://mac-mini.twoja-siec.ts.net" value="${esc(cfg.url)}"></div>
+    ${acctOn() ? `<div class="acctcard" style="margin-bottom:16px"><span>AI działa przez konto</span><b>${esc(ACCT.login)} · ${esc(srv().replace(/^https:\/\//, ''))}</b></div><input id="aiUrl" type="hidden" value="${esc(cfg.url)}">` : `<div class="field"><label for="aiUrl">Adres Ollamy (bez konta)</label><input id="aiUrl" class="inp" inputmode="url" placeholder="https://mac-mini.twoja-siec.ts.net" value="${esc(cfg.url)}"></div>`}
     <div class="field"><label for="aiModel">Model</label><input id="aiModel" class="inp" placeholder="gemma4:12b" value="${esc(cfg.model)}"></div>
     <div class="chips" id="aiModels"></div>
     <button type="button" class="btn" id="aiTest">Sprawdź połączenie</button>
@@ -2586,17 +2970,18 @@ function aiSettingsSheet(){
     const val = () => ({url: $('#aiUrl',sh).value.trim(), model: $('#aiModel',sh).value.trim() || 'gemma4:12b', rules: $('#aiRules',sh).value});
     $('#aiTest',sh).onclick = async () => {
       const res = $('#aiTestRes',sh), v = val();
-      if(!/^https?:\/\//.test(v.url)){ res.textContent = 'Adres musi zaczynać się od https://'; return; }
+      if(!acctOn() && !/^https?:\/\//.test(v.url)){ res.textContent = 'Adres musi zaczynać się od https://'; return; }
       res.textContent = 'Łączę…';
       try{
-        const r = await fetch(v.url.replace(/\/+$/,'') + '/api/tags');
-        if(!r.ok) throw new Error('HTTP ' + r.status);
+        const ep = acctOn() ? aiEndpoint('tags') : {url: v.url.replace(/\/+$/,'') + '/api/tags', headers: {}};
+        const r = await fetch(ep.url, {headers: ep.headers});
+        if(!r.ok) throw new Error(r.status === 503 ? 'Ollama na Macu nie działa' : 'HTTP ' + r.status);
         const j = await r.json(), names = (j.models||[]).map(m => m.name);
         res.textContent = names.length ? `Działa. Modele na Macu: ${names.length}. Stuknij, żeby wybrać.` : 'Działa, ale na Macu nie ma modeli. Pobierz model w Terminalu: ollama pull gemma4:12b';
         $('#aiModels',sh).innerHTML = names.map(n => `<button type="button" class="chip" data-model="${esc(n)}">${esc(n)}</button>`).join('');
         if(names.length && !names.includes(v.model)) res.textContent += ` Uwaga: modelu „${v.model}” nie ma na liście.`;
       }catch(e){
-        res.textContent = location.protocol==='https:' && v.url.startsWith('http:') ? 'Ta apka działa na https, więc adres Maca też musi być https (np. przez Tailscale).' : `Nie udało się połączyć (${e.message}). Sprawdź, czy Mac jest włączony, Ollama działa, a Tailscale jest połączony.`;
+        res.textContent = acctOn() ? `Nie udało się (${e.message}). Sprawdź, czy Mac jest włączony.` : location.protocol==='https:' && v.url.startsWith('http:') ? 'Ta apka działa na https, więc adres Maca też musi być https (np. przez Tailscale).' : `Nie udało się połączyć (${e.message}). Sprawdź, czy Mac jest włączony, Ollama działa, a Tailscale jest połączony.`;
       }
     };
     $('#aiModels',sh).addEventListener('click', e => { const b = e.target.closest('[data-model]'); if(b) $('#aiModel',sh).value = b.dataset.model; });
@@ -2613,6 +2998,7 @@ function aiClick(e){
   if((b = g('[data-ainum]'))){ const ta = $('#aiText'); aiDraft = (ta.value.trim() ? ta.value.trimEnd() + ' ' : '') + '#' + b.dataset.ainum + ' '; ta.value = aiDraft; ta.focus(); return true; }
   if((b = g('[data-aiex]'))){ aiDraft = b.dataset.aiex; const ta = $('#aiText'); ta.value = aiDraft; ta.focus(); return true; }
   if(g('[data-aisettings]')){ aiSettingsSheet(); return true; }
+  if(g('[data-aiacct]')){ accountSheet(); return true; }
   if(g('[data-aistop]')){ if(aiCtrl) aiCtrl.abort(); return true; }
   if(g('[data-airetry]')){ aiRetryQueued(); return true; }
   if((b = g('[data-airedo]'))){ const h = aiCfg().history.find(x => x.id===b.dataset.airedo); if(h){ h.status = 'czeka'; delete h.err; save(); aiRefresh(); aiProcess(); } return true; }
@@ -2624,9 +3010,443 @@ function aiClick(e){
 }
 document.addEventListener('input', e => { if(e.target.id==='aiText') aiDraft = e.target.value; });
 
+/* ========= v11: Notatki — zeszyty, tematy, strony A4, rysik ========= */
+const NB_COLORS = ['#FF7A1A','#F5C542','#3DDC97','#86A2FF','#FF5C70','#B58CFF','#4FD1E8','#C9A27E'];
+const FONTS = [
+  {id:'sans', name:'Zwykła', css:"'Google Sans Flex','Google Sans',system-ui,Roboto,sans-serif"},
+  {id:'serif', name:'Szeryfowa', css:"'Lora',Georgia,'Times New Roman',serif"},
+  {id:'hand', name:'Odręczna', css:"'Caveat','Noteworthy','Bradley Hand','Segoe Print','Comic Sans MS',cursive"},
+  {id:'kid', name:'Zeszytowa', css:"'Patrick Hand','Chalkboard SE','Marker Felt','Comic Sans MS',cursive"},
+  {id:'mono', name:'Maszynowa', css:"'JetBrains Mono','Courier New',ui-monospace,monospace"}
+];
+const SIZES = [{id:'s', name:'S', v:2.4}, {id:'m', name:'M', v:2.9}, {id:'l', name:'L', v:3.4}, {id:'xl', name:'XL', v:4}];
+const PAPERS = [{id:'lines', name:'Linie'}, {id:'grid', name:'Kratka'}, {id:'dots', name:'Kropki'}, {id:'blank', name:'Czysta'}];
+const INKS = ['#1D1F27','#2457D6','#D62F3F','#17914F','#8A3FD1','#E07A10'];
+const HLS = ['#FFE14D','#7CF29A','#7FD8FF','#FF9EDB'];
+const PAGE_W = 1000, PAGE_H = Math.round(1000*297/210);
+
+let NS = {nb: null, note: null, q: ''};          // gdzie jestem w notatkach
+const ED = {mode: 'text', ink: INKS[0], hl: HLS[0], width: 3, penOnly: false, undo: [], redo: [], dirty: 0, obs: null};
+try{ const p = JSON.parse(localStorage.getItem('passa.notes.ui') || '{}'); Object.assign(ED, {ink: p.ink || ED.ink, hl: p.hl || ED.hl, width: p.width || ED.width, penOnly: !!p.penOnly}); }catch(e){}
+const saveUI = () => { try{ localStorage.setItem('passa.notes.ui', JSON.stringify({ink: ED.ink, hl: ED.hl, width: ED.width, penOnly: ED.penOnly})); }catch(e){} };
+
+function notesInit(){ if(!Array.isArray(S.notebooks)) S.notebooks = []; if(!Array.isArray(S.notes)) S.notes = []; }
+const nbById = id => S.notebooks.find(n => n.id === id);
+const noteById = id => S.notes.find(n => n.id === id);
+const notesEditing = () => tab === 'notes' && !!NS.note && !!$('#ned');
+const fontOf = n => FONTS.find(f => f.id === n.font) || FONTS[0];
+const sizeOf = n => SIZES.find(z => z.id === n.size) || SIZES[1];
+const fmtWhen = ts => { const d = new Date(ts), t = new Date(); return d.toDateString() === t.toDateString() ? `dziś ${pad(d.getHours())}:${pad(d.getMinutes())}` : fmtDay(ts); };
+function noteText(n){ const d = document.createElement('div'); d.innerHTML = (n.pages||[]).map(p => (p.html || '').replace(/<(br|\/div|\/p|\/li|\/h2|\/h3)[^>]*>/gi, ' $&')).join(' '); return (d.textContent || '').replace(/\s+/g, ' ').trim(); }
+function strokeCount(n){ return (n.pages||[]).reduce((a,p) => a + (p.strokes||[]).length, 0); }
+
+/* bezpieczny HTML tekstu (tylko podstawowe formatowanie) */
+function cleanHTML(html){
+  const doc = new DOMParser().parseFromString('<div>' + (html || '') + '</div>', 'text/html');
+  const OK = new Set(['B','STRONG','I','EM','U','H2','H3','UL','OL','LI','BR','DIV','P','SPAN','FONT','MARK','S']);
+  const walk = el => { [...el.children].forEach(c => {
+    if(!OK.has(c.tagName)){ c.replaceWith(...c.childNodes); return walk(el); }
+    [...c.attributes].forEach(a => { if(!(a.name === 'style' || (c.tagName === 'FONT' && a.name === 'color'))) c.removeAttribute(a.name); });
+    const col = c.style && (c.style.color || ''), bg = c.style && (c.style.backgroundColor || '');
+    if(c.hasAttribute('style')){ c.removeAttribute('style'); if(col) c.style.color = col; if(bg) c.style.backgroundColor = bg; }
+    walk(c); }); };
+  walk(doc.body.firstChild);
+  return doc.body.firstChild.innerHTML;
+}
+
+/* ---------- lista zeszytów i tematów ---------- */
+function notesView(){
+  notesInit();
+  if(NS.note && noteById(NS.note)) return noteEditorHTML(noteById(NS.note));
+  NS.note = null;
+  if(NS.nb && nbById(NS.nb)) return notebookHTML(nbById(NS.nb));
+  NS.nb = null;
+  const q = norm(NS.q);
+  const hits = q ? S.notes.filter(n => norm(n.title + ' ' + noteText(n)).includes(q)) : [];
+  return `<div class="aitop"><h2>Notatki</h2><button type="button" class="small-btn" data-nbnew="1">+ Zeszyt</button></div>
+    <input class="inp nsearch" id="nSearch" placeholder="Szukaj w notatkach" value="${esc(NS.q)}" autocomplete="off">
+    ${q ? `<div class="nlist">${hits.length ? hits.map(noteRowHTML).join('') : '<div class="empty">Nic nie znalazłem.</div>'}</div>` :
+    S.notebooks.length ? `<div class="nbgrid">${S.notebooks.map(nb => { const ns = S.notes.filter(n => n.nb === nb.id);
+      const last = ns.reduce((m,n) => Math.max(m, n.mt||0), nb.created||0);
+      return `<button type="button" class="nbcard" data-nbopen="${nb.id}" style="--nbc:${nb.color}">
+        <span class="nbspine"></span><b>${esc(nb.name)}</b><small>${ns.length} ${ns.length===1?'temat':ns.length%10>=2&&ns.length%10<=4&&(ns.length%100<10||ns.length%100>=20)?'tematy':'tematów'}</small><small>${last ? fmtWhen(last) : ''}</small></button>`; }).join('')}</div>` :
+    `<div class="empty"><b>Załóż pierwszy zeszyt</b>Np. „Matematyka”, „Biologia”, „Siłownia”. W zeszycie robisz tematy, a każdy temat to przewijane kartki A4, na których piszesz z klawiatury albo rysikiem.
+      <div class="example"><button class="btn pri" data-nbnew="1">Nowy zeszyt</button></div></div>`}`;
+}
+function noteRowHTML(n){
+  const nb = nbById(n.nb), txt = noteText(n), st = strokeCount(n);
+  return `<button type="button" class="nrow" data-nopen="${n.id}" style="--nbc:${nb ? nb.color : '#888'}">
+    <span class="nrowdot"></span><span class="nrowmain"><b>${esc(n.title || 'Bez tytułu')}</b>
+    <small>${esc(txt.slice(0, 90)) || (st ? `${st} pociągnięć rysikiem` : 'Pusta')}</small></span>
+    <span class="nrowmeta num">${(n.pages||[]).length} str.<br>${fmtWhen(n.mt || n.created)}</span></button>`;
+}
+function notebookHTML(nb){
+  const ns = S.notes.filter(n => n.nb === nb.id).sort((a,b) => (b.mt||0) - (a.mt||0));
+  return `<div class="backbar"><button data-nback="1">← Zeszyty</button></div>
+    <div class="aitop" style="margin-top:6px"><span class="nbtitle" style="--nbc:${nb.color}">${esc(nb.name)}</span><button type="button" class="small-btn" data-nbedit="${nb.id}">⋯</button></div>
+    <button type="button" class="btn pri" data-nnew="${nb.id}" style="width:100%;margin-bottom:14px">+ Nowy temat</button>
+    <div class="nlist">${ns.length ? ns.map(noteRowHTML).join('') : '<div class="empty">Brak tematów. Dodaj pierwszy, np. „Funkcja kwadratowa”.</div>'}</div>`;
+}
+
+function notebookSheet(nb){
+  const isNew = !nb, col = nb ? nb.color : NB_COLORS[S.notebooks.length % NB_COLORS.length];
+  openSheet(`
+    <h4>${isNew ? 'Nowy zeszyt' : 'Zeszyt'}</h4>
+    <div class="field"><label for="nbName">Nazwa</label><input id="nbName" class="inp" maxlength="40" placeholder="np. Matematyka" value="${esc(nb ? nb.name : '')}"></div>
+    <div class="lab" style="margin-bottom:8px">Kolor</div>
+    <div class="swatches" id="nbCols">${NB_COLORS.map(c => `<button type="button" class="sw ${c===col?'on':''}" data-col="${c}" style="background:${c}" aria-label="Kolor ${c}"></button>`).join('')}</div>
+    <div class="chips" style="margin-top:12px">${isNew ? ['Matematyka','Polski','Angielski','Fizyka','Chemia','Biologia','Historia','Siłownia','Pomysły'].map(x => `<button type="button" class="chip" data-nbname="${x}">${x}</button>`).join('') : ''}</div>
+    <div class="err" id="nbErr" hidden></div>
+    <div class="btns">
+      <button class="btn pri" id="nbSave">${isNew ? 'Utwórz zeszyt' : 'Zapisz'}</button>
+      ${isNew ? '' : '<button class="btn danger" id="nbDel">Usuń zeszyt</button>'}
+      <button class="btn ghost" id="nbClose">Anuluj</button>
+    </div>`, sh => {
+    let color = col;
+    sh.querySelectorAll('[data-col]').forEach(b => b.onclick = () => { color = b.dataset.col; sh.querySelectorAll('.sw').forEach(x => x.classList.toggle('on', x===b)); });
+    sh.querySelectorAll('[data-nbname]').forEach(b => b.onclick = () => { $('#nbName',sh).value = b.dataset.nbname; });
+    $('#nbClose',sh).onclick = closeSheet;
+    $('#nbSave',sh).onclick = () => {
+      const name = $('#nbName',sh).value.trim();
+      if(!name){ const e = $('#nbErr',sh); e.textContent = 'Wpisz nazwę zeszytu.'; e.hidden = false; return; }
+      if(isNew){ const n = {id: uid(), name, color, created: Date.now(), mt: Date.now()}; S.notebooks.push(n); NS.nb = n.id; }
+      else Object.assign(nb, {name, color, mt: Date.now()});
+      save(); closeSheet(); render();
+    };
+    const del = $('#nbDel',sh);
+    if(del) del.onclick = () => {
+      const cnt = S.notes.filter(n => n.nb === nb.id).length;
+      if(!del.classList.contains('sure')){ del.classList.add('sure'); del.textContent = cnt ? `Na pewno? Usunie też ${cnt} temat(ów)` : 'Na pewno?'; return; }
+      S.notes = S.notes.filter(n => n.nb !== nb.id); S.notebooks = S.notebooks.filter(x => x.id !== nb.id);
+      NS.nb = null; save(); closeSheet(); render(); toast('Usunięto zeszyt');
+    };
+    if(isNew) setTimeout(() => $('#nbName',sh).focus(), 250);
+  });
+}
+function newNote(nbId){
+  const n = {id: uid(), nb: nbId, title: '', font: 'sans', size: 'm', paper: 'lines', created: Date.now(), mt: Date.now(), pages: [{id: uid(), html: '', strokes: []}]};
+  S.notes.push(n); save(); NS.note = n.id; ED.undo = []; ED.redo = []; ED.mode = 'text'; render(); scrollTo(0,0);
+  setTimeout(() => { const t = $('#nTitle'); if(t) t.focus(); }, 200);
+}
+
+/* ---------- edytor tematu ---------- */
+const ICON = {
+  text: '<svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg>',
+  pen: '<svg viewBox="0 0 24 24"><path d="M4 20l1.5-5L16 4.5a2.1 2.1 0 013 3L8.5 18z"/><path d="M14 6.5l3 3"/></svg>',
+  hl: '<svg viewBox="0 0 24 24"><path d="M9 14l-4 6h6l1.5-2"/><path d="M9 14l7-10 4 3-7 10z"/></svg>',
+  eraser: '<svg viewBox="0 0 24 24"><path d="M7 20h12M5.5 15.5l9-9a2 2 0 012.8 0l1.2 1.2a2 2 0 010 2.8L11 18H8z"/></svg>',
+  undo: '<svg viewBox="0 0 24 24"><path d="M9 7L4 12l5 5M4 12h11a5 5 0 010 10h-2"/></svg>',
+  redo: '<svg viewBox="0 0 24 24"><path d="M15 7l5 5-5 5M20 12H9a5 5 0 000 10h2"/></svg>'
+};
+function noteEditorHTML(n){
+  const nb = nbById(n.nb), f = fontOf(n), z = sizeOf(n);
+  return `<div id="ned" class="ned" data-note="${n.id}">
+    <div class="nedbar">
+    <div class="nedtop">
+      <button type="button" class="nedback" data-nclose="1" aria-label="Wróć">←</button>
+      <input id="nTitle" class="ntitle" maxlength="80" placeholder="Temat" value="${esc(n.title)}" autocomplete="off">
+      <button type="button" class="small-btn" data-nmenu="1" aria-label="Opcje tematu">⋯</button>
+    </div>
+    <div class="ntools" role="toolbar" aria-label="Narzędzia">
+      <div class="tgroup">${['text','pen','hl','eraser'].map(m => `<button type="button" class="tbtn ${ED.mode===m?'on':''}" data-tmode="${m}" aria-label="${{text:'Pisanie z klawiatury',pen:'Pióro',hl:'Zakreślacz',eraser:'Gumka'}[m]}">${ICON[m]}</button>`).join('')}</div>
+      <div class="tgroup"><button type="button" class="tbtn" data-tundo="1" aria-label="Cofnij">${ICON.undo}</button><button type="button" class="tbtn" data-tredo="1" aria-label="Ponów">${ICON.redo}</button></div>
+    </div>
+    <div class="nsub" id="nSub">${subToolsHTML(n)}</div>
+    </div>
+    <p class="nhint">${esc(nb ? nb.name : '')} · ${penHint()}</p>
+    <div class="npages" id="nPages" style="--nfont:${f.css};--nfs:${z.v}">
+      ${n.pages.map((p,i) => pageHTML(n, p, i)).join('')}
+    </div>
+    <button type="button" class="btn addpage" data-naddpage="1">+ Dodaj stronę</button>
+  </div>`;
+}
+function penHint(){
+  if(ED.mode === 'text') return 'Stuknij kartkę i pisz. Na iPadzie rysik w tym trybie zamienia pismo na tekst.';
+  return ED.penOnly ? 'Rysujesz rysikiem, palcem przewijasz.' : 'Rysujesz palcem albo rysikiem. Przewijaj dwoma palcami albo włącz „Tylko rysik”.';
+}
+function subToolsHTML(n){
+  if(ED.mode === 'text') return `
+    <select class="tsel" id="nFont" aria-label="Czcionka">${FONTS.map(f => `<option value="${f.id}" ${f.id===n.font?'selected':''}>${f.name}</option>`).join('')}</select>
+    <div class="tgroup">${SIZES.map(z => `<button type="button" class="tbtn txt ${z.id===n.size?'on':''}" data-tsize="${z.id}">${z.name}</button>`).join('')}</div>
+    <div class="tgroup">
+      <button type="button" class="tbtn txt" data-cmd="bold" aria-label="Pogrubienie"><b>B</b></button>
+      <button type="button" class="tbtn txt" data-cmd="italic" aria-label="Kursywa"><i>I</i></button>
+      <button type="button" class="tbtn txt" data-cmd="underline" aria-label="Podkreślenie"><u>U</u></button>
+      <button type="button" class="tbtn txt" data-cmd="h2" aria-label="Nagłówek">H</button>
+      <button type="button" class="tbtn txt" data-cmd="list" aria-label="Lista">•</button>
+    </div>
+    <div class="tgroup">${INKS.slice(0,4).map(c => `<button type="button" class="tdot" data-tcolor="${c}" style="background:${c}" aria-label="Kolor tekstu"></button>`).join('')}</div>`;
+  if(ED.mode === 'eraser') return `<span class="nmuted">Przeciągnij po linii, żeby ją usunąć.</span>${penToggleHTML()}`;
+  const cols = ED.mode === 'hl' ? HLS : INKS, cur = ED.mode === 'hl' ? ED.hl : ED.ink;
+  return `<div class="tgroup">${cols.map(c => `<button type="button" class="tdot ${c===cur?'on':''}" data-ink="${c}" style="background:${c}" aria-label="Kolor"></button>`).join('')}</div>
+    <div class="tgroup">${[2,3,5,8].map(w => `<button type="button" class="tbtn wid ${w===ED.width?'on':''}" data-width="${w}" aria-label="Grubość ${w}"><i style="width:${w+4}px;height:${w+4}px"></i></button>`).join('')}</div>
+    ${penToggleHTML()}`;
+}
+const penToggleHTML = () => `<label class="pentog"><input type="checkbox" id="nPenOnly" ${ED.penOnly?'checked':''}> Tylko rysik</label>`;
+function pageHTML(n, p, i){
+  return `<div class="npage paper-${n.paper}" data-page="${p.id}">
+    <div class="ntext" contenteditable="${ED.mode==='text'}" spellcheck="true" data-ptext="${p.id}">${cleanHTML(p.html)}</div>
+    <canvas class="ncanvas ${ED.mode==='text'?'off':''}" data-pcan="${p.id}"></canvas>
+    <span class="pnumb num">${i+1}</span>
+    <button type="button" class="pdel" data-pdel="${p.id}" aria-label="Usuń stronę ${i+1}">✕</button>
+  </div>`;
+}
+
+/* rysowanie kreski */
+function drawStroke(g, s, scale){
+  const d = s.d; if(!d || d.length < 3) return;
+  g.save();
+  g.lineCap = 'round'; g.lineJoin = 'round';
+  if(s.k === 'h'){ g.globalAlpha = .38; g.globalCompositeOperation = 'multiply'; }
+  g.strokeStyle = s.c;
+  const pts = []; let x = 0, y = 0, p = 0;
+  for(let i = 0; i < d.length; i += 3){ x += d[i]; y += d[i+1]; p += d[i+2]; pts.push([x*scale, y*scale, p]); }
+  const wOf = pr => s.k === 'h' ? s.w*scale*4 : Math.max(.6, s.w*scale*(0.35 + pr/100*1.3));
+  if(s.k === 'h' || pts.length < 3){
+    g.lineWidth = wOf(50); g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+    if(pts.length === 1) g.lineTo(pts[0][0]+.01, pts[0][1]);
+    for(let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]);
+    g.stroke(); g.restore(); return;
+  }
+  let mx = pts[0][0], my = pts[0][1];
+  for(let i = 1; i < pts.length - 1; i++){
+    const nx = (pts[i][0] + pts[i+1][0]) / 2, ny = (pts[i][1] + pts[i+1][1]) / 2;
+    g.lineWidth = wOf(pts[i][2]); g.beginPath(); g.moveTo(mx, my); g.quadraticCurveTo(pts[i][0], pts[i][1], nx, ny); g.stroke();
+    mx = nx; my = ny;
+  }
+  const l = pts[pts.length-1]; g.lineWidth = wOf(l[2]); g.beginPath(); g.moveTo(mx, my); g.lineTo(l[0], l[1]); g.stroke();
+  g.restore();
+}
+function pageOf(id){ const n = noteById(NS.note); return n && n.pages.find(p => p.id === id); }
+function paintCanvas(cv){
+  const pg = pageOf(cv.dataset.pcan); if(!pg) return;
+  const w = cv.clientWidth, h = cv.clientHeight; if(!w) return;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  if(cv.width !== Math.round(w*dpr)){ cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr); }
+  const g = cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0); g.clearRect(0,0,w,h);
+  const sc = w / PAGE_W; (pg.strokes||[]).forEach(s => drawStroke(g, s, sc));
+  cv._live = true;
+}
+function releaseCanvas(cv){ if(cv._live){ cv.width = 1; cv.height = 1; cv._live = false; } }
+function mountEditor(){
+  const box = $('#nPages'); if(!box) return;
+  if(ED.obs) ED.obs.disconnect();
+  ED.obs = new IntersectionObserver(ents => ents.forEach(e => e.isIntersecting ? paintCanvas(e.target) : releaseCanvas(e.target)), {rootMargin: '900px 0px'});
+  box.querySelectorAll('canvas[data-pcan]').forEach(cv => { ED.obs.observe(cv); bindCanvas(cv); });
+  box.querySelectorAll('[data-ptext]').forEach(bindText);
+}
+
+/* --- wejście: rysik, palec, mysz --- */
+let drawing = null;
+function wantDraw(pointerType, isStylus){
+  if(ED.mode === 'text') return false;
+  if(pointerType === 'pen' || isStylus){ if(!ED.penOnly){ ED.penOnly = true; saveUI(); const t = $('#nPenOnly'); if(t) t.checked = true; const h = $('.nhint'); if(h) h.textContent = h.textContent.split(' · ')[0] + ' · ' + penHint(); } return true; }
+  if(pointerType === 'mouse') return true;
+  return !ED.penOnly;
+}
+function bindCanvas(cv){
+  cv.addEventListener('touchstart', e => {
+    const t = e.touches[0]; const stylus = t && t.touchType === 'stylus';
+    if(e.touches.length === 1 && wantDraw(stylus ? 'pen' : 'touch', stylus)) e.preventDefault();
+  }, {passive: false});
+  cv.addEventListener('touchmove', e => { if(drawing && drawing.cv === cv) e.preventDefault(); }, {passive: false});
+  cv.addEventListener('pointerdown', e => {
+    if(e.button > 0 || !wantDraw(e.pointerType, false)) return;
+    if(drawing) return;
+    const pg = pageOf(cv.dataset.pcan); if(!pg) return;
+    if(!cv._live) paintCanvas(cv);
+    cv.setPointerCapture(e.pointerId);
+    const r = cv.getBoundingClientRect(), sc = PAGE_W / r.width;
+    drawing = {cv, pg, id: e.pointerId, r, sc, last: null, pts: [], erased: [], type: e.pointerType};
+    if(ED.mode === 'eraser'){ eraseAt(e); return; }
+    addPt(e);
+  });
+  cv.addEventListener('pointermove', e => {
+    if(!drawing || drawing.cv !== cv || e.pointerId !== drawing.id) return;
+    const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+    for(const ev of (evs.length ? evs : [e])){ if(ED.mode === 'eraser') eraseAt(ev); else addPt(ev); }
+  });
+  const end = e => { if(!drawing || drawing.cv !== cv || e.pointerId !== drawing.id) return; finishStroke(); };
+  cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+}
+function addPt(e){
+  const D = drawing, x = Math.round((e.clientX - D.r.left) * D.sc), y = Math.round((e.clientY - D.r.top) * D.sc);
+  let pr = D.type === 'pen' ? e.pressure : .5; if(!pr) pr = .5;
+  const p = Math.round(Math.min(1, pr) * 100);
+  const l = D.pts[D.pts.length-1];
+  if(l && Math.abs(l[0]-x) + Math.abs(l[1]-y) < 2) return;
+  D.pts.push([x, y, p]);
+  // rysuj na żywo
+  const cv = D.cv, g = cv.getContext('2d'), sc = cv.clientWidth / PAGE_W;
+  if(ED.mode === 'hl'){ paintCanvas(cv); drawStroke(g, toStroke(D.pts), sc); return; }
+  const n = D.pts.length;
+  if(n >= 2){
+    const s = toStroke(D.pts.slice(Math.max(0, n-3)));
+    drawStroke(g, s, sc);
+  }
+}
+function toStroke(pts){
+  const d = []; let px = 0, py = 0, pp = 0;
+  for(const [x,y,p] of pts){ d.push(x-px, y-py, p-pp); px = x; py = y; pp = p; }
+  return ED.mode === 'hl' ? {k:'h', c: ED.hl, w: ED.width, d} : {k:'p', c: ED.ink, w: ED.width, d};
+}
+function eraseAt(e){
+  const D = drawing, x = (e.clientX - D.r.left) * D.sc, y = (e.clientY - D.r.top) * D.sc, R = 14;
+  const keep = [];
+  (D.pg.strokes || []).forEach((s, i) => {
+    let px = 0, py = 0, hit = false;
+    for(let j = 0; j < s.d.length; j += 3){ px += s.d[j]; py += s.d[j+1]; if(Math.abs(px-x) < R + s.w && Math.abs(py-y) < R + s.w){ hit = true; break; } }
+    if(hit) D.erased.push({s, i}); else keep.push(s);
+  });
+  if(keep.length !== (D.pg.strokes||[]).length){ D.pg.strokes = keep; paintCanvas(D.cv); }
+}
+function finishStroke(){
+  const D = drawing; drawing = null;
+  const n = noteById(NS.note); if(!n) return;
+  if(ED.mode === 'eraser'){
+    if(D.erased.length){ ED.undo.push({t:'erase', pg: D.pg.id, list: D.erased}); ED.redo = []; touchNote(); }
+    return;
+  }
+  if(!D.pts.length) return;
+  const s = toStroke(D.pts);
+  (D.pg.strokes = D.pg.strokes || []).push(s);
+  ED.undo.push({t:'add', pg: D.pg.id, s}); ED.redo = [];
+  if(ED.mode === 'hl') paintCanvas(D.cv);
+  touchNote();
+}
+function undoRedo(isUndo){
+  const from = isUndo ? ED.undo : ED.redo, to = isUndo ? ED.redo : ED.undo;
+  const op = from.pop(); if(!op) return;
+  const pg = pageOf(op.pg); if(!pg){ return; }
+  pg.strokes = pg.strokes || [];
+  if(op.t === 'add'){ if(isUndo){ const i = pg.strokes.indexOf(op.s); if(i >= 0) pg.strokes.splice(i, 1); } else pg.strokes.push(op.s); }
+  if(op.t === 'erase'){
+    if(isUndo) op.list.slice().sort((a,b) => a.i - b.i).forEach(({s, i}) => pg.strokes.splice(Math.min(i, pg.strokes.length), 0, s));
+    else op.list.forEach(({s}) => { const i = pg.strokes.indexOf(s); if(i >= 0) pg.strokes.splice(i, 1); });
+  }
+  to.push(op);
+  const cv = document.querySelector(`canvas[data-pcan="${op.pg}"]`); if(cv) paintCanvas(cv);
+  touchNote(); buzz(8);
+}
+
+/* --- tekst --- */
+function bindText(el){
+  el.addEventListener('input', () => {
+    const pg = pageOf(el.dataset.ptext); if(!pg) return;
+    pg.html = el.innerHTML;
+    el.closest('.npage').classList.toggle('full', el.scrollHeight > el.clientHeight + 4);
+    touchNote(1200);
+  });
+  el.addEventListener('paste', e => {
+    e.preventDefault();
+    const t = (e.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand('insertText', false, t);
+  });
+}
+let noteTimer = 0;
+function touchNote(ms){
+  const n = noteById(NS.note); if(!n) return;
+  n.mt = Date.now();
+  clearTimeout(noteTimer); noteTimer = setTimeout(flushNote, ms || 600);
+}
+function flushNote(){
+  clearTimeout(noteTimer);
+  const n = noteById(NS.note); if(!n) return;
+  const t = $('#nTitle'); if(t) n.title = t.value.trim();
+  document.querySelectorAll('[data-ptext]').forEach(el => { const pg = n.pages.find(p => p.id === el.dataset.ptext); if(pg) pg.html = cleanHTML(el.innerHTML); });
+  save();
+}
+function setMode(m){
+  ED.mode = m;
+  document.querySelectorAll('[data-tmode]').forEach(b => b.classList.toggle('on', b.dataset.tmode === m));
+  document.querySelectorAll('[data-ptext]').forEach(el => el.setAttribute('contenteditable', m === 'text'));
+  document.querySelectorAll('canvas[data-pcan]').forEach(cv => cv.classList.toggle('off', m === 'text'));
+  const n = noteById(NS.note); $('#nSub').innerHTML = subToolsHTML(n);
+  const h = $('.nhint'); if(h) h.textContent = (nbById(n.nb) ? nbById(n.nb).name : '') + ' · ' + penHint();
+  if(m !== 'text' && document.activeElement && document.activeElement.blur) document.activeElement.blur();
+}
+function noteMenu(n){
+  openSheet(`
+    <h4>${esc(n.title || 'Temat')}</h4>
+    <div class="lab" style="margin-bottom:8px">Kartka</div>
+    <div class="seg seg4">${PAPERS.map(p => `<button type="button" class="segb ${p.id===n.paper?'on':''}" data-paper="${p.id}">${p.name}</button>`).join('')}</div>
+    <div class="field"><label for="nMove">Zeszyt</label><select id="nMove" class="inp">${S.notebooks.map(nb => `<option value="${nb.id}" ${nb.id===n.nb?'selected':''}>${esc(nb.name)}</option>`).join('')}</select></div>
+    <p class="hint num">${n.pages.length} str. · ${strokeCount(n)} pociągnięć · zmieniono ${fmtWhen(n.mt || n.created)}</p>
+    <div class="btns">
+      <button class="btn pri" id="nmOk">Gotowe</button>
+      <button class="btn danger" id="nmDel">Usuń temat</button>
+    </div>`, sh => {
+    sh.querySelectorAll('[data-paper]').forEach(b => b.onclick = () => {
+      n.paper = b.dataset.paper; sh.querySelectorAll('[data-paper]').forEach(x => x.classList.toggle('on', x===b));
+      document.querySelectorAll('.npage').forEach(pg => { pg.className = pg.className.replace(/paper-\w+/, 'paper-' + n.paper); });
+      touchNote();
+    });
+    $('#nMove',sh).onchange = e => { n.nb = e.target.value; NS.nb = n.nb; touchNote(); };
+    $('#nmOk',sh).onclick = () => { closeSheet(); flushNote(); render(); };
+    const del = $('#nmDel',sh);
+    del.onclick = () => {
+      if(!del.classList.contains('sure')){ del.classList.add('sure'); del.textContent = 'Na pewno? Stuknij jeszcze raz'; return; }
+      S.notes = S.notes.filter(x => x.id !== n.id); NS.note = null; save(); closeSheet(); render(); toast('Usunięto temat');
+    };
+  });
+}
+
+function notesClick(e){
+  const g = s => e.target.closest(s); let b;
+  if(g('[data-nbnew]')){ notebookSheet(null); return true; }
+  if((b = g('[data-nbopen]'))){ NS.nb = b.dataset.nbopen; render(); scrollTo(0,0); return true; }
+  if(g('[data-nback]')){ NS.nb = null; render(); return true; }
+  if((b = g('[data-nbedit]'))){ notebookSheet(nbById(b.dataset.nbedit)); return true; }
+  if((b = g('[data-nnew]'))){ newNote(b.dataset.nnew); return true; }
+  if((b = g('[data-nopen]'))){ const n = noteById(b.dataset.nopen); NS.note = n.id; NS.nb = n.nb; ED.undo = []; ED.redo = []; render(); scrollTo(0,0); return true; }
+  if(!$('#ned')) return false;
+  if(g('[data-nclose]')){ flushNote(); NS.note = null; render(); scrollTo(0,0); syncSoon(300); return true; }
+  if(g('[data-nmenu]')){ flushNote(); noteMenu(noteById(NS.note)); return true; }
+  if((b = g('[data-tmode]'))){ setMode(b.dataset.tmode); return true; }
+  if(g('[data-tundo]')){ undoRedo(true); return true; }
+  if(g('[data-tredo]')){ undoRedo(false); return true; }
+  if((b = g('[data-ink]'))){ if(ED.mode === 'hl') ED.hl = b.dataset.ink; else ED.ink = b.dataset.ink; saveUI(); $('#nSub').innerHTML = subToolsHTML(noteById(NS.note)); return true; }
+  if((b = g('[data-width]'))){ ED.width = +b.dataset.width; saveUI(); $('#nSub').innerHTML = subToolsHTML(noteById(NS.note)); return true; }
+  if((b = g('[data-tsize]'))){ const n = noteById(NS.note); n.size = b.dataset.tsize; $('#nPages').style.setProperty('--nfs', sizeOf(n).v); $('#nSub').innerHTML = subToolsHTML(n); touchNote(); return true; }
+  if((b = g('[data-cmd]'))){
+    const c = b.dataset.cmd;
+    if(c === 'h2') document.execCommand('formatBlock', false, document.queryCommandValue('formatBlock').toLowerCase() === 'h2' ? 'div' : 'h2');
+    else if(c === 'list') document.execCommand('insertUnorderedList');
+    else document.execCommand(c);
+    const a = document.activeElement; if(a && a.dataset && a.dataset.ptext) a.dispatchEvent(new Event('input'));
+    return true;
+  }
+  if((b = g('[data-tcolor]'))){ document.execCommand('foreColor', false, b.dataset.tcolor); const a = document.activeElement; if(a && a.dataset && a.dataset.ptext) a.dispatchEvent(new Event('input')); return true; }
+  if(g('[data-naddpage]')){
+    const n = noteById(NS.note), p = {id: uid(), html: '', strokes: []};
+    n.pages.push(p); $('#nPages').insertAdjacentHTML('beforeend', pageHTML(n, p, n.pages.length-1));
+    const el = $('#nPages').lastElementChild; ED.obs.observe($('canvas', el)); bindCanvas($('canvas', el)); bindText($('[data-ptext]', el));
+    el.scrollIntoView({behavior: 'smooth', block: 'start'}); touchNote(); buzz(10); return true;
+  }
+  if((b = g('[data-pdel]'))){
+    const n = noteById(NS.note); if(n.pages.length < 2){ toast('Temat musi mieć co najmniej jedną stronę'); return true; }
+    if(!b.classList.contains('sure')){ b.classList.add('sure'); b.textContent = 'Usunąć?'; setTimeout(() => { if(b.isConnected){ b.classList.remove('sure'); b.textContent = '✕'; } }, 3000); return true; }
+    flushNote(); n.pages = n.pages.filter(p => p.id !== b.dataset.pdel); ED.undo = ED.undo.filter(o => o.pg !== b.dataset.pdel); save(); render(); return true;
+  }
+  return false;
+}
+document.addEventListener('mousedown', e => { if(e.target.closest('[data-cmd],[data-tcolor]')) e.preventDefault(); }); // nie gub zaznaczenia tekstu
+document.addEventListener('change', e => {
+  if(e.target.id === 'nFont'){ const n = noteById(NS.note); n.font = e.target.value; $('#nPages').style.setProperty('--nfont', fontOf(n).css); touchNote(); }
+  if(e.target.id === 'nPenOnly'){ ED.penOnly = e.target.checked; saveUI(); const n = noteById(NS.note); const h = $('.nhint'); if(h) h.textContent = (nbById(n.nb) ? nbById(n.nb).name : '') + ' · ' + penHint(); }
+});
+document.addEventListener('input', e => {
+  if(e.target.id === 'nTitle'){ const n = noteById(NS.note); if(n){ n.title = e.target.value; touchNote(1200); } }
+  if(e.target.id === 'nSearch'){ NS.q = e.target.value; const pos = e.target.selectionStart; render(); const s = $('#nSearch'); if(s){ s.focus(); s.setSelectionRange(pos, pos); } }
+});
+addEventListener('resize', () => { if(notesEditing()) document.querySelectorAll('canvas[data-pcan]').forEach(cv => { if(cv._live){ cv.width = 1; paintCanvas(cv); } }); });
+addEventListener('pagehide', () => { if(notesEditing()) flushNote(); });
+document.addEventListener('visibilitychange', () => { if(document.hidden && notesEditing()) flushNote(); });
+
 /* ========= zdarzenia ========= */
 document.addEventListener('click', e => {
   if(tab==='ai' && aiClick(e)) return;
+  if(tab==='notes' && notesClick(e)) return;
   const rg = e.target.closest('[data-range]'); if(rg){ chartRange = rg.dataset.range; render(); return; }
   const mt = e.target.closest('[data-metric]'); if(mt){ chartMetric = mt.dataset.metric; render(); return; }
   const hb = e.target.closest('[data-how]');
@@ -2653,14 +3473,19 @@ document.addEventListener('click', e => {
   if(e.target.closest('#openProfile')){ tab = 'profile'; render(); scrollTo(0,0); return; }
   if(e.target.closest('#backTasks')){ tab = 'tasks'; render(); scrollTo(0,0); return; }
   if(e.target.closest('#emptyAdd')) return addChooser();
+  if(e.target.closest('#emptyLogin')) return accountSheet();
   if(e.target.closest('#emptyAddP')) return addChooser();
 });
-$('#fab').onclick = () => addChooser();
-$('#tabTasks').onclick = () => { tab = 'tasks'; render(); scrollTo(0,0); };
-$('#tabProg').onclick = () => { tab = 'prog'; render(); scrollTo(0,0); };
-$('#tabAI').onclick = () => { tab = 'ai'; render(); scrollTo(0,0); aiRetryQueued(); };
+$('#fab').onclick = () => {
+  if(tab==='notes'){ notesInit(); if(NS.note && $('#ned')) return notesClick({target: $('[data-naddpage]')}); if(NS.nb) return newNote(NS.nb); return notebookSheet(null); }
+  addChooser();
+};
+$('#tabTasks').onclick = () => { if(notesEditing()) flushNote(); tab = 'tasks'; render(); scrollTo(0,0); };
+$('#tabProg').onclick = () => { if(notesEditing()) flushNote(); tab = 'prog'; render(); scrollTo(0,0); };
+$('#tabAI').onclick = () => { if(notesEditing()) flushNote(); tab = 'ai'; render(); scrollTo(0,0); aiRetryQueued(); };
+$('#tabNotes').onclick = () => { if(tab==='notes' && notesEditing()){ flushNote(); NS.note = null; } else if(tab==='notes'){ NS.nb = null; } tab = 'notes'; render(); scrollTo(0,0); };
 addEventListener('resize', () => { if(tab==='prog') drawCharts(); });
-document.addEventListener('visibilitychange', () => { if(!document.hidden && !$('#scrim')) render(); });
+document.addEventListener('visibilitychange', () => { if(!document.hidden && !$('#scrim') && !notesEditing()) render(); });
 addEventListener('keydown', e => { if(e.key==='Escape') closeSheet(); });
 
 /* start: tydzień startowy = najstarsze zadanie */
@@ -2672,8 +3497,11 @@ if(!Array.isArray(S.badges)){
   if(had.length) setTimeout(() => toast(`Nowość: profesje i odznaki. Masz już ${had.length}. Stuknij „Poz.” u góry`), 800);
 }
 aiCfg(); aiFixStale();
+_known = idsOf(S);
 render();
+updateSyncDot();
 aiProcess();
+syncSoon(400);
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   const hadCtrl = !!navigator.serviceWorker.controller;
   navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'}).then(reg => {

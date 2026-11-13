@@ -20,3 +20,13 @@ Podmień pliki w repozytorium. Apka pobierze nową wersję sama przy następnym 
 
 ## Zdjęcia ćwiczeń
 Obrazki w folderze img pochodzą z bazy free-exercise-db (github.com/yuhonas/free-exercise-db), udostępnionej jako domena publiczna (Unlicense).
+
+## Serwer na Macu (konta, synchronizacja, AI)
+1. Wgraj na GitHuba folder `server` (install.sh i pliki passa-server-…).
+2. Na Macu w Terminalu: `curl -fsSL https://rozwalka.github.io/Passa/server/install.sh | bash`
+3. Jeśli pojawi się link Tailscale, otwórz go i kliknij Enable.
+4. Na końcu instalator pokaże kod zaproszenia. W Passie: Ustawienia → Zaloguj się albo załóż konto.
+
+Dane kont są na Macu w `~/passa-server/data`, codzienne kopie w `~/passa-server/data/backups` (14 dni).
+Polecenia: `~/passa-server/passa-server users | reset-password LOGIN | new-invite | delete-user LOGIN`.
+Kod źródłowy serwera: `server/main.go`.
